@@ -18,3 +18,11 @@ Route::get('/', function () {
 Route::auth();
 
 Route::get('/home', 'HomeController@index');
+
+Route::resource('admin/materias', 'MateriaController');
+
+Route::resource('admin/salas', 'SalaController');
+
+Route::resource('admin/pessoas', 'PessoaController');
+
+Route::resource('admin/biblioteca/autores', 'Autor\\AutorController');
