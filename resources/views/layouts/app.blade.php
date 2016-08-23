@@ -58,7 +58,7 @@
                                 <li><a href="{{ url('/admin/matricula') }}"><i class="fa fa-btn fa-user"></i>Nova</a></li>
                                 <li><a href="{{ url('/admin/lista-espera') }}"><i class="fa fa-btn fa-list"></i>Lista de espera</a></li>
                                 <li><a href="{{ url('/admin/advertencias') }}"><i class="fa fa-btn fa-user-times"></i>Advertencias</a></li>
-                                <li><a href="{{ url('/admin/biblioteca/') }}"><i class="fa fa-btn fa-building"></i>Salas</a></li>
+
                             </ul>
                         </li>
                         <li class="dropdown">
@@ -67,12 +67,13 @@
                             </a>
 
                             <ul class="dropdown-menu" role="menu">
-                                <li><a href="{{ url('/admin/biblioteca/retirada') }}"><i class="fa fa-btn fa-user"></i>Retirada</a></li>
+                                <li><a href="{{ url('/admin/biblioteca/retirada') }}"><i class="fa fa-btn fa-reply"></i>Retirada</a></li>
                                 <li><a href="{{ url('/admin/biblioteca/reserva') }}"><i class="fa fa-btn fa-clock-o"></i>Reserva</a></li>
                                 <li><a href="{{ url('/admin/biblioteca/autores') }}"><i class="fa fa-btn fa-user"></i>Autor</a></li>
                                 <li><a href="{{ url('/admin/biblioteca/livros') }}"><i class="fa fa-btn fa-book"></i>Livros</a></li>
                                 <li><a href="{{ url('/admin/biblioteca/multas') }}"><i class="fa fa-btn fa-calendar-times-o"></i>Multas</a></li>
-                                <li><a href="{{ url('/admin/biblioteca/tipo-exemplar') }}"><i class="fa fa-btn fa-building"></i>Tipo Exemplar</a></li>
+                                <li><a href="{{ url('/admin/biblioteca/tipomulta') }}"><i class="fa fa-btn fa-calendar-times-o"></i>Tipo de Multas</a></li>
+                                <li><a href="{{ url('/admin/biblioteca/tipoexemplar') }}"><i class="fa fa-btn fa-building"></i>Tipo de Exemplar</a></li>
                             </ul>
                         </li>
                         <li class="dropdown">
@@ -85,8 +86,10 @@
                                 <li><a href="{{ url('/admin/materias') }}"><i class="fa fa-btn fa-folder"></i>Materias</a></li>
                                 <li><a href="{{ url('/admin/turmas') }}"><i class="fa fa-btn fa-users"></i>Turmas</a></li>
                                 <li><a href="{{ url('/admin/salas') }}"><i class="fa fa-btn fa-building"></i>Salas</a></li>
-                                <li><a href="{{ url('/admin/material') }}"><i class="fa fa-btn fa-building"></i>Material</a></li>
-                                <li><a href="{{ url('/admin/serie') }}"><i class="fa fa-btn fa-building"></i>Série</a></li>
+                                <li><a href="{{ url('/admin/material') }}"><i class="fa fa-btn fa-archive"></i>Material</a></li>
+                                <li><a href="{{ url('/admin/serie') }}"><i class="fa fa-btn fa-star"></i>Série</a></li>
+                                <li><a href="{{ url('/admin/funcoes') }}"><i class="fa fa-btn fa-cogs"></i>Funções</a></li>
+                                <li><a href="{{ url('/admin/tipomateriais') }}"><i class="fa fa-btn fa-archive"></i>Tipo de Material</a></li>
                                 <li><a href="{{ url('/admin/feriados') }}"><i class="fa fa-btn fa-sun-o"></i>Feriados</a></li>
                             </ul>
                         </li>
@@ -96,9 +99,9 @@
                             </a>
 
                             <ul class="dropdown-menu" role="menu">
-                                <li><a href="{{ url('/admin/matricula') }}"><i class="fa fa-btn fa-graduation-cap"></i>Avaliações</a></li>
-                                <li><a href="{{ url('/admin/lista-espera') }}"><i class="fa fa-btn fa-sort-numeric-desc"></i>Notas</a></li>
-                                <li><a href="{{ url('/admin/advertencias') }}"><i class="fa fa-btn fa-calendar-check-o"></i>Presenças</a></li>
+                                <li><a href="{{ url('/admin/avaliacoes') }}"><i class="fa fa-btn fa-graduation-cap"></i>Avaliações</a></li>
+                                <li><a href="{{ url('/admin/notas') }}"><i class="fa fa-btn fa-sort-numeric-desc"></i>Notas</a></li>
+                                <li><a href="{{ url('/admin/presencas') }}"><i class="fa fa-btn fa-calendar-check-o"></i>Presenças</a></li>
                             </ul>
                         </li>
                     @endif

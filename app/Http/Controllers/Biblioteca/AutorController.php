@@ -1,13 +1,12 @@
 <?php
 
-namespace App\Http\Controllers\Autor;
+namespace App\Http\Controllers\Biblioteca;
 
 use App\Http\Requests;
 use App\Http\Controllers\Controller;
 
 use App\Autor;
 use Illuminate\Http\Request;
-use Carbon\Carbon;
 use Session;
 
 class AutorController extends Controller
