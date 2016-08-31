@@ -44,7 +44,7 @@ class MateriaController extends Controller
         
         Materia::create($request->all());
 
-        Session::flash('flash_message', 'Materia added!');
+        Session::flash('success', 'Materia added!');
 
         return redirect('admin/materias');
     }
@@ -90,7 +90,7 @@ class MateriaController extends Controller
         $materia = Materia::findOrFail($id);
         $materia->update($request->all());
 
-        Session::flash('flash_message', 'Materia updated!');
+        Session::flash('success', 'Materia updated!');
 
         return redirect('admin/materias');
     }
@@ -106,7 +106,7 @@ class MateriaController extends Controller
     {
         Materia::destroy($id);
 
-        Session::flash('flash_message', 'Materia deleted!');
+        Session::flash('success', 'Materia deleted!');
 
         return redirect('admin/materias');
     }

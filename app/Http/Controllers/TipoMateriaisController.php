@@ -44,7 +44,7 @@ class TipoMateriaisController extends Controller
 
         TipoMaterial::create($request->all());
 
-        Session::flash('flash_message', 'TipoMateriais added!');
+        Session::flash('success', 'TipoMateriais added!');
 
         return redirect('admin/tipomateriais');
     }
@@ -90,7 +90,7 @@ class TipoMateriaisController extends Controller
         $tipo_materiai = TipoMaterial::findOrFail($id);
         $tipo_materiai->update($request->all());
 
-        Session::flash('flash_message', 'TipoMateriais updated!');
+        Session::flash('success', 'TipoMateriais updated!');
 
         return redirect('admin/tipomateriais');
     }
@@ -106,7 +106,7 @@ class TipoMateriaisController extends Controller
     {
         TipoMaterial::destroy($id);
 
-        Session::flash('flash_message', 'TipoMateriais deleted!');
+        Session::flash('success', 'TipoMateriais deleted!');
 
         return redirect('admin/tipomateriais');
     }

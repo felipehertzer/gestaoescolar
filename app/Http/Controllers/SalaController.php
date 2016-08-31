@@ -44,7 +44,7 @@ class SalaController extends Controller
         
         Sala::create($request->all());
 
-        Session::flash('flash_message', 'Sala added!');
+        Session::flash('success', 'Sala added!');
 
         return redirect('admin/salas');
     }
@@ -90,7 +90,7 @@ class SalaController extends Controller
         $sala = Sala::findOrFail($id);
         $sala->update($request->all());
 
-        Session::flash('flash_message', 'Sala updated!');
+        Session::flash('success', 'Sala updated!');
 
         return redirect('admin/salas');
     }
@@ -106,7 +106,7 @@ class SalaController extends Controller
     {
         Sala::destroy($id);
 
-        Session::flash('flash_message', 'Sala deleted!');
+        Session::flash('success', 'Sala deleted!');
 
         return redirect('admin/salas');
     }

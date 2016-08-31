@@ -44,7 +44,7 @@ class FeriadoController extends Controller
         
         Feriado::create($request->all());
 
-        Session::flash('flash_message', 'Feriado added!');
+        Session::flash('success', 'Feriado added!');
 
         return redirect('admin/feriados');
     }
@@ -90,7 +90,7 @@ class FeriadoController extends Controller
         $feriado = Feriado::findOrFail($id);
         $feriado->update($request->all());
 
-        Session::flash('flash_message', 'Feriado updated!');
+        Session::flash('success', 'Feriado updated!');
 
         return redirect('admin/feriados');
     }
@@ -106,7 +106,7 @@ class FeriadoController extends Controller
     {
         Feriado::destroy($id);
 
-        Session::flash('flash_message', 'Feriado deleted!');
+        Session::flash('success', 'Feriado deleted!');
 
         return redirect('admin/feriados');
     }

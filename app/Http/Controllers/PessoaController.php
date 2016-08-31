@@ -44,7 +44,7 @@ class PessoaController extends Controller
         
         Pessoa::create($request->all());
 
-        Session::flash('flash_message', 'Pessoa added!');
+        Session::flash('success', 'Pessoa added!');
 
         return redirect('admin/pessoas');
     }
@@ -90,7 +90,7 @@ class PessoaController extends Controller
         $pessoa = Pessoa::findOrFail($id);
         $pessoa->update($request->all());
 
-        Session::flash('flash_message', 'Pessoa updated!');
+        Session::flash('success', 'Pessoa updated!');
 
         return redirect('admin/pessoas');
     }
@@ -106,7 +106,7 @@ class PessoaController extends Controller
     {
         Pessoa::destroy($id);
 
-        Session::flash('flash_message', 'Pessoa deleted!');
+        Session::flash('success', 'Pessoa deleted!');
 
         return redirect('admin/pessoas');
     }

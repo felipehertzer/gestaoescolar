@@ -44,7 +44,7 @@ class FuncaoController extends Controller
         
         Funcao::create($request->all());
 
-        Session::flash('flash_message', 'Funcao added!');
+        Session::flash('success', 'Funcao added!');
 
         return redirect('admin/funcoes');
     }
@@ -90,7 +90,7 @@ class FuncaoController extends Controller
         $funco = Funcao::findOrFail($id);
         $funco->update($request->all());
 
-        Session::flash('flash_message', 'Funcao updated!');
+        Session::flash('success', 'Funcao updated!');
 
         return redirect('admin/funcoes');
     }
@@ -106,7 +106,7 @@ class FuncaoController extends Controller
     {
         Funcao::destroy($id);
 
-        Session::flash('flash_message', 'Funcao deleted!');
+        Session::flash('success', 'Funcao deleted!');
 
         return redirect('admin/funcoes');
     }
