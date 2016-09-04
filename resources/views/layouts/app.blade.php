@@ -56,7 +56,7 @@
 
                             <ul class="dropdown-menu" role="menu">
                                 <li><a href="{{ url('/admin/matricula') }}"><i class="fa fa-btn fa-user"></i>Nova</a></li>
-                                <li><a href="{{ url('/admin/lista-espera') }}"><i class="fa fa-btn fa-list"></i>Lista de espera</a></li>
+                                <li><a href="{{ url('/admin/listaespera') }}"><i class="fa fa-btn fa-list"></i>Lista de espera</a></li>
                                 <li><a href="{{ url('/admin/advertencias') }}"><i class="fa fa-btn fa-user-times"></i>Advertencias</a></li>
 
                             </ul>

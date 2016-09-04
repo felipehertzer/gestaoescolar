@@ -20,7 +20,7 @@ class ListaEsperaController extends Controller
     {
         $listaespera = ListaEspera::paginate(25);
 
-        return view('listaespera.listaespera.index', compact('listaespera'));
+        return view('admin.listaespera.index', compact('listaespera'));
     }
 
     /**
@@ -30,7 +30,7 @@ class ListaEsperaController extends Controller
      */
     public function create()
     {
-        return view('listaespera.listaespera.create');
+        return view('admin.listaespera.create');
     }
 
     /**
@@ -63,7 +63,7 @@ class ListaEsperaController extends Controller
     {
         $listaespera = ListaEspera::findOrFail($id);
 
-        return view('listaespera.listaespera.show', compact('listaespera'));
+        return view('admin.listaespera.show', compact('listaespera'));
     }
 
     /**
@@ -77,7 +77,7 @@ class ListaEsperaController extends Controller
     {
         $listaespera = ListaEspera::findOrFail($id);
 
-        return view('listaespera.listaespera.edit', compact('listaespera'));
+        return view('admin.listaespera.edit', compact('listaespera'));
     }
 
     /**
