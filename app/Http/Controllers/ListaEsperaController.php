@@ -47,7 +47,7 @@ class ListaEsperaController extends Controller
         
         ListaEspera::create($requestData);
 
-        Session::flash('flash_message', 'ListaEspera added!');
+        Session::flash('success', 'ListaEspera added!');
 
         return redirect('admin/listaespera');
     }
@@ -96,7 +96,7 @@ class ListaEsperaController extends Controller
         $listaespera = ListaEspera::findOrFail($id);
         $listaespera->update($requestData);
 
-        Session::flash('flash_message', 'ListaEspera updated!');
+        Session::flash('success', 'ListaEspera updated!');
 
         return redirect('admin/listaespera');
     }
@@ -112,7 +112,7 @@ class ListaEsperaController extends Controller
     {
         ListaEspera::destroy($id);
 
-        Session::flash('flash_message', 'ListaEspera deleted!');
+        Session::flash('success', 'ListaEspera deleted!');
 
         return redirect('admin/listaespera');
     }

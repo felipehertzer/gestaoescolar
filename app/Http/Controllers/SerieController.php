@@ -21,7 +21,7 @@ class SerieController extends Controller
     {
         $series = Serie::paginate(15);
 
-        return view('series.series.index', compact('series'));
+        return view('admin.series.index', compact('series'));
     }
 
     /**
@@ -31,7 +31,7 @@ class SerieController extends Controller
      */
     public function create()
     {
-        return view('series.series.create');
+        return view('admin.series.create');
     }
 
     /**
@@ -44,7 +44,7 @@ class SerieController extends Controller
         
         Serie::create($request->all());
 
-        Session::flash('flash_message', 'Serie added!');
+        Session::flash('success', 'Serie added!');
 
         return redirect('admin/series');
     }
@@ -60,7 +60,7 @@ class SerieController extends Controller
     {
         $series = Serie::findOrFail($id);
 
-        return view('series.series.show', compact('series'));
+        return view('admin.series.show', compact('series'));
     }
 
     /**
@@ -74,7 +74,7 @@ class SerieController extends Controller
     {
         $series = Serie::findOrFail($id);
 
-        return view('series.series.edit', compact('series'));
+        return view('admin.series.edit', compact('series'));
     }
 
     /**
@@ -90,7 +90,7 @@ class SerieController extends Controller
         $series = Serie::findOrFail($id);
         $series->update($request->all());
 
-        Session::flash('flash_message', 'Serie updated!');
+        Session::flash('success', 'Serie updated!');
 
         return redirect('admin/series');
     }
@@ -106,7 +106,7 @@ class SerieController extends Controller
     {
         Serie::destroy($id);
 
-        Session::flash('flash_message', 'Serie deleted!');
+        Session::flash('success', 'Serie deleted!');
 
         return redirect('admin/series');
     }

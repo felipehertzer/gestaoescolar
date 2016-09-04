@@ -44,7 +44,7 @@ class AutorController extends Controller
 
         Autor::create($request->all());
 
-        Session::flash('flash_message', 'Autor added!');
+        Session::flash('success', 'Autor added!');
 
         return redirect('admin/biblioteca/autores');
     }
@@ -91,7 +91,7 @@ class AutorController extends Controller
         $autores = Autor::findOrFail($id);
         $autores->update($request->all());
 
-        Session::flash('flash_message', 'Autor updated!');
+        Session::flash('success', 'Autor updated!');
 
         return redirect('admin/biblioteca/autores');
     }
@@ -107,7 +107,7 @@ class AutorController extends Controller
     {
         Autor::destroy($id);
 
-        Session::flash('flash_message', 'Autor deleted!');
+        Session::flash('success', 'Autor deleted!');
 
         return redirect('admin/biblioteca/autores');
     }

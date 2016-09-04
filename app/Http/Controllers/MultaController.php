@@ -47,7 +47,7 @@ class MultaController extends Controller
         
         Multa::create($requestData);
 
-        Session::flash('flash_message', 'Multa added!');
+        Session::flash('success', 'Multa added!');
 
         return redirect('admin/multa');
     }
@@ -96,7 +96,7 @@ class MultaController extends Controller
         $multum = Multa::findOrFail($id);
         $multum->update($requestData);
 
-        Session::flash('flash_message', 'Multa updated!');
+        Session::flash('success', 'Multa updated!');
 
         return redirect('admin/multa');
     }
@@ -112,7 +112,7 @@ class MultaController extends Controller
     {
         Multa::destroy($id);
 
-        Session::flash('flash_message', 'Multa deleted!');
+        Session::flash('success', 'Multa deleted!');
 
         return redirect('admin/multa');
     }

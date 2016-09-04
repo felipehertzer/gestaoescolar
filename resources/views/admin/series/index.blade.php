@@ -31,7 +31,7 @@
                                     'class' => 'btn btn-danger btn-xs',
                                     'title' => 'Delete series',
                                     'onclick'=>'return confirm("Confirm delete?")'
-                            ));!!}
+                            )) !!}
                         {!! Form::close() !!}
                     </td>
                 </tr>

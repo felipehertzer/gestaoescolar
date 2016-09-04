@@ -6,6 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class Turma extends Model
 {
+    use EnumTrait;
     /**
      * The database table used by the model .
      *

@@ -20,7 +20,7 @@ class AdvertenciaController extends Controller
     {
         $advertencias = Advertencia::paginate(25);
 
-        return view('advertencias.advertencias.index', compact('advertencias'));
+        return view('admin.advertencias.index', compact('advertencias'));
     }
 
     /**
@@ -30,7 +30,7 @@ class AdvertenciaController extends Controller
      */
     public function create()
     {
-        return view('advertencias.advertencias.create');
+        return view('admin.advertencias.create');
     }
 
     /**
@@ -47,7 +47,7 @@ class AdvertenciaController extends Controller
         
         Advertencia::create($requestData);
 
-        Session::flash('flash_message', 'Advertencia added!');
+        Session::flash('success', 'Advertencia added!');
 
         return redirect('admin/advertencias');
     }
@@ -63,7 +63,7 @@ class AdvertenciaController extends Controller
     {
         $advertencia = Advertencia::findOrFail($id);
 
-        return view('advertencias.advertencias.show', compact('advertencia'));
+        return view('admin.advertencias.show', compact('advertencia'));
     }
 
     /**
@@ -77,7 +77,7 @@ class AdvertenciaController extends Controller
     {
         $advertencia = Advertencia::findOrFail($id);
 
-        return view('advertencias.advertencias.edit', compact('advertencia'));
+        return view('admin.advertencias.edit', compact('advertencia'));
     }
 
     /**
@@ -96,7 +96,7 @@ class AdvertenciaController extends Controller
         $advertencia = Advertencia::findOrFail($id);
         $advertencia->update($requestData);
 
-        Session::flash('flash_message', 'Advertencia updated!');
+        Session::flash('success', 'Advertencia updated!');
 
         return redirect('admin/advertencias');
     }
@@ -112,7 +112,7 @@ class AdvertenciaController extends Controller
     {
         Advertencia::destroy($id);
 
-        Session::flash('flash_message', 'Advertencia deleted!');
+        Session::flash('success', 'Advertencia deleted!');
 
         return redirect('admin/advertencias');
     }

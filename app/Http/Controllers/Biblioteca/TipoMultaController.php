@@ -44,7 +44,7 @@ class TipoMultaController extends Controller
         
         TipoMulta::create($request->all());
 
-        Session::flash('flash_message', 'TipoMulta added!');
+        Session::flash('success', 'TipoMulta added!');
 
         return redirect('admin/biblioteca/tipomulta');
     }
@@ -90,7 +90,7 @@ class TipoMultaController extends Controller
         $tipo_multum = TipoMulta::findOrFail($id);
         $tipo_multum->update($request->all());
 
-        Session::flash('flash_message', 'TipoMulta updated!');
+        Session::flash('success', 'TipoMulta updated!');
 
         return redirect('admin/biblioteca/tipomulta');
     }
@@ -106,7 +106,7 @@ class TipoMultaController extends Controller
     {
         TipoMulta::destroy($id);
 
-        Session::flash('flash_message', 'TipoMulta deleted!');
+        Session::flash('success', 'TipoMulta deleted!');
 
         return redirect('admin/biblioteca/tipomulta');
     }

@@ -44,7 +44,7 @@ class AvaliacaoController extends Controller
         
         Avaliacao::create($request->all());
 
-        Session::flash('flash_message', 'Avaliacao added!');
+        Session::flash('success', 'Avaliacao added!');
 
         return redirect('admin/avaliacoes');
     }
@@ -90,7 +90,7 @@ class AvaliacaoController extends Controller
         $avaliaco = Avaliacao::findOrFail($id);
         $avaliaco->update($request->all());
 
-        Session::flash('flash_message', 'Avaliacao updated!');
+        Session::flash('success', 'Avaliacao updated!');
 
         return redirect('admin/avaliacoes');
     }
@@ -106,7 +106,7 @@ class AvaliacaoController extends Controller
     {
         Avaliacao::destroy($id);
 
-        Session::flash('flash_message', 'Avaliacao deleted!');
+        Session::flash('success', 'Avaliacao deleted!');
 
         return redirect('admin/avaliacoes');
     }

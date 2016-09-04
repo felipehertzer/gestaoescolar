@@ -20,7 +20,7 @@ class RetiradaController extends Controller
     {
         $retiradas = Retirada::paginate(25);
 
-        return view('retiradas.retiradas.index', compact('retiradas'));
+        return view('admin.retiradas.index', compact('retiradas'));
     }
 
     /**
@@ -30,7 +30,7 @@ class RetiradaController extends Controller
      */
     public function create()
     {
-        return view('retiradas.retiradas.create');
+        return view('admin.retiradas.create');
     }
 
     /**
@@ -47,7 +47,7 @@ class RetiradaController extends Controller
         
         Retirada::create($requestData);
 
-        Session::flash('flash_message', 'Retirada added!');
+        Session::flash('success', 'Retirada added!');
 
         return redirect('admin/retiradas');
     }
@@ -63,7 +63,7 @@ class RetiradaController extends Controller
     {
         $retirada = Retirada::findOrFail($id);
 
-        return view('retiradas.retiradas.show', compact('retirada'));
+        return view('admin.retiradas.show', compact('retirada'));
     }
 
     /**
@@ -77,7 +77,7 @@ class RetiradaController extends Controller
     {
         $retirada = Retirada::findOrFail($id);
 
-        return view('retiradas.retiradas.edit', compact('retirada'));
+        return view('admin.retiradas.edit', compact('retirada'));
     }
 
     /**
@@ -96,7 +96,7 @@ class RetiradaController extends Controller
         $retirada = Retirada::findOrFail($id);
         $retirada->update($requestData);
 
-        Session::flash('flash_message', 'Retirada updated!');
+        Session::flash('success', 'Retirada updated!');
 
         return redirect('admin/retiradas');
     }
@@ -112,7 +112,7 @@ class RetiradaController extends Controller
     {
         Retirada::destroy($id);
 
-        Session::flash('flash_message', 'Retirada deleted!');
+        Session::flash('success', 'Retirada deleted!');
 
         return redirect('admin/retiradas');
     }

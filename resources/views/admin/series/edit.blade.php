@@ -8,23 +8,24 @@
     {!! Form::model($series, [
         'method' => 'PATCH',
         'url' => ['/admin/series', $series->id],
-        'class' => 'form-horizontal'
+        'class' => 'form-horizontal',
+        'files' => true
     ]) !!}
 
-                <div class="form-group {{ $errors->has('nome') ? 'has-error' : ''}}">
+                    <div class="form-group {{ $errors->has('nome') ? 'has-error' : ''}}">
                 {!! Form::label('nome', 'Nome', ['class' => 'col-sm-3 control-label']) !!}
                 <div class="col-sm-6">
-                    {!! Form::text('nome', null, ['class' => 'form-control', 'required' => 'required']) !!}
+                    {!! Form::text('nome', null, ['class' => 'form-control']) !!}
                     {!! $errors->first('nome', '<p class="help-block">:message</p>') !!}
                 </div>
             </div>
 
 
-    <div class="form-group">
-        <div class="col-sm-offset-3 col-sm-3">
-            {!! Form::submit('Update', ['class' => 'btn btn-primary form-control']) !!}
+        <div class="form-group">
+            <div class="col-sm-offset-3 col-sm-3">
+                {!! Form::submit('Update', ['class' => 'btn btn-primary form-control']) !!}
+            </div>
         </div>
-    </div>
     {!! Form::close() !!}
 
     @if ($errors->any())

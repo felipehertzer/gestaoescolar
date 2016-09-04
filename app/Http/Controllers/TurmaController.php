@@ -21,7 +21,7 @@ class TurmaController extends Controller
     {
         $turmas = Turma::paginate(15);
 
-        return view('turmas.turmas.index', compact('turmas'));
+        return view('admin.turmas.index', compact('turmas'));
     }
 
     /**
@@ -31,7 +31,7 @@ class TurmaController extends Controller
      */
     public function create()
     {
-        return view('turmas.turmas.create');
+        return view('admin.turmas.create');
     }
 
     /**
@@ -44,7 +44,7 @@ class TurmaController extends Controller
         
         Turma::create($request->all());
 
-        Session::flash('flash_message', 'Turma added!');
+        Session::flash('success', 'Turma added!');
 
         return redirect('admin/turmas');
     }
@@ -60,7 +60,7 @@ class TurmaController extends Controller
     {
         $turma = Turma::findOrFail($id);
 
-        return view('turmas.turmas.show', compact('turma'));
+        return view('admin.turmas.show', compact('turma'));
     }
 
     /**
@@ -74,7 +74,7 @@ class TurmaController extends Controller
     {
         $turma = Turma::findOrFail($id);
 
-        return view('turmas.turmas.edit', compact('turma'));
+        return view('admin.turmas.edit', compact('turma'));
     }
 
     /**
@@ -90,7 +90,7 @@ class TurmaController extends Controller
         $turma = Turma::findOrFail($id);
         $turma->update($request->all());
 
-        Session::flash('flash_message', 'Turma updated!');
+        Session::flash('success', 'Turma updated!');
 
         return redirect('admin/turmas');
     }
@@ -106,7 +106,7 @@ class TurmaController extends Controller
     {
         Turma::destroy($id);
 
-        Session::flash('flash_message', 'Turma deleted!');
+        Session::flash('success', 'Turma deleted!');
 
         return redirect('admin/turmas');
     }

@@ -30,7 +30,7 @@ class NotaController extends Controller
      */
     public function create()
     {
-        return view('notas.notas.create');
+        return view('admin.notas.create');
     }
 
     /**
@@ -47,7 +47,7 @@ class NotaController extends Controller
         
         Nota::create($requestData);
 
-        Session::flash('flash_message', 'Nota added!');
+        Session::flash('success', 'Nota added!');
 
         return redirect('admin/notas');
     }
@@ -63,7 +63,7 @@ class NotaController extends Controller
     {
         $nota = Nota::findOrFail($id);
 
-        return view('notas.notas.show', compact('nota'));
+        return view('admin.notas.show', compact('nota'));
     }
 
     /**
@@ -77,7 +77,7 @@ class NotaController extends Controller
     {
         $nota = Nota::findOrFail($id);
 
-        return view('notas.notas.edit', compact('nota'));
+        return view('admin.notas.edit', compact('nota'));
     }
 
     /**
@@ -96,7 +96,7 @@ class NotaController extends Controller
         $nota = Nota::findOrFail($id);
         $nota->update($requestData);
 
-        Session::flash('flash_message', 'Nota updated!');
+        Session::flash('success', 'Nota updated!');
 
         return redirect('admin/notas');
     }
@@ -112,7 +112,7 @@ class NotaController extends Controller
     {
         Nota::destroy($id);
 
-        Session::flash('flash_message', 'Nota deleted!');
+        Session::flash('success', 'Nota deleted!');
 
         return redirect('admin/notas');
     }

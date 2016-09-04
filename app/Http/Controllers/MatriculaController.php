@@ -47,7 +47,7 @@ class MatriculaController extends Controller
         
         Matricula::create($requestData);
 
-        Session::flash('flash_message', 'Matricula added!');
+        Session::flash('success', 'Matricula added!');
 
         return redirect('admin/matriculas');
     }
@@ -96,7 +96,7 @@ class MatriculaController extends Controller
         $matricula = Matricula::findOrFail($id);
         $matricula->update($requestData);
 
-        Session::flash('flash_message', 'Matricula updated!');
+        Session::flash('success', 'Matricula updated!');
 
         return redirect('admin/matriculas');
     }
@@ -112,7 +112,7 @@ class MatriculaController extends Controller
     {
         Matricula::destroy($id);
 
-        Session::flash('flash_message', 'Matricula deleted!');
+        Session::flash('success', 'Matricula deleted!');
 
         return redirect('admin/matriculas');
     }

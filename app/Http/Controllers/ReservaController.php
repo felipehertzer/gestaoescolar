@@ -47,7 +47,7 @@ class ReservaController extends Controller
         
         Reserva::create($requestData);
 
-        Session::flash('flash_message', 'Reserva added!');
+        Session::flash('success', 'Reserva added!');
 
         return redirect('admin/reservas');
     }
@@ -63,7 +63,7 @@ class ReservaController extends Controller
     {
         $reserva = Reserva::findOrFail($id);
 
-        return view('reservas.reservas.show', compact('reserva'));
+        return view('admin.reservas.show', compact('reserva'));
     }
 
     /**
@@ -77,7 +77,7 @@ class ReservaController extends Controller
     {
         $reserva = Reserva::findOrFail($id);
 
-        return view('reservas.reservas.edit', compact('reserva'));
+        return view('admin.reservas.edit', compact('reserva'));
     }
 
     /**
@@ -96,7 +96,7 @@ class ReservaController extends Controller
         $reserva = Reserva::findOrFail($id);
         $reserva->update($requestData);
 
-        Session::flash('flash_message', 'Reserva updated!');
+        Session::flash('success', 'Reserva updated!');
 
         return redirect('admin/reservas');
     }
@@ -112,7 +112,7 @@ class ReservaController extends Controller
     {
         Reserva::destroy($id);
 
-        Session::flash('flash_message', 'Reserva deleted!');
+        Session::flash('success', 'Reserva deleted!');
 
         return redirect('admin/reservas');
     }
