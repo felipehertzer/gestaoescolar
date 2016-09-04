@@ -29,6 +29,8 @@ Route::resource('admin/biblioteca/autores', 'Biblioteca\\AutorController');
 
 Route::resource('admin/biblioteca/tipomulta', 'Biblioteca\\TipoMultaController');
 
+Route::resource('admin/biblioteca/tipoexemplares', 'Biblioteca\\TipoExemplarController');
+
 Route::resource('admin/tipomateriais', 'TipoMateriaisController');
 
 Route::resource('admin/funcoes', 'FuncaoController');
