@@ -74,6 +74,7 @@
                                 <li><a href="{{ url('/admin/biblioteca/multas') }}"><i class="fa fa-btn fa-calendar-times-o"></i>Multas</a></li>
                                 <li><a href="{{ url('/admin/biblioteca/tipomulta') }}"><i class="fa fa-btn fa-calendar-times-o"></i>Tipo de Multas</a></li>
                                 <li><a href="{{ url('/admin/biblioteca/tipoexemplares') }}"><i class="fa fa-btn fa-building"></i>Tipo de Exemplar</a></li>
+                                <li><a href="{{ url('/admin/biblioteca/exemplares') }}"><i class="fa fa-btn fa-building"></i>Exemplares</a></li>
                             </ul>
                         </li>
                         <li class="dropdown">

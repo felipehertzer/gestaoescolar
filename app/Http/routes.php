@@ -30,6 +30,8 @@ Route::resource('admin/biblioteca/tipomulta', 'Biblioteca\\TipoMultaController')
 
 Route::resource('admin/biblioteca/tipoexemplares', 'Biblioteca\\TipoExemplarController');
 
+Route::resource('admin/biblioteca/exemplares', 'Biblioteca\\ExemplarController');
+
 Route::resource('admin/tipomateriais', 'TipoMateriaisController');
 
 Route::resource('admin/funcoes', 'FuncaoController');
