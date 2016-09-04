@@ -7,7 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 class Turma extends Model
 {
     /**
-     * The database table used by the model.
+     * The database table used by the model .
      *
      * @var string
      */
