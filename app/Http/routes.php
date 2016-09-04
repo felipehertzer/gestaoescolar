@@ -42,6 +42,12 @@ Route::resource('admin/turmas', 'TurmaController');
 
 Route::resource('admin/advertencias', 'AdvertenciaController');
 
+Route::resource('admin/avaliacoes', 'AvaliacaoController');
+
 Route::resource('admin/listaespera', 'ListaEsperaController');
+
+Route::resource('admin/presencas', 'PresencaController');
+
+Route::resource('admin/matriculas', 'MatriculaController');
 
 Route::resource('admin/biblioteca/livros', 'Biblioteca\\LivroController');

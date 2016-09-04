@@ -5,11 +5,11 @@ namespace App\Http\Controllers;
 use App\Http\Requests;
 use App\Http\Controllers\Controller;
 
-use App\Matricula;
+use App\Presenca;
 use Illuminate\Http\Request;
 use Session;
 
-class MatriculaController extends Controller
+class PresencaController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -18,9 +18,9 @@ class MatriculaController extends Controller
      */
     public function index()
     {
-        $matriculas = Matricula::paginate(25);
+        $presencas = Presenca::paginate(25);
 
-        return view('admin.matriculas.index', compact('matriculas'));
+        return view('admin.presencas.index', compact('presencas'));
     }
 
     /**
@@ -30,7 +30,7 @@ class MatriculaController extends Controller
      */
     public function create()
     {
-        return view('admin.matriculas.create');
+        return view('admin.presencas.create');
     }
 
     /**
@@ -45,11 +45,11 @@ class MatriculaController extends Controller
         
         $requestData = $request->all();
         
-        Matricula::create($requestData);
+        Presenca::create($requestData);
 
-        Session::flash('success', 'Matricula added!');
+        Session::flash('flash_message', 'Presenca added!');
 
-        return redirect('admin/matriculas');
+        return redirect('admin/presencas');
     }
 
     /**
@@ -61,9 +61,9 @@ class MatriculaController extends Controller
      */
     public function show($id)
     {
-        $matricula = Matricula::findOrFail($id);
+        $presenca = Presenca::findOrFail($id);
 
-        return view('admin.matriculas.show', compact('matricula'));
+        return view('admin.presencas.show', compact('presenca'));
     }
 
     /**
@@ -75,9 +75,9 @@ class MatriculaController extends Controller
      */
     public function edit($id)
     {
-        $matricula = Matricula::findOrFail($id);
+        $presenca = Presenca::findOrFail($id);
 
-        return view('admin.matriculas.edit', compact('matricula'));
+        return view('admin.presencas.edit', compact('presenca'));
     }
 
     /**
@@ -93,12 +93,12 @@ class MatriculaController extends Controller
         
         $requestData = $request->all();
         
-        $matricula = Matricula::findOrFail($id);
-        $matricula->update($requestData);
+        $presenca = Presenca::findOrFail($id);
+        $presenca->update($requestData);
 
-        Session::flash('success', 'Matricula updated!');
+        Session::flash('flash_message', 'Presenca updated!');
 
-        return redirect('admin/matriculas');
+        return redirect('admin/presencas');
     }
 
     /**
@@ -110,10 +110,10 @@ class MatriculaController extends Controller
      */
     public function destroy($id)
     {
-        Matricula::destroy($id);
+        Presenca::destroy($id);
 
-        Session::flash('success', 'Matricula deleted!');
+        Session::flash('flash_message', 'Presenca deleted!');
 
-        return redirect('admin/matriculas');
+        return redirect('admin/presencas');
     }
 }

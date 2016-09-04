@@ -21,7 +21,7 @@ class AvaliacaoController extends Controller
     {
         $avaliacoes = Avaliacao::paginate(15);
 
-        return view('avaliacoes.avaliacoes.index', compact('avaliacoes'));
+        return view('admin.avaliacoes.index', compact('avaliacoes'));
     }
 
     /**
@@ -31,7 +31,7 @@ class AvaliacaoController extends Controller
      */
     public function create()
     {
-        return view('avaliacoes.avaliacoes.create');
+        return view('admin.avaliacoes.create');
     }
 
     /**
@@ -60,7 +60,7 @@ class AvaliacaoController extends Controller
     {
         $avaliaco = Avaliacao::findOrFail($id);
 
-        return view('avaliacoes.avaliacoes.show', compact('avaliaco'));
+        return view('admin.avaliacoes.show', compact('avaliaco'));
     }
 
     /**
@@ -74,7 +74,7 @@ class AvaliacaoController extends Controller
     {
         $avaliaco = Avaliacao::findOrFail($id);
 
-        return view('avaliacoes.avaliacoes.edit', compact('avaliaco'));
+        return view('admin.avaliacoes.edit', compact('avaliaco'));
     }
 
     /**
