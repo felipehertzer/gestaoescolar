@@ -16,7 +16,7 @@ class CreateExemplaresTable extends Migration
             $table->increments('id');
             $table->integer('estante');
             $table->integer('prateleira');
-            $table->enum('status', ['E', 'D']);
+            $table->enum('status', ['emprestimo', 'sede']);
             $table->boolean('danificado');
             $table->integer('livro_id')->unsigned();
             $table->foreign('livro_id')->references('id')->on('livros');
