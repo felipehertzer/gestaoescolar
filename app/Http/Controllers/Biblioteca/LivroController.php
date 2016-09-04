@@ -47,7 +47,7 @@ class LivroController extends Controller
         
         Livro::create($requestData);
 
-        Session::flash('flash_message', 'Livro added!');
+        Session::flash('success', 'Livro added!');
 
         return redirect('admin/biblioteca/livros');
     }
@@ -96,7 +96,7 @@ class LivroController extends Controller
         $livro = Livro::findOrFail($id);
         $livro->update($requestData);
 
-        Session::flash('flash_message', 'Livro updated!');
+        Session::flash('success', 'Livro updated!');
 
         return redirect('admin/biblioteca/livros');
     }
@@ -112,7 +112,7 @@ class LivroController extends Controller
     {
         Livro::destroy($id);
 
-        Session::flash('flash_message', 'Livro deleted!');
+        Session::flash('success', 'Livro deleted!');
 
         return redirect('admin/biblioteca/livros');
     }
