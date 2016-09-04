@@ -87,7 +87,7 @@
                                 <li><a href="{{ url('/admin/turmas') }}"><i class="fa fa-btn fa-users"></i>Turmas</a></li>
                                 <li><a href="{{ url('/admin/salas') }}"><i class="fa fa-btn fa-building"></i>Salas</a></li>
                                 <li><a href="{{ url('/admin/material') }}"><i class="fa fa-btn fa-archive"></i>Material</a></li>
-                                <li><a href="{{ url('/admin/serie') }}"><i class="fa fa-btn fa-star"></i>Série</a></li>
+                                <li><a href="{{ url('/admin/series') }}"><i class="fa fa-btn fa-star"></i>Série</a></li>
                                 <li><a href="{{ url('/admin/funcoes') }}"><i class="fa fa-btn fa-cogs"></i>Funções</a></li>
                                 <li><a href="{{ url('/admin/tipomateriais') }}"><i class="fa fa-btn fa-archive"></i>Tipo de Material</a></li>
                                 <li><a href="{{ url('/admin/feriados') }}"><i class="fa fa-btn fa-sun-o"></i>Feriados</a></li>
