@@ -38,4 +38,8 @@ Route::resource('admin/feriados', 'FeriadoController');
 
 Route::resource('admin/series', 'SerieController');
 
+Route::resource('admin/turmas', 'TurmaController');
+
+Route::resource('admin/advertencias', 'AdvertenciaController');
+
 Route::resource('admin/biblioteca/livros', 'Biblioteca\\LivroController');
