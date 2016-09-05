@@ -8,7 +8,7 @@
         <title>Gestão Escolar</title>
 
         <!-- Fonts -->
-        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.6.0/css/font-awesome.min.css" integrity="" crossorigin="anonymous">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.6.3/css/font-awesome.min.css" integrity="" crossorigin="anonymous">
         <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Lato:100,300,400,700">
 
         <!-- Styles -->
@@ -74,7 +74,7 @@
                                 <li><a href="{{ url('/admin/biblioteca/multas') }}"><i class="fa fa-btn fa-calendar-times-o"></i>Multas</a></li>
                                 <li><a href="{{ url('/admin/biblioteca/tipomulta') }}"><i class="fa fa-btn fa-calendar-times-o"></i>Tipo de Multas</a></li>
                                 <li><a href="{{ url('/admin/biblioteca/tipoexemplares') }}"><i class="fa fa-btn fa-building"></i>Tipo de Exemplar</a></li>
-                                <li><a href="{{ url('/admin/biblioteca/exemplares') }}"><i class="fa fa-btn fa-building"></i>Exemplares</a></li>
+                                <li><a href="{{ url('/admin/biblioteca/exemplares') }}"><i class="fa fa-btn fa-cubes"></i>Exemplares</a></li>
                             </ul>
                         </li>
                         <li class="dropdown">
@@ -87,7 +87,7 @@
                                 <li><a href="{{ url('/admin/materias') }}"><i class="fa fa-btn fa-folder"></i>Materias</a></li>
                                 <li><a href="{{ url('/admin/turmas') }}"><i class="fa fa-btn fa-users"></i>Turmas</a></li>
                                 <li><a href="{{ url('/admin/salas') }}"><i class="fa fa-btn fa-building"></i>Salas</a></li>
-                                <li><a href="{{ url('/admin/material') }}"><i class="fa fa-btn fa-archive"></i>Material</a></li>
+                                <li><a href="{{ url('/admin/materiais') }}"><i class="fa fa-btn fa-archive"></i>Material</a></li>
                                 <li><a href="{{ url('/admin/series') }}"><i class="fa fa-btn fa-star"></i>Série</a></li>
                                 <li><a href="{{ url('/admin/funcoes') }}"><i class="fa fa-btn fa-cogs"></i>Funções</a></li>
                                 <li><a href="{{ url('/admin/tipomateriais') }}"><i class="fa fa-btn fa-archive"></i>Tipo de Material</a></li>
@@ -143,6 +143,8 @@
         <!-- JavaScripts -->
         <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.2.3/jquery.min.js" integrity="sha384-I6F5OKECLVtK/BL+8iSLDEHowSAfUo76ZL9+kGAgTRdiByINKJaqTPH/QVNS1VDb" crossorigin="anonymous"></script>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.6/js/bootstrap.min.js" integrity="sha384-0mSbJDEHialfmuBBQP6A4Qrprq5OVfW37PRR3j5ELqxss1yVqOtnepnHVP9aJ7xS" crossorigin="anonymous"></script>
+        <script src="{{asset('/js/multiselect.min.js') }}"></script>
+        <script src="{{asset('/js/adicionais.js') }}"></script>
         {{-- <script src="{{ elixir('js/app.js') }}"></script> --}}
 </body>
 </html>

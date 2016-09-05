@@ -1,17 +1,16 @@
 <?php
 
-namespace App\Http\Controllers\Biblioteca;
+namespace App\Http\Controllers;
 
 use App\Http\Requests;
 use App\Http\Controllers\Controller;
 
-use App\Exemplar;
-use App\TipoExemplar;
-use App\Livro;
+use App\Material;
+use App\TipoMaterial;
 use Illuminate\Http\Request;
 use Session;
 
-class ExemplarController extends Controller
+class MaterialController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -20,8 +19,9 @@ class ExemplarController extends Controller
      */
     public function index()
     {
-        $exemplares = Exemplar::paginate(25);
-        return view('admin/biblioteca.exemplares.index', compact('exemplares'));
+        $materiais = Material::paginate(25);
+
+        return view('admin.materiais.index', compact('materiais'));
     }
 
     /**
@@ -31,9 +31,9 @@ class ExemplarController extends Controller
      */
     public function create()
     {
-        $tipoexemplares = TipoExemplar::pluck('nome','id');
-        $livros = Livro::pluck('nome','id');
-        return view('admin/biblioteca.exemplares.create', compact('tipoexemplares', 'livros'));
+        $tipomaterial = TipoMaterial::pluck('nome','id');
+
+        return view('admin.materiais.create', compact('tipomaterial'));
     }
 
     /**
@@ -48,11 +48,11 @@ class ExemplarController extends Controller
         
         $requestData = $request->all();
         
-        Exemplar::create($requestData);
+        Material::create($requestData);
 
-        Session::flash('success', 'Exemplar added!');
+        Session::flash('flash_message', 'Material added!');
 
-        return redirect('admin/biblioteca/exemplares');
+        return redirect('admin/materiais');
     }
 
     /**
@@ -64,9 +64,9 @@ class ExemplarController extends Controller
      */
     public function show($id)
     {
-        $exemplare = Exemplar::findOrFail($id);
+        $materiai = Material::findOrFail($id);
 
-        return view('admin/biblioteca.exemplares.show', compact('exemplare'));
+        return view('admin.materiais.show', compact('materiai'));
     }
 
     /**
@@ -78,11 +78,10 @@ class ExemplarController extends Controller
      */
     public function edit($id)
     {
-        $exemplare = Exemplar::findOrFail($id);
-        $tipoexemplares = TipoExemplar::pluck('nome','id');
-        $livros = Livro::pluck('nome','id');
+        $materiai = Material::findOrFail($id);
+        $tipomaterial = TipoMaterial::pluck('nome','id');
 
-        return view('admin/biblioteca.exemplares.edit', compact('exemplare', 'tipoexemplares', 'livros'));
+        return view('admin.materiais.edit', compact('materiai', 'tipomaterial'));
     }
 
     /**
@@ -95,15 +94,15 @@ class ExemplarController extends Controller
      */
     public function update($id, Request $request)
     {
-        //var_dump($request->all());exit;
+        
         $requestData = $request->all();
         
-        $exemplare = Exemplar::findOrFail($id);
-        $exemplare->update($requestData);
+        $materiai = Material::findOrFail($id);
+        $materiai->update($requestData);
 
-        Session::flash('success', 'Exemplar updated!');
+        Session::flash('flash_message', 'Material updated!');
 
-        return redirect('admin/biblioteca/exemplares');
+        return redirect('admin/materiais');
     }
 
     /**
@@ -115,10 +114,10 @@ class ExemplarController extends Controller
      */
     public function destroy($id)
     {
-        Exemplar::destroy($id);
+        Material::destroy($id);
 
-        Session::flash('success', 'Exemplar deleted!');
+        Session::flash('flash_message', 'Material deleted!');
 
-        return redirect('admin/biblioteca/exemplares');
+        return redirect('admin/materiais');
     }
 }

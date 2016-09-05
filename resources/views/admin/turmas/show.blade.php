@@ -24,10 +24,14 @@
                 <tr>
                     <th>ID</th><td>{{ $turma->id }}</td>
                 </tr>
-                <tr><th> Turno </th><td> {{ $turma->turno }} </td></tr><tr><th> Vagas </th><td> {{ $turma->vagas }} </td></tr><tr><th> Numero Turma </th><td> {{ $turma->numero_turma }} </td></tr><tr><th> Ano </th><td> {{ $turma->ano }} </td></tr>
+                <tr><th> Turno </th><td> {{ $turma->turno }} </td></tr>
+                <tr><th> Vagas </th><td> {{ $turma->vagas }} </td></tr>
+                <tr><th> Numero Turma </th><td> {{ $turma->numero_turma }} </td></tr>
+                <tr><th> Ano </th><td> {{ $turma->ano }} </td></tr>
+                <tr><th> Sala </th><td> {{ $turma->sala->numero }} </td></tr>
+                <tr><th> Série </th><td> {{ $turma->serie->nome }} </td></tr>
             </tbody>
         </table>
     </div>
-
 </div>
 @endsection

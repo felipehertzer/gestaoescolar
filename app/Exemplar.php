@@ -6,8 +6,8 @@ use Illuminate\Database\Eloquent\Model;
 
 class Exemplar extends Model
 {
-    const STATUS_EMPRESTIMO = 'emprestimo';
-    const STATUS_SEDE = 'sede';
+    const STATUS_EMPRESTADO = 'emprestado';
+    const STATUS_DISPONIVEL = 'disponivel';
     /**
      * The database table used by the model.
      *
@@ -40,8 +40,8 @@ class Exemplar extends Model
     
     public static function getStatus() {
         return array(
-            self::STATUS_EMPRESTIMO => 'Empréstimo',
-            self::STATUS_SEDE => 'Sede'
+            self::STATUS_EMPRESTADO => 'Emprestado',
+            self::STATUS_DISPONIVEL => 'Disponível'
         );
     }
     

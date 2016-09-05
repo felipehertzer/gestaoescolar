@@ -4,14 +4,14 @@ namespace App;
 
 use Illuminate\Database\Eloquent\Model;
 
-class Materia extends Model
+class Material extends Model
 {
     /**
      * The database table used by the model.
      *
      * @var string
      */
-    protected $table = 'materias';
+    protected $table = 'materiais';
 
     /**
     * The database primary key value.
@@ -25,10 +25,9 @@ class Materia extends Model
      *
      * @var array
      */
-    protected $fillable = ['nome'];
+    protected $fillable = ['nome', 'id_tipomaterial'];
 
-    public function professor() {
-        return $this->belongsToMany(Professor::class, 'materia_has_professor', 'id_materia', 'id_professor');
+    public function tipomaterial() {
+        return $this->belongsTo(TipoMaterial::class);
     }
-
 }

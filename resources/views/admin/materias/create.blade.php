@@ -15,6 +15,25 @@
                     {!! $errors->first('nome', '<p class="help-block">:message</p>') !!}
                 </div>
             </div>
+            <div class="form-group">
+                {!! Form::label('id_professor', 'Professor', ['class' => 'col-sm-3 control-label']) !!}
+                <div class="col-sm-6">
+                    <div class="row">
+                        <div class="col-xs-5">
+                            {!! Form::select('professores', $professores, null, ['class' => 'form-control', 'size' => '8', 'multiple' => 'multiple', 'id' => 'multiselect']) !!}
+                        </div>
+                        <div class="col-xs-2">
+                            <button type="button" id="multiselect_rightAll" class="btn btn-block"><i class="glyphicon glyphicon-forward"></i></button>
+                            <button type="button" id="multiselect_rightSelected" class="btn btn-block"><i class="glyphicon glyphicon-chevron-right"></i></button>
+                            <button type="button" id="multiselect_leftSelected" class="btn btn-block"><i class="glyphicon glyphicon-chevron-left"></i></button>
+                            <button type="button" id="multiselect_leftAll" class="btn btn-block"><i class="glyphicon glyphicon-backward"></i></button>
+                        </div>
+                        <div class="col-xs-5">
+                            {!! Form::select('professores_escolhidos', [], null, ['class' => 'form-control', 'size' => '8', 'multiple' => 'multiple', 'id' => 'multiselect_to']) !!}
+                        </div>
+                    </div>
+                </div>
+            </div>
 
 
     <div class="form-group">

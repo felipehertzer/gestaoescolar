@@ -27,5 +27,11 @@ class Professor extends Model
      */
     protected $fillable = ['pis', 'id_pessoa', 'salario'];
 
-    
+    public function materia() {
+        return $this->belongsToMany(Materia::class, 'materia_has_professor', 'id_professor', 'id_materia');
+    }
+
+    public function pessoa() {
+        return $this->belongsTo('App\Pessoa');
+    }
 }

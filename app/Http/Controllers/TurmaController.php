@@ -5,6 +5,9 @@ namespace App\Http\Controllers;
 use App\Http\Requests;
 use App\Http\Controllers\Controller;
 
+use App\Materia;
+use App\Sala;
+use App\Serie;
 use App\Turma;
 use Illuminate\Http\Request;
 use Carbon\Carbon;
@@ -15,29 +18,31 @@ class TurmaController extends Controller
     /**
      * Display a listing of the resource.
      *
-     * @return void
+     * @return \Illuminate\View\View
      */
     public function index()
     {
         $turmas = Turma::paginate(15);
-
         return view('admin.turmas.index', compact('turmas'));
     }
 
     /**
      * Show the form for creating a new resource.
      *
-     * @return void
+     * @return \Illuminate\View\View
      */
     public function create()
     {
-        return view('admin.turmas.create');
+        $salas = Sala::pluck('numero','id');
+        $series = Serie::pluck('nome','id');
+        $materias = Materia::pluck('nome','id');
+        return view('admin.turmas.create', compact('salas', 'series', 'materias'));
     }
 
     /**
      * Store a newly created resource in storage.
      *
-     * @return void
+     * @return \Illuminate\View\View
      */
     public function store(Request $request)
     {
@@ -54,7 +59,7 @@ class TurmaController extends Controller
      *
      * @param  int  $id
      *
-     * @return void
+     * @return \Illuminate\View\View
      */
     public function show($id)
     {
@@ -68,13 +73,16 @@ class TurmaController extends Controller
      *
      * @param  int  $id
      *
-     * @return void
+     * @return \Illuminate\View\View
      */
     public function edit($id)
     {
+        $salas = Sala::pluck('numero','id');
+        $series = Serie::pluck('nome','id');
+        $materias = Materia::pluck('nome','id');
         $turma = Turma::findOrFail($id);
 
-        return view('admin.turmas.edit', compact('turma'));
+        return view('admin.turmas.edit', compact('salas', 'series', 'turma', 'materias'));
     }
 
     /**
@@ -82,13 +90,14 @@ class TurmaController extends Controller
      *
      * @param  int  $id
      *
-     * @return void
+     * @return \Illuminate\View\View
      */
     public function update($id, Request $request)
     {
         
         $turma = Turma::findOrFail($id);
-        $turma->update($request->all());
+
+        $turma->update($request->except(array('materias', 'materias_escolhidas')));
 
         Session::flash('success', 'Turma updated!');
 
@@ -100,7 +109,7 @@ class TurmaController extends Controller
      *
      * @param  int  $id
      *
-     * @return void
+     * @return \Illuminate\View\View
      */
     public function destroy($id)
     {

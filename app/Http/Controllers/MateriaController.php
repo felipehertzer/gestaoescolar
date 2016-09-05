@@ -6,6 +6,8 @@ use App\Http\Requests;
 use App\Http\Controllers\Controller;
 
 use App\Materia;
+use App\Pessoa;
+use App\Professor;
 use Illuminate\Http\Request;
 use Carbon\Carbon;
 use Session;
@@ -15,7 +17,7 @@ class MateriaController extends Controller
     /**
      * Display a listing of the resource.
      *
-     * @return void
+     * @return \Illuminate\View\View
      */
     public function index()
     {
@@ -27,23 +29,24 @@ class MateriaController extends Controller
     /**
      * Show the form for creating a new resource.
      *
-     * @return void
+     * @return \Illuminate\View\View
      */
     public function create()
     {
-        return view('admin.materias.create');
+        $professor = \App\Pessoa::with(['professor'])->get();
+        $professores = $professor->pluck('nome','id');
+        return view('admin.materias.create', compact('professores'));
     }
 
     /**
      * Store a newly created resource in storage.
      *
-     * @return void
+     * @return \Illuminate\View\View
      */
     public function store(Request $request)
     {
-        
-        Materia::create($request->all());
-
+        $m = Materia::create($request->except(array('professores','professores_escolhidos')));
+        $m->professor()->attach($request->get('professores_escolhidos'));
         Session::flash('success', 'Materia added!');
 
         return redirect('admin/materias');
@@ -54,7 +57,7 @@ class MateriaController extends Controller
      *
      * @param  int  $id
      *
-     * @return void
+     * @return \Illuminate\View\View
      */
     public function show($id)
     {
@@ -68,13 +71,15 @@ class MateriaController extends Controller
      *
      * @param  int  $id
      *
-     * @return void
+     * @return \Illuminate\View\View
      */
     public function edit($id)
     {
         $materia = Materia::findOrFail($id);
+        $professor = \App\Pessoa::with(['professor'])->get();
+        $professores = $professor->pluck('nome','id');
 
-        return view('admin.materias.edit', compact('materia'));
+        return view('admin.materias.edit', compact('materia', 'professores'));
     }
 
     /**
@@ -82,14 +87,15 @@ class MateriaController extends Controller
      *
      * @param  int  $id
      *
-     * @return void
+     * @return \Illuminate\View\View
      */
     public function update($id, Request $request)
     {
         
         $materia = Materia::findOrFail($id);
-        $materia->update($request->all());
-
+        $materia->update($request->except(array('professores','professores_escolhidos')));
+        $materia->professor()->detach($request->get('professores'));
+        $materia->professor()->attach($request->get('professores_escolhidos'));
         Session::flash('success', 'Materia updated!');
 
         return redirect('admin/materias');
@@ -100,7 +106,7 @@ class MateriaController extends Controller
      *
      * @param  int  $id
      *
-     * @return void
+     * @return \Illuminate\View\View
      */
     public function destroy($id)
     {

@@ -27,4 +27,12 @@ class Turma extends Model
      * @var array
      */
     protected $fillable = ['turno', 'vagas', 'id_serie', 'numero_turma', 'id_sala', 'ano'];
+
+    public function sala() {
+        return $this->belongsTo(Sala::class);
+    }
+
+    public function serie() {
+        return $this->belongsTo(Serie::class);
+    }
 }

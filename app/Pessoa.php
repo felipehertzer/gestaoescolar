@@ -39,4 +39,24 @@ class Pessoa extends Authenticatable
     protected $hidden = [
         'password', 'remember_token',
     ];
+
+    public function professor()
+    {
+        return $this->hasOne(Professor::class, 'id_pessoas');
+    }
+
+    public function funcionario()
+    {
+        return $this->hasOne(Funcionario::class);
+    }
+
+    public function aluno()
+    {
+        return $this->hasOne(Aluno::class);
+    }
+
+    public function responsavel()
+    {
+        return $this->hasOne(Responsavel::class);
+    }
 }

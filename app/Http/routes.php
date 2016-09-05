@@ -42,6 +42,8 @@ Route::resource('admin/series', 'SerieController');
 
 Route::resource('admin/turmas', 'TurmaController');
 
+Route::resource('admin/materiais', 'MaterialController');
+
 Route::resource('admin/advertencias', 'AdvertenciaController');
 
 Route::resource('admin/avaliacoes', 'AvaliacaoController');
