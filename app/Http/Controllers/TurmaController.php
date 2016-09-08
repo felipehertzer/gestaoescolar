@@ -6,6 +6,7 @@ use App\Http\Requests;
 use App\Http\Controllers\Controller;
 
 use App\Materia;
+use App\MateriaHasProfessor;
 use App\Sala;
 use App\Serie;
 use App\Turma;
@@ -15,6 +16,10 @@ use Session;
 
 class TurmaController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware('auth');
+    }
     /**
      * Display a listing of the resource.
      *
@@ -35,7 +40,8 @@ class TurmaController extends Controller
     {
         $salas = Sala::pluck('numero','id');
         $series = Serie::pluck('nome','id');
-        $materias = Materia::pluck('nome','id');
+        $materia = MateriaHasProfessor::with('professor', 'materia', 'professor.pessoa')->get();
+        $materias = $materia->pluck("ProfessorMateria", "id");
         return view('admin.turmas.create', compact('salas', 'series', 'materias'));
     }
 
@@ -47,7 +53,9 @@ class TurmaController extends Controller
     public function store(Request $request)
     {
         
-        Turma::create($request->all());
+        $t = Turma::create($request->except(array("materias", "materias_escolhidas")));
+
+        $t->materia()->attach($request->get('materias_escolhidas'));
 
         Session::flash('success', 'Turma added!');
 
@@ -79,7 +87,8 @@ class TurmaController extends Controller
     {
         $salas = Sala::pluck('numero','id');
         $series = Serie::pluck('nome','id');
-        $materias = Materia::pluck('nome','id');
+        $materia = MateriaHasProfessor::with('professor', 'materia', 'professor.pessoa')->get();
+        $materias = $materia->pluck("ProfessorMateria", "id");
         $turma = Turma::findOrFail($id);
 
         return view('admin.turmas.edit', compact('salas', 'series', 'turma', 'materias'));
@@ -98,6 +107,10 @@ class TurmaController extends Controller
         $turma = Turma::findOrFail($id);
 
         $turma->update($request->except(array('materias', 'materias_escolhidas')));
+
+        $turma->materia()->detach($request->get('materias'));
+
+        $turma->materia()->attach($request->get('materias_escolhidas'));
 
         Session::flash('success', 'Turma updated!');
 

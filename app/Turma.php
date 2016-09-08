@@ -35,4 +35,16 @@ class Turma extends Model
     public function serie() {
         return $this->belongsTo(Serie::class);
     }
+
+    public function aluno() {
+        return $this->belongsTo(Aluno::class);
+    }
+
+    public function materia() {
+        return $this->belongsToMany(Professor::class, 'materia_has_turma', 'id_turma', 'id_materia_professor');
+    }
+
+    public function materia_has_professor(){
+        return $this->belongsTo(MateriaHasProfessor::class);
+    }
 }

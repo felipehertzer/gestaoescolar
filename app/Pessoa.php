@@ -47,16 +47,21 @@ class Pessoa extends Authenticatable
 
     public function funcionario()
     {
-        return $this->hasOne(Funcionario::class);
+        return $this->hasOne(Funcionario::class, 'id_pessoas');
     }
 
     public function aluno()
     {
-        return $this->hasOne(Aluno::class);
+        return $this->hasOne(Aluno::class, 'id_pessoas');
     }
 
     public function responsavel()
     {
-        return $this->hasOne(Responsavel::class);
+        return $this->hasOne(Responsavel::class, 'id_pessoas');
+    }
+
+    public function funcao()
+    {
+        return $this->belongsTo(Funcao::class);
     }
 }

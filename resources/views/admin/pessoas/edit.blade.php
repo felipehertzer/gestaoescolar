@@ -84,10 +84,17 @@
             <div class="form-group">
                 {!! Form::label('tipopessoa', 'Tipo', ['class' => 'col-sm-3 control-label']) !!}
                 <div class="col-sm-6">
-                    {!! Form::select('tipopessoa', ['funcionario', 'professor', 'responsavel', 'aluno'] , null, ['class' => 'form-control']) !!}
+                    {!! Form::select('tipopessoa', ['funcionario', 'professor', 'responsavel', 'aluno'] , null, ['class' => 'form-control', 'id' => 'tipopessoa']) !!}
                 </div>
             </div>
-            <div class="professor_funcionario">
+            <div id="funcoes" class="form-group {{ $errors->has('funcao') ? 'has-error' : ''}}">
+                {!! Form::label('funcao', 'Funcao', ['class' => 'col-sm-3 control-label']) !!}
+                <div class="col-sm-6">
+                    {!! Form::select('funcao', $funcoes, null, ['class' => 'form-control']) !!}
+                    {!! $errors->first('funcao', '<p class="help-block">:message</p>') !!}
+                </div>
+            </div>
+            <div id="professor_funcionario">
                 <div class="form-group {{ $errors->has('pis') ? 'has-error' : ''}}">
                     {!! Form::label('pis', 'PIS', ['class' => 'col-sm-3 control-label']) !!}
                     <div class="col-sm-6">
@@ -103,7 +110,7 @@
                     </div>
                 </div>
             </div>
-            <div class="responsavel">
+            <div id="responsavel" style="display:none;">
                 <div class="form-group {{ $errors->has('pis') ? 'has-error' : ''}}">
                     {!! Form::label('empresa', 'Empresa', ['class' => 'col-sm-3 control-label']) !!}
                     <div class="col-sm-6">
@@ -111,15 +118,8 @@
                         {!! $errors->first('empresa', '<p class="help-block">:message</p>') !!}
                     </div>
                 </div>
-                <div class="form-group {{ $errors->has('funcao') ? 'has-error' : ''}}">
-                    {!! Form::label('funcao', 'Funcao', ['class' => 'col-sm-3 control-label']) !!}
-                    <div class="col-sm-6">
-                        {!! Form::text('funcao', null, ['class' => 'form-control']) !!}
-                        {!! $errors->first('funcao', '<p class="help-block">:message</p>') !!}
-                    </div>
-                </div>
             </div>
-            <div class="aluno">
+            <div id="aluno" style="display:none;">
                 <div class="form-group {{ $errors->has('pis') ? 'has-error' : ''}}">
                     {!! Form::label('observacoes', 'Observacoes', ['class' => 'col-sm-3 control-label']) !!}
                     <div class="col-sm-6">

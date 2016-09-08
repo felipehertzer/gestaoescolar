@@ -23,6 +23,7 @@ class CreatePessoasTable extends Migration
             $table->string('telefoneFixo');
             $table->string('telefoneCelular');
             $table->enum('status', ['ativo', 'inativo']);
+            $table->enum('tipo', ['a', 'r', 'p', 'f']);
             $table->string('endereco');
             $table->rememberToken();
             $table->timestamps();

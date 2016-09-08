@@ -32,6 +32,6 @@ class Professor extends Model
     }
 
     public function pessoa() {
-        return $this->belongsTo('App\Pessoa');
+        return $this->hasOne(Pessoa::class, 'id');
     }
 }

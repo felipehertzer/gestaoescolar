@@ -78,7 +78,53 @@
                     {!! $errors->first('endereco', '<p class="help-block">:message</p>') !!}
                 </div>
             </div>
-
+            <div class="form-group">
+                {!! Form::label('tipopessoa', 'Tipo', ['class' => 'col-sm-3 control-label']) !!}
+                <div class="col-sm-6">
+                    {!! Form::select('tipopessoa', ['funcionario', 'professor', 'responsavel', 'aluno'] , null, ['class' => 'form-control', 'id' => 'tipopessoa']) !!}
+                </div>
+            </div>
+            <div id="funcoes" class="form-group {{ $errors->has('funcao') ? 'has-error' : ''}}">
+                {!! Form::label('funcao', 'Funcao', ['class' => 'col-sm-3 control-label']) !!}
+                <div class="col-sm-6">
+                    {!! Form::select('funcao', $funcoes, null, ['class' => 'form-control']) !!}
+                    {!! $errors->first('funcao', '<p class="help-block">:message</p>') !!}
+                </div>
+            </div>
+            <div id="professor_funcionario">
+                <div class="form-group {{ $errors->has('pis') ? 'has-error' : ''}}">
+                    {!! Form::label('pis', 'PIS', ['class' => 'col-sm-3 control-label']) !!}
+                    <div class="col-sm-6">
+                        {!! Form::text('pis', null, ['class' => 'form-control']) !!}
+                        {!! $errors->first('pis', '<p class="help-block">:message</p>') !!}
+                    </div>
+                </div>
+                <div class="form-group {{ $errors->has('salario') ? 'has-error' : ''}}">
+                    {!! Form::label('salario', 'Salario', ['class' => 'col-sm-3 control-label']) !!}
+                    <div class="col-sm-6">
+                        {!! Form::text('salario', null, ['class' => 'form-control']) !!}
+                        {!! $errors->first('salario', '<p class="help-block">:message</p>') !!}
+                    </div>
+                </div>
+            </div>
+            <div id="responsavel" style="display:none;">
+                <div class="form-group {{ $errors->has('pis') ? 'has-error' : ''}}">
+                    {!! Form::label('empresa', 'Empresa', ['class' => 'col-sm-3 control-label']) !!}
+                    <div class="col-sm-6">
+                        {!! Form::text('empresa', null, ['class' => 'form-control']) !!}
+                        {!! $errors->first('empresa', '<p class="help-block">:message</p>') !!}
+                    </div>
+                </div>
+            </div>
+            <div id="aluno" style="display:none;">
+                <div class="form-group {{ $errors->has('pis') ? 'has-error' : ''}}">
+                    {!! Form::label('observacoes', 'Observacoes', ['class' => 'col-sm-3 control-label']) !!}
+                    <div class="col-sm-6">
+                        {!! Form::textarea('observacoes', null, ['class' => 'form-control']) !!}
+                        {!! $errors->first('observacoes', '<p class="help-block">:message</p>') !!}
+                    </div>
+                </div>
+            </div>
 
     <div class="form-group">
         <div class="col-sm-offset-3 col-sm-3">

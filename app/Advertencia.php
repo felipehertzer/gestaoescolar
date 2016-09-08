@@ -27,5 +27,7 @@ class Advertencia extends Model
      */
     protected $fillable = ['motivo', 'data','id_matricula'];
 
-    
+    public function aluno() {
+        return $this->belongsTo(Aluno::class);
+    }
 }

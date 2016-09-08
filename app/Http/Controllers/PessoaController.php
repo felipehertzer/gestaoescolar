@@ -2,16 +2,25 @@
 
 namespace App\Http\Controllers;
 
+use App\Aluno;
+use App\Funcao;
+use App\Funcionario;
 use App\Http\Requests;
 use App\Http\Controllers\Controller;
 
 use App\Pessoa;
+use App\Professor;
+use App\Responsavel;
 use Illuminate\Http\Request;
 use Carbon\Carbon;
 use Session;
 
 class PessoaController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware('auth');
+    }
     /**
      * Display a listing of the resource.
      *
@@ -31,7 +40,8 @@ class PessoaController extends Controller
      */
     public function create()
     {
-        return view('admin.pessoas.create');
+        $funcoes = Funcao::pluck('nome','id');
+        return view('admin.pessoas.create', compact('funcoes'));
     }
 
     /**
@@ -42,7 +52,25 @@ class PessoaController extends Controller
     public function store(Request $request)
     {
         
-        Pessoa::create($request->all());
+        $p = Pessoa::create($request->except(array('funcao', 'pis', 'salario', 'empresa', 'observacoes')));
+        switch($request->get('tipopessoa')){
+            // alunos
+            case 3:
+                $p->aluno()->create(['observacoes' => $request->get('observacoes')]);
+                break;
+            // responsaveis
+            case 2:
+                $p->responsavel()->create(['empresa' => $request->get('empresa'), 'id_funcao' => $request->get('funcao')]);
+                break;
+            // professores
+            case 1:
+                $p->professor()->create(['pis' => $request->get('pis'), 'salario' => $request->get('salario')]);
+                break;
+            // funcionarios
+            default:
+                $p->funcionario()->create(['pis' => $request->get('pis'), 'salario' => $request->get('salario'), 'id_funcao' => $request->get('funcao')]);
+                break;
+        }
 
         Session::flash('success', 'Pessoa added!');
 
@@ -73,8 +101,8 @@ class PessoaController extends Controller
     public function edit($id)
     {
         $pessoa = Pessoa::findOrFail($id);
-
-        return view('admin.pessoas.edit', compact('pessoa'));
+        $funcoes = Funcao::pluck('nome','id');
+        return view('admin.pessoas.edit', compact('pessoa', 'funcoes'));
     }
 
     /**
@@ -88,8 +116,25 @@ class PessoaController extends Controller
     {
         
         $pessoa = Pessoa::findOrFail($id);
-        $pessoa->update($request->all());
-
+        $pessoa->update($request->except(array('funcao', 'pis', 'salario', 'empresa', 'observacoes')));
+        /*switch($request->get('tipopessoa')){
+            // alunos
+            case 3:
+                $pessoa->aluno()->update(['observacoes' => $request->get('observacoes')]);
+                break;
+            // responsaveis
+            case 2:
+                $pessoa->responsavel()->update(['empresa' => $request->get('empresa'), 'id_funcao' => $request->get('funcao')]);
+                break;
+            // professores
+            case 1:
+                $pessoa->professor()->update(['pis' => $request->get('pis'), 'salario' => $request->get('salario')]);
+                break;
+            // funcionarios
+            default:
+                $pessoa->funcionario()->update(['pis' => $request->get('pis'), 'salario' => $request->get('salario'), 'id_funcao' => $request->get('funcao')]);
+                break;
+        }*/
         Session::flash('success', 'Pessoa updated!');
 
         return redirect('admin/pessoas');

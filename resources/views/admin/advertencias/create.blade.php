@@ -7,8 +7,14 @@
     <hr/>
 
     {!! Form::open(['url' => '/admin/advertencias', 'class' => 'form-horizontal', 'files' => true]) !!}
-
-                    <div class="form-group {{ $errors->has('motivo') ? 'has-error' : ''}}">
+            <div class="form-group {{ $errors->has('id_matricula') ? 'has-error' : ''}}">
+                {!! Form::label('id_matricula', 'Matricula', ['class' => 'col-sm-3 control-label']) !!}
+                <div class="col-sm-6">
+                    {!! Form::select('id_matricula', $alunos, null, ['class' => 'form-control']) !!}
+                    {!! $errors->first('id_matricula', '<p class="help-block">:message</p>') !!}
+                </div>
+            </div>
+            <div class="form-group {{ $errors->has('motivo') ? 'has-error' : ''}}">
                 {!! Form::label('motivo', 'Motivo', ['class' => 'col-sm-3 control-label']) !!}
                 <div class="col-sm-6">
                     {!! Form::textarea('motivo', null, ['class' => 'form-control']) !!}
@@ -22,13 +28,7 @@
                     {!! $errors->first('data', '<p class="help-block">:message</p>') !!}
                 </div>
             </div>
-            <div class="form-group {{ $errors->has('id_matricula') ? 'has-error' : ''}}">
-                {!! Form::label('id_matricula', 'Id Matricula', ['class' => 'col-sm-3 control-label']) !!}
-                <div class="col-sm-6">
-                    {!! Form::number('id_matricula', null, ['class' => 'form-control']) !!}
-                    {!! $errors->first('id_matricula', '<p class="help-block">:message</p>') !!}
-                </div>
-            </div>
+
 
 
         <div class="form-group">

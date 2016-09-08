@@ -27,5 +27,16 @@ class Aluno extends Model
      */
     protected $fillable = ['observacoes', 'id_pessoa'];
 
-    
+    public function pessoa()
+    {
+        return $this->belongsTo(Pessoa::class, 'id_pessoa', 'id');
+    }
+
+    public function matricula() {
+        return $this->hasMany(Matricula::class, 'id');
+    }
+
+    public function advertencia() {
+        return $this->hasMany(Advertencia::class, 'id');
+    }
 }

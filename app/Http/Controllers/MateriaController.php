@@ -14,11 +14,16 @@ use Session;
 
 class MateriaController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware('auth');
+    }
     /**
      * Display a listing of the resource.
      *
      * @return \Illuminate\View\View
      */
+
     public function index()
     {
         $materias = Materia::paginate(15);
@@ -33,8 +38,8 @@ class MateriaController extends Controller
      */
     public function create()
     {
-        $professor = \App\Pessoa::with(['professor'])->get();
-        $professores = $professor->pluck('nome','id');
+        $professor = \App\Professor::with(['pessoa'])->get();
+        $professores = $professor->pluck('pessoa.nome','id');
         return view('admin.materias.create', compact('professores'));
     }
 
@@ -76,8 +81,8 @@ class MateriaController extends Controller
     public function edit($id)
     {
         $materia = Materia::findOrFail($id);
-        $professor = \App\Pessoa::with(['professor'])->get();
-        $professores = $professor->pluck('nome','id');
+        $professor = \App\Professor::with(['pessoa'])->get();
+        $professores = $professor->pluck('pessoa.nome','id');
 
         return view('admin.materias.edit', compact('materia', 'professores'));
     }

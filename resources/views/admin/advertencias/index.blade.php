@@ -12,10 +12,14 @@
                 </tr>
             </thead>
             <tbody>
+            {{-- */$x=0;/* --}}
             @foreach($advertencias as $item)
+                {{-- */$x++;/* --}}
                 <tr>
-                    <td>{{ $loop->iteration }}</td>
-                    <td>{{ $item->motivo }}</td><td>{{ $item->data }}</td><td>{{ $item->id_matricula }}</td>
+                    <td>{{ $x }}</td>
+                    <td>{{ $item->motivo }}</td>
+                    <td>{{ $item->data }}</td>
+                    <td>{{ $item->id_matricula }}</td>
                     <td>
                         <a href="{{ url('/admin/advertencias/' . $item->id) }}" class="btn btn-success btn-xs" title="View advertencia"><span class="glyphicon glyphicon-eye-open" aria-hidden="true"/></a>
                         <a href="{{ url('/admin/advertencias/' . $item->id . '/edit') }}" class="btn btn-primary btn-xs" title="Edit advertencia"><span class="glyphicon glyphicon-pencil" aria-hidden="true"/></a>

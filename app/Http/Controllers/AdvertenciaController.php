@@ -11,6 +11,10 @@ use Session;
 
 class AdvertenciaController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware('auth');
+    }
     /**
      * Display a listing of the resource.
      *
@@ -30,7 +34,9 @@ class AdvertenciaController extends Controller
      */
     public function create()
     {
-        return view('admin.advertencias.create');
+        $aluno = \App\Pessoa::with(['aluno', 'aluno.matricula'])->get();
+        $alunos = $aluno->pluck('nome','id');
+        return view('admin.advertencias.create', compact('alunos'));
     }
 
     /**
@@ -76,8 +82,10 @@ class AdvertenciaController extends Controller
     public function edit($id)
     {
         $advertencia = Advertencia::findOrFail($id);
+        $aluno = \App\Pessoa::with(['aluno', 'aluno.matricula'])->get();
+        $alunos = $aluno->pluck('nome','id');
 
-        return view('admin.advertencias.edit', compact('advertencia'));
+        return view('admin.advertencias.edit', compact('advertencia', 'alunos'));
     }
 
     /**

@@ -24,14 +24,6 @@ Route::resource('admin/salas', 'SalaController');
 
 Route::resource('admin/pessoas', 'PessoaController');
 
-Route::resource('admin/biblioteca/autores', 'Biblioteca\\AutorController');
-
-Route::resource('admin/biblioteca/tipomulta', 'Biblioteca\\TipoMultaController');
-
-Route::resource('admin/biblioteca/tipoexemplares', 'Biblioteca\\TipoExemplarController');
-
-Route::resource('admin/biblioteca/exemplares', 'Biblioteca\\ExemplarController');
-
 Route::resource('admin/tipomateriais', 'TipoMateriaisController');
 
 Route::resource('admin/funcoes', 'FuncaoController');
@@ -54,4 +46,13 @@ Route::resource('admin/presencas', 'PresencaController');
 
 Route::resource('admin/matriculas', 'MatriculaController');
 
+Route::resource('admin/biblioteca/autores', 'Biblioteca\\AutorController');
+
+Route::resource('admin/biblioteca/tipomulta', 'Biblioteca\\TipoMultaController');
+
+Route::resource('admin/biblioteca/tipoexemplares', 'Biblioteca\\TipoExemplarController');
+
+Route::resource('admin/biblioteca/exemplares', 'Biblioteca\\ExemplarController');
+
 Route::resource('admin/biblioteca/livros', 'Biblioteca\\LivroController');
+
