@@ -25,7 +25,11 @@ class Multa extends Model
      *
      * @var array
      */
-    protected $fillable = ['valor', 'data_pagamento', 'id_tipomulta'];
+    protected $fillable = ['valor', 'data_pagamento', 'tipomulta_id'];
+    
+    public function tipomulta() {
+        return $this->belongsTo(TipoMulta::class);
+    }
 
     
 }
