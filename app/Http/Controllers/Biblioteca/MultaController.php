@@ -1,20 +1,17 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Biblioteca;
 
 use App\Http\Requests;
 use App\Http\Controllers\Controller;
 
 use App\Multa;
+use App\TipoMulta;
 use Illuminate\Http\Request;
 use Session;
 
 class MultaController extends Controller
 {
-    public function __construct()
-    {
-        $this->middleware('auth');
-    }
     /**
      * Display a listing of the resource.
      *
@@ -22,9 +19,9 @@ class MultaController extends Controller
      */
     public function index()
     {
-        $multa = Multa::paginate(25);
+        $multas = Multa::paginate(25);
 
-        return view('multa.multa.index', compact('multa'));
+        return view('admin/biblioteca.multas.index', compact('multas'));
     }
 
     /**
@@ -34,7 +31,8 @@ class MultaController extends Controller
      */
     public function create()
     {
-        return view('multa.multa.create');
+        $tipomultas = TipoMulta::pluck('nome','id');
+        return view('admin/biblioteca.multas.create', compact('tipomultas'));
     }
 
     /**
@@ -53,7 +51,7 @@ class MultaController extends Controller
 
         Session::flash('success', 'Multa added!');
 
-        return redirect('admin/multa');
+        return redirect('admin/biblioteca/multas');
     }
 
     /**
@@ -65,9 +63,9 @@ class MultaController extends Controller
      */
     public function show($id)
     {
-        $multum = Multa::findOrFail($id);
+        $multa = Multa::findOrFail($id);
 
-        return view('multa.multa.show', compact('multum'));
+        return view('admin/biblioteca.multas.show', compact('multa'));
     }
 
     /**
@@ -79,9 +77,10 @@ class MultaController extends Controller
      */
     public function edit($id)
     {
-        $multum = Multa::findOrFail($id);
+        $multa = Multa::findOrFail($id);
+        $tipomultas = TipoMulta::pluck('nome','id');
 
-        return view('multa.multa.edit', compact('multum'));
+        return view('admin/biblioteca.multas.edit', compact('multa', 'tipomultas'));
     }
 
     /**
@@ -97,12 +96,12 @@ class MultaController extends Controller
         
         $requestData = $request->all();
         
-        $multum = Multa::findOrFail($id);
-        $multum->update($requestData);
+        $multa = Multa::findOrFail($id);
+        $multa->update($requestData);
 
         Session::flash('success', 'Multa updated!');
 
-        return redirect('admin/multa');
+        return redirect('admin/biblioteca/multas');
     }
 
     /**
@@ -118,6 +117,6 @@ class MultaController extends Controller
 
         Session::flash('success', 'Multa deleted!');
 
-        return redirect('admin/multa');
+        return redirect('admin/biblioteca/multas');
     }
 }
