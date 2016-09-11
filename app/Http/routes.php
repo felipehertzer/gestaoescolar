@@ -56,3 +56,5 @@ Route::resource('admin/biblioteca/exemplares', 'Biblioteca\\ExemplarController')
 
 Route::resource('admin/biblioteca/livros', 'Biblioteca\\LivroController');
 
+Route::resource('admin/biblioteca/multas', 'Biblioteca\\MultaController');
+
