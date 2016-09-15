@@ -33,7 +33,7 @@ class Aluno extends Model
     }
 
     public function matricula() {
-        return $this->hasMany(Matricula::class, 'id');
+        return $this->hasMany(Matricula::class, 'id_aluno', 'id');
     }
 
     public function advertencia() {

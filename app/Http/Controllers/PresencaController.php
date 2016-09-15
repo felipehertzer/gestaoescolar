@@ -2,9 +2,12 @@
 
 namespace App\Http\Controllers;
 
+use App\Aluno;
 use App\Http\Requests;
 use App\Http\Controllers\Controller;
 
+use App\MateriaHasProfessor;
+use App\MateriaHasTurma;
 use App\Presenca;
 use Illuminate\Http\Request;
 use Session;
@@ -22,52 +25,11 @@ class PresencaController extends Controller
      */
     public function index()
     {
-        $presencas = Presenca::paginate(25);
-
+        $value = 1;
+        $presencas = MateriaHasTurma::with('materia_has_professor', 'materia_has_professor.materia', 'turma')->whereHas('materia_has_professor', function($q) use($value) {
+            $q->where('id_professor', '=', $value);
+        })->paginate(25);
         return view('admin.presencas.index', compact('presencas'));
-    }
-
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\View\View
-     */
-    public function create()
-    {
-        return view('admin.presencas.create');
-    }
-
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param \Illuminate\Http\Request $request
-     *
-     * @return \Illuminate\Http\RedirectResponse|\Illuminate\Routing\Redirector
-     */
-    public function store(Request $request)
-    {
-        
-        $requestData = $request->all();
-        
-        Presenca::create($requestData);
-
-        Session::flash('flash_message', 'Presenca added!');
-
-        return redirect('admin/presencas');
-    }
-
-    /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     *
-     * @return \Illuminate\View\View
-     */
-    public function show($id)
-    {
-        $presenca = Presenca::findOrFail($id);
-
-        return view('admin.presencas.show', compact('presenca'));
     }
 
     /**
@@ -79,8 +41,10 @@ class PresencaController extends Controller
      */
     public function edit($id)
     {
-        $presenca = Presenca::findOrFail($id);
-
+        $presenca = Aluno::with('pessoa','matricula', 'matricula.turma', 'matricula.turma.materia_has_turma')->whereHas('matricula.turma.materia_has_turma', function($q) use($id) {
+            $q->where('id_materia_professor', '=', $id);
+        })->get();
+        //dd($presenca);
         return view('admin.presencas.edit', compact('presenca'));
     }
 

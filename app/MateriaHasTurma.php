@@ -4,14 +4,14 @@ namespace App;
 
 use Illuminate\Database\Eloquent\Model;
 
-class Matricula extends Model
+class MateriaHasTurma extends Model
 {
     /**
      * The database table used by the model.
      *
      * @var string
      */
-    protected $table = 'matriculas';
+    protected $table = 'materia_has_turma';
 
     /**
     * The database primary key value.
@@ -25,13 +25,14 @@ class Matricula extends Model
      *
      * @var array
      */
-    protected $fillable = ['observacoes', 'id_alunos', 'id_turma'];
+    protected $fillable = ['id_materia_professor', 'id_turma'];
 
-    public function aluno() {
-        return $this->belongsTo(Aluno::class, 'id', 'id_matricula');
+    public function turma(){
+        return $this->hasOne(Turma::class, 'id', 'id_turma');
     }
 
-    public function turma() {
-        return $this->hasMany(Turma::class, 'id', 'id_turma');
+    public function materia_has_professor(){
+        return $this->hasOne(MateriaHasProfessor::class, 'id', 'id_materia_professor');
     }
+
 }

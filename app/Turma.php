@@ -47,4 +47,13 @@ class Turma extends Model
     public function materia_has_professor(){
         return $this->belongsTo(MateriaHasProfessor::class);
     }
+
+    public function materia_has_turma(){
+        return $this->belongsTo(MateriaHasTurma::class, 'id', 'id_turma');
+    }
+
+    public function matricula() {
+        return $this->hasMany(Matricula::class, 'id_turma', 'id');
+    }
+
 }

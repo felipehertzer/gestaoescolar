@@ -31,6 +31,10 @@ class MateriaHasProfessor extends Model
         return $this->belongsTo(Materia::class, 'id_materia', 'id');
     }
 
+    public function materia_has_turma(){
+        return $this->hasMany(MateriaHasTurma::class, 'id_materia_professor', 'id');
+    }
+
     public function professor(){
         return $this->belongsTo(Professor::class, 'id_professor', 'id');
     }

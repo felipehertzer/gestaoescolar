@@ -12,9 +12,11 @@
                 </tr>
             </thead>
             <tbody>
+            {{-- */$x=0;/* --}}
             @foreach($avaliacoes as $item)
+                {{-- */$x++;/* --}}
                 <tr>
-                    <td>{{ $loop->iteration }}</td>
+                    <td>{{ $x }}</td>
                     <td>{{ $item->nome }}</td><td>{{ $item->peso }}</td><td>{{ $item->observacoes }}</td>
                     <td>
                         <a href="{{ url('/admin/avaliacoes/' . $item->id) }}" class="btn btn-success btn-xs" title="View avaliaco"><span class="glyphicon glyphicon-eye-open" aria-hidden="true"/></a>
