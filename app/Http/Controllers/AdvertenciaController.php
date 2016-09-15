@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Aluno;
 use App\Http\Requests;
 use App\Http\Controllers\Controller;
 
@@ -34,8 +35,8 @@ class AdvertenciaController extends Controller
      */
     public function create()
     {
-        $aluno = \App\Pessoa::with(['aluno', 'aluno.matricula'])->get();
-        $alunos = $aluno->pluck('nome','id');
+        $aluno = Aluno::with('pessoa')->get();
+        $alunos = $aluno->pluck('pessoa.nome','id');
         return view('admin.advertencias.create', compact('alunos'));
     }
 
@@ -82,8 +83,8 @@ class AdvertenciaController extends Controller
     public function edit($id)
     {
         $advertencia = Advertencia::findOrFail($id);
-        $aluno = \App\Pessoa::with(['aluno', 'aluno.matricula'])->get();
-        $alunos = $aluno->pluck('nome','id');
+        $aluno = Aluno::with('pessoa')->get();
+        $alunos = $aluno->pluck('pessoa.nome','id');
 
         return view('admin.advertencias.edit', compact('advertencia', 'alunos'));
     }

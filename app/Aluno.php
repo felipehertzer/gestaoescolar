@@ -29,7 +29,7 @@ class Aluno extends Model
 
     public function pessoa()
     {
-        return $this->belongsTo(Pessoa::class, 'id_pessoa', 'id');
+        return $this->belongsTo(Pessoa::class, 'id_pessoas', 'id');
     }
 
     public function matricula() {

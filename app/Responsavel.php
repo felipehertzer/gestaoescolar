@@ -25,7 +25,7 @@ class Responsavel extends Model
      *
      * @var array
      */
-    protected $fillable = ['empresa', 'id_pessoa', 'id_funcao'];
+    protected $fillable = ['empresa', 'id_pessoas', 'id_funcao'];
 
     
 }

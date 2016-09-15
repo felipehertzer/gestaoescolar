@@ -25,7 +25,7 @@ class Professor extends Model
      *
      * @var array
      */
-    protected $fillable = ['pis', 'id_pessoa', 'salario'];
+    protected $fillable = ['pis', 'id_pessoas', 'salario'];
 
     public function materia() {
         return $this->belongsToMany(Materia::class, 'materia_has_professor', 'id_professor', 'id_materia');

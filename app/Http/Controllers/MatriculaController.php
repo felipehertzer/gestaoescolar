@@ -2,10 +2,12 @@
 
 namespace App\Http\Controllers;
 
+use App\Aluno;
 use App\Http\Requests;
 use App\Http\Controllers\Controller;
 
 use App\Matricula;
+use App\Turma;
 use Illuminate\Http\Request;
 use Session;
 
@@ -34,7 +36,10 @@ class MatriculaController extends Controller
      */
     public function create()
     {
-        return view('admin.matriculas.create');
+        $aluno = Aluno::with('pessoa')->get();
+        $alunos = $aluno->pluck('pessoa.nome','id');
+        $turmas = Turma::pluck('numero_turma','id');
+        return view('admin.matriculas.create', compact('alunos', 'turmas'));
     }
 
     /**
@@ -80,8 +85,11 @@ class MatriculaController extends Controller
     public function edit($id)
     {
         $matricula = Matricula::findOrFail($id);
+        $aluno = Aluno::with('pessoa')->get();
+        $alunos = $aluno->pluck('pessoa.nome','id');
+        $turmas = Turma::pluck('numero_turma','id');
 
-        return view('admin.matriculas.edit', compact('matricula'));
+        return view('admin.matriculas.edit', compact('matricula', 'alunos', 'turmas'));
     }
 
     /**

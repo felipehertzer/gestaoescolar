@@ -12,9 +12,11 @@
                 </tr>
             </thead>
             <tbody>
+            {{-- */$x=0;/* --}}
             @foreach($matriculas as $item)
+                {{-- */$x++;/* --}}
                 <tr>
-                    <td>{{ $loop->iteration }}</td>
+                    <td>{{ $x }}</td>
                     <td>{{ $item->observacoes }}</td><td>{{ $item->id_aluno }}</td><td>{{ $item->id_turma }}</td>
                     <td>
                         <a href="{{ url('/admin/matriculas/' . $item->id) }}" class="btn btn-success btn-xs" title="View matricula"><span class="glyphicon glyphicon-eye-open" aria-hidden="true"/></a>
