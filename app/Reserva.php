@@ -25,7 +25,10 @@ class Reserva extends Model
      *
      * @var array
      */
-    protected $fillable = ['data_reserva', 'data_agenda', 'id_matricula'];
+    protected $fillable = ['data_reserva', 'data_agenda', 'matricula_id'];
 
+    public function matricula() {
+        return $this->belongsTo(Matricula::class);
+    }
     
 }

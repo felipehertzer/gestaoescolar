@@ -67,8 +67,8 @@
                             </a>
 
                             <ul class="dropdown-menu" role="menu">
-                                <li><a href="{{ url('/admin/biblioteca/retirada') }}"><i class="fa fa-btn fa-reply"></i>Retirada</a></li>
-                                <li><a href="{{ url('/admin/biblioteca/reserva') }}"><i class="fa fa-btn fa-clock-o"></i>Reserva</a></li>
+                                <li><a href="{{ url('/admin/biblioteca/retiradas') }}"><i class="fa fa-btn fa-reply"></i>Retiradas</a></li>
+                                <li><a href="{{ url('/admin/biblioteca/reservas') }}"><i class="fa fa-btn fa-clock-o"></i>Reservas</a></li>
                                 <li><a href="{{ url('/admin/biblioteca/autores') }}"><i class="fa fa-btn fa-user"></i>Autor</a></li>
                                 <li><a href="{{ url('/admin/biblioteca/livros') }}"><i class="fa fa-btn fa-book"></i>Livros</a></li>
                                 <li><a href="{{ url('/admin/biblioteca/multas') }}"><i class="fa fa-btn fa-calendar-times-o"></i>Multas</a></li>

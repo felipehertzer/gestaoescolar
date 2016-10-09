@@ -1,30 +1,26 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Biblioteca;
 
 use App\Http\Requests;
 use App\Http\Controllers\Controller;
-
+use Illuminate\Support\Facades\DB;
 use App\Reserva;
+use App\Matricula;
 use Illuminate\Http\Request;
 use Session;
 
-class ReservaController extends Controller
-{
-    public function __construct()
-    {
-        $this->middleware('auth');
-    }
+class ReservaController extends Controller {
+
     /**
      * Display a listing of the resource.
      *
      * @return \Illuminate\View\View
      */
-    public function index()
-    {
+    public function index() {
         $reservas = Reserva::paginate(25);
 
-        return view('reservas.reservas.index', compact('reservas'));
+        return view('admin/biblioteca.reservas.index', compact('reservas'));
     }
 
     /**
@@ -32,9 +28,17 @@ class ReservaController extends Controller
      *
      * @return \Illuminate\View\View
      */
-    public function create()
-    {
-        return view('reservas.reservas.create');
+    public function create() {
+        $collection = collect(
+                DB::table('matriculas')
+                        ->select('matriculas.id', 'pessoas.nome')
+                        ->join('alunos', 'alunos.id', '=', 'matriculas.id_aluno')
+                        ->join('pessoas', 'pessoas.id', '=', 'alunos.id_pessoas')
+                        ->get()
+        );
+        
+        $matriculas = $collection->pluck('nome', 'id');
+        return view('admin/biblioteca.reservas.create', compact('matriculas'));
     }
 
     /**
@@ -44,16 +48,15 @@ class ReservaController extends Controller
      *
      * @return \Illuminate\Http\RedirectResponse|\Illuminate\Routing\Redirector
      */
-    public function store(Request $request)
-    {
-        
+    public function store(Request $request) {
+
         $requestData = $request->all();
-        
+
         Reserva::create($requestData);
 
         Session::flash('success', 'Reserva added!');
 
-        return redirect('admin/reservas');
+        return redirect('admin/biblioteca/reservas');
     }
 
     /**
@@ -63,11 +66,10 @@ class ReservaController extends Controller
      *
      * @return \Illuminate\View\View
      */
-    public function show($id)
-    {
+    public function show($id) {
         $reserva = Reserva::findOrFail($id);
 
-        return view('admin.reservas.show', compact('reserva'));
+        return view('admin/biblioteca.reservas.show', compact('reserva'));
     }
 
     /**
@@ -77,11 +79,19 @@ class ReservaController extends Controller
      *
      * @return \Illuminate\View\View
      */
-    public function edit($id)
-    {
+    public function edit($id) {
         $reserva = Reserva::findOrFail($id);
+        $collection = collect(
+                DB::table('matriculas')
+                        ->select('matriculas.id', 'pessoas.nome')
+                        ->join('alunos', 'alunos.id', '=', 'matriculas.id_aluno')
+                        ->join('pessoas', 'pessoas.id', '=', 'alunos.id_pessoas')
+                        ->get()
+        );
+        
+        $matriculas = $collection->pluck('nome', 'id');
 
-        return view('admin.reservas.edit', compact('reserva'));
+        return view('admin/biblioteca.reservas.edit', compact('reserva', 'matriculas'));
     }
 
     /**
@@ -92,17 +102,16 @@ class ReservaController extends Controller
      *
      * @return \Illuminate\Http\RedirectResponse|\Illuminate\Routing\Redirector
      */
-    public function update($id, Request $request)
-    {
-        
+    public function update($id, Request $request) {
+
         $requestData = $request->all();
-        
+
         $reserva = Reserva::findOrFail($id);
         $reserva->update($requestData);
 
         Session::flash('success', 'Reserva updated!');
 
-        return redirect('admin/reservas');
+        return redirect('admin/biblioteca/reservas');
     }
 
     /**
@@ -112,12 +121,12 @@ class ReservaController extends Controller
      *
      * @return \Illuminate\Http\RedirectResponse|\Illuminate\Routing\Redirector
      */
-    public function destroy($id)
-    {
+    public function destroy($id) {
         Reserva::destroy($id);
 
         Session::flash('success', 'Reserva deleted!');
 
-        return redirect('admin/reservas');
+        return redirect('admin/biblioteca/reservas');
     }
+
 }
