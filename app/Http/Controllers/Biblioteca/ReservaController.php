@@ -6,7 +6,6 @@ use App\Http\Requests;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\DB;
 use App\Reserva;
-use App\Matricula;
 use Illuminate\Http\Request;
 use Session;
 

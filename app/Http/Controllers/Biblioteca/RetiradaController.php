@@ -1,20 +1,16 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Biblioteca;
 
 use App\Http\Requests;
 use App\Http\Controllers\Controller;
-
+use Illuminate\Support\Facades\DB;
 use App\Retirada;
 use Illuminate\Http\Request;
 use Session;
 
 class RetiradaController extends Controller
 {
-    public function __construct()
-    {
-        $this->middleware('auth');
-    }
     /**
      * Display a listing of the resource.
      *
@@ -24,7 +20,7 @@ class RetiradaController extends Controller
     {
         $retiradas = Retirada::paginate(25);
 
-        return view('admin.retiradas.index', compact('retiradas'));
+        return view('admin/biblioteca.retiradas.index', compact('retiradas'));
     }
 
     /**
@@ -34,7 +30,16 @@ class RetiradaController extends Controller
      */
     public function create()
     {
-        return view('admin.retiradas.create');
+        $collection = collect(
+                DB::table('matriculas')
+                        ->select('matriculas.id', 'pessoas.nome')
+                        ->join('alunos', 'alunos.id', '=', 'matriculas.id_aluno')
+                        ->join('pessoas', 'pessoas.id', '=', 'alunos.id_pessoas')
+                        ->get()
+        );
+        
+        $matriculas = $collection->pluck('nome', 'id');
+        return view('admin/biblioteca.retiradas.create', compact('matriculas'));
     }
 
     /**
@@ -53,7 +58,7 @@ class RetiradaController extends Controller
 
         Session::flash('success', 'Retirada added!');
 
-        return redirect('admin/retiradas');
+        return redirect('admin/biblioteca/retiradas');
     }
 
     /**
@@ -67,7 +72,7 @@ class RetiradaController extends Controller
     {
         $retirada = Retirada::findOrFail($id);
 
-        return view('admin.retiradas.show', compact('retirada'));
+        return view('admin/biblioteca.retiradas.show', compact('retirada'));
     }
 
     /**
@@ -80,8 +85,17 @@ class RetiradaController extends Controller
     public function edit($id)
     {
         $retirada = Retirada::findOrFail($id);
+        $collection = collect(
+                DB::table('matriculas')
+                        ->select('matriculas.id', 'pessoas.nome')
+                        ->join('alunos', 'alunos.id', '=', 'matriculas.id_aluno')
+                        ->join('pessoas', 'pessoas.id', '=', 'alunos.id_pessoas')
+                        ->get()
+        );
+        
+        $matriculas = $collection->pluck('nome', 'id');
 
-        return view('admin.retiradas.edit', compact('retirada'));
+        return view('admin/biblioteca.retiradas.edit', compact('retirada', 'matriculas'));
     }
 
     /**
@@ -102,7 +116,7 @@ class RetiradaController extends Controller
 
         Session::flash('success', 'Retirada updated!');
 
-        return redirect('admin/retiradas');
+        return redirect('admin/biblioteca/retiradas');
     }
 
     /**
@@ -118,6 +132,6 @@ class RetiradaController extends Controller
 
         Session::flash('success', 'Retirada deleted!');
 
-        return redirect('admin/retiradas');
+        return redirect('admin/biblioteca/retiradas');
     }
 }

@@ -61,3 +61,5 @@ Route::resource('admin/biblioteca/livros', 'Biblioteca\\LivroController');
 Route::resource('admin/biblioteca/multas', 'Biblioteca\\MultaController');
 
 Route::resource('admin/biblioteca/reservas', 'Biblioteca\\ReservaController');
+
+Route::resource('admin/biblioteca/retiradas', 'Biblioteca\\RetiradaController');
