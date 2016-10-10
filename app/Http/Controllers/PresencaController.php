@@ -10,7 +10,8 @@ use App\MateriaHasProfessor;
 use App\MateriaHasTurma;
 use App\Presenca;
 use Illuminate\Http\Request;
-use Session;
+use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Session;
 
 class PresencaController extends Controller
 {
@@ -31,7 +32,48 @@ class PresencaController extends Controller
         })->paginate(25);
         return view('admin.presencas.index', compact('presencas'));
     }
+    /**
+     * Show the form for creating a new resource.
+     *
+     * @return \Illuminate\View\View
+     */
+    public function create($id)
+    {
+        $presenca = Aluno::with('pessoa','matricula', 'matricula.turma', 'matricula.turma.materia_has_turma')->whereHas('matricula.turma.materia_has_turma', function($q) use($id) {
+            $q->where('id_materia_professor', '=', $id);
+        })->get();
+        return view('admin.presencas.create', compact('presenca', 'id'));
+    }
 
+    /**
+     * Store a newly created resource in storage.
+     *
+     * @return \Illuminate\View\View
+     */
+    public function store(Request $request)
+    {
+        foreach($request->only('presenca')['presenca'] as $matricula => $presenca){
+            Presenca::create(['data' => $request->input('data'), 'presenca' => $presenca == "1" ? "presente" : "falta", 'id_matricula' => $matricula, 'id_materia_professor' => $request->input('identificador') ]);
+        }
+
+        Session::flash('success', 'Presenca added!');
+        return redirect('admin/presencas');
+    }
+
+    /**
+     * Show the form for editing the specified resource.
+     *
+     * @param  int  $id
+     *
+     * @return \Illuminate\View\View
+     */
+    public function show($id)
+    {
+        $presencas = Presenca::where(function ($query) use ($id) {
+            return $query->where('id_materia_professor', '=', $id);
+        })->select('*', DB::raw('SUM(if(presenca = "presente", 1, 0)) as presentes, SUM(if(presenca = "falta", 1, 0)) as faltantes'))->groupBy('data')->paginate(15);
+        return view('admin.presencas.show', compact('presencas', 'id'));
+    }
     /**
      * Show the form for editing the specified resource.
      *

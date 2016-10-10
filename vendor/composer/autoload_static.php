@@ -78,6 +78,8 @@ class ComposerStaticInit24d4d8eaad8282e4e05367bb079f92e3
         array (
             'Dotenv\\' => 7,
             'Doctrine\\Instantiator\\' => 22,
+            'Doctrine\\Common\\Cache\\' => 22,
+            'Doctrine\\Common\\' => 16,
         ),
         'C' => 
         array (
@@ -207,6 +209,14 @@ class ComposerStaticInit24d4d8eaad8282e4e05367bb079f92e3
         array (
             0 => __DIR__ . '/..' . '/doctrine/instantiator/src/Doctrine/Instantiator',
         ),
+        'Doctrine\\Common\\Cache\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/doctrine/cache/lib/Doctrine/Common/Cache',
+        ),
+        'Doctrine\\Common\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/doctrine/common/lib/Doctrine/Common',
+        ),
         'Collective\\Html\\' => 
         array (
             0 => __DIR__ . '/..' . '/laravelcollective/html/src',
@@ -261,9 +271,25 @@ class ComposerStaticInit24d4d8eaad8282e4e05367bb079f92e3
         ),
         'D' => 
         array (
+            'Doctrine\\DBAL\\' => 
+            array (
+                0 => __DIR__ . '/..' . '/doctrine/dbal/lib',
+            ),
+            'Doctrine\\Common\\Lexer\\' => 
+            array (
+                0 => __DIR__ . '/..' . '/doctrine/lexer/lib',
+            ),
             'Doctrine\\Common\\Inflector\\' => 
             array (
                 0 => __DIR__ . '/..' . '/doctrine/inflector/lib',
+            ),
+            'Doctrine\\Common\\Collections\\' => 
+            array (
+                0 => __DIR__ . '/..' . '/doctrine/collections/lib',
+            ),
+            'Doctrine\\Common\\Annotations\\' => 
+            array (
+                0 => __DIR__ . '/..' . '/doctrine/annotations/lib',
             ),
         ),
         'C' => 
@@ -286,6 +312,9 @@ class ComposerStaticInit24d4d8eaad8282e4e05367bb079f92e3
         'CreateFuncoesTable' => __DIR__ . '/../..' . '/database/migrations/2016_08_23_175508_create_funcoes_table.php',
         'CreateListaesperaTable' => __DIR__ . '/../..' . '/database/migrations/2016_09_04_015111_create_listaespera_table.php',
         'CreateLivrosTable' => __DIR__ . '/../..' . '/database/migrations/2016_09_03_234348_create_livros_table.php',
+        'CreateMateriaHasProfessorTable' => __DIR__ . '/../..' . '/database/migrations/2016_09_05_204922_create_materia_has_professor_table.php',
+        'CreateMateriaHasTurmaTable' => __DIR__ . '/../..' . '/database/migrations/2016_09_08_140745_create_materia_has_turma_table.php',
+        'CreateMateriaisTable' => __DIR__ . '/../..' . '/database/migrations/2016_09_05_191338_create_materiais_table.php',
         'CreateMateriasTable' => __DIR__ . '/../..' . '/database/migrations/2016_08_23_144917_create_materias_table.php',
         'CreateMatriculasTable' => __DIR__ . '/../..' . '/database/migrations/2016_09_04_014206_create_matriculas_table.php',
         'CreateMultasTable' => __DIR__ . '/../..' . '/database/migrations/2016_09_04_020536_create_multas_table.php',
@@ -296,6 +325,7 @@ class ComposerStaticInit24d4d8eaad8282e4e05367bb079f92e3
         'CreateProfessoresTable' => __DIR__ . '/../..' . '/database/migrations/2016_09_04_012907_create_professores_table.php',
         'CreateReservasTable' => __DIR__ . '/../..' . '/database/migrations/2016_09_04_014305_create_reservas_table.php',
         'CreateResponsaveisTable' => __DIR__ . '/../..' . '/database/migrations/2016_09_04_013515_create_responsaveis_table.php',
+        'CreateRetiradasTable' => __DIR__ . '/../..' . '/database/migrations/2016_10_09_021231_create_retiradas_table.php',
         'CreateSalasTable' => __DIR__ . '/../..' . '/database/migrations/2016_08_19_163642_create_salas_table.php',
         'CreateSeriesTable' => __DIR__ . '/../..' . '/database/migrations/2016_09_03_234148_create_series_table.php',
         'CreateTipoexemplaresTable' => __DIR__ . '/../..' . '/database/migrations/2016_09_04_021515_create_tipoexemplares_table.php',
@@ -303,6 +333,13 @@ class ComposerStaticInit24d4d8eaad8282e4e05367bb079f92e3
         'CreateTipomultaTable' => __DIR__ . '/../..' . '/database/migrations/2016_08_23_145600_create_tipomulta_table.php',
         'CreateTurmasTable' => __DIR__ . '/../..' . '/database/migrations/2016_09_04_014053_create_turmas_table.php',
         'DatabaseSeeder' => __DIR__ . '/../..' . '/database/seeds/DatabaseSeeder.php',
+        'EditColumnDataMultas' => __DIR__ . '/../..' . '/database/migrations/2016_09_11_020347_edit_column_data_multas.php',
+        'EditColumnDatasReservas' => __DIR__ . '/../..' . '/database/migrations/2016_10_09_012548_edit_column_datas_reservas.php',
+        'EditColumnIdMatriculaReservas' => __DIR__ . '/../..' . '/database/migrations/2016_09_11_035505_edit_column_id_matricula_reservas.php',
+        'EditColumnIdTipomultaMultas' => __DIR__ . '/../..' . '/database/migrations/2016_09_11_024054_edit_column_id_tipomulta_multas.php',
+        'EditColumnPresenca' => __DIR__ . '/../..' . '/database/migrations/2016_10_10_134908_edit_column_presenca.php',
+        'EditColumnPresencas' => __DIR__ . '/../..' . '/database/migrations/2016_10_10_012548_edit_column_presenca.php',
+        'EditColumnStatusExemplares' => __DIR__ . '/../..' . '/database/migrations/2016_09_10_231345_edit_column_status_exemplares.php',
         'File_Iterator' => __DIR__ . '/..' . '/phpunit/php-file-iterator/src/Iterator.php',
         'File_Iterator_Facade' => __DIR__ . '/..' . '/phpunit/php-file-iterator/src/Facade.php',
         'File_Iterator_Factory' => __DIR__ . '/..' . '/phpunit/php-file-iterator/src/Factory.php',
@@ -806,6 +843,7 @@ class ComposerStaticInit24d4d8eaad8282e4e05367bb079f92e3
         'SebastianBergmann\\RecursionContext\\Exception' => __DIR__ . '/..' . '/sebastian/recursion-context/src/Exception.php',
         'SebastianBergmann\\RecursionContext\\InvalidArgumentException' => __DIR__ . '/..' . '/sebastian/recursion-context/src/InvalidArgumentException.php',
         'SebastianBergmann\\Version' => __DIR__ . '/..' . '/sebastian/version/src/Version.php',
+        'TabelaUsuarioSeeder' => __DIR__ . '/../..' . '/database/seeds/DatabaseSeeder.php',
         'TestCase' => __DIR__ . '/../..' . '/tests/TestCase.php',
         'Text_Template' => __DIR__ . '/..' . '/phpunit/php-text-template/src/Template.php',
     );

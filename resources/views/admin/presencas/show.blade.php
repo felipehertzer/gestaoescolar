@@ -3,12 +3,12 @@
 @section('content')
 <div class="container">
 
-    <h1>Presencas</h1>
+    <h1>Presencas  <a href="{{ url('/admin/presencas/'.$id.'/create') }}" class="btn btn-primary btn-xs" title="Add New presenca"><span class="glyphicon glyphicon-plus" aria-hidden="true"/></a></h1>
     <div class="table">
         <table class="table table-bordered table-striped table-hover">
             <thead>
                 <tr>
-                    <th>S.No</th><th> Materia </th><th> Turma </th><th> Id Professor </th><th>Actions</th>
+                    <th> Data </th><th> Presentes </th><th> Faltantes </th><th>Actions</th>
                 </tr>
             </thead>
             <tbody>
@@ -16,12 +16,11 @@
             @foreach($presencas as $item)
                 {{-- */$x++;/* --}}
                 <tr>
-                    <td>{{ $x }}</td>
-                    <td>{{ $item->materia_has_professor->materia->nome }}</td>
-                    <td>{{ $item->turma->numero_turma }}</td>
-                    <td>{{ $item->id_professor }}</td>
+                    <td>{{ $item->data }}</td>
+                    <td>{{ $item->presentes }}</td>
+                    <td>{{ $item->faltantes }}</td>
                     <td>
-                        <a href="{{ url('/admin/presencas/' . $item->id ) }}" class="btn btn-primary btn-xs" title="Fazer presenca"><span class="fa fa-bullhorn" aria-hidden="true"/></a>
+                        <a href="{{ url('/admin/presencas/' . $id. '/edit' ) }}" class="btn btn-primary btn-xs" title="Fazer presenca"><span class="fa fa-bullhorn" aria-hidden="true"/></a>
                     </td>
                 </tr>
             @endforeach

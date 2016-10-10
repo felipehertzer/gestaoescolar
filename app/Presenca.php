@@ -25,7 +25,7 @@ class Presenca extends Model
      *
      * @var array
      */
-    protected $fillable = ['id_professor', 'id_materia','id_turma', 'id_matricula', 'data', 'presenca'];
+    protected $fillable = ['id_materia_professor', 'id_matricula', 'data', 'presenca'];
 
     
 }

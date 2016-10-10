@@ -3,19 +3,13 @@
 @section('content')
 <div class="container">
 
-    <h1>Edit presenca </h1>
-
-    {!! Form::model($presenca, [
-        'method' => 'PATCH',
-        'url' => ['/admin/presencas'],
-        'class' => 'form-horizontal',
-        'files' => true
-    ]) !!}
-
+    <h1>Create presenca </h1>
+    {!! Form::open(['url' => '/admin/presencas', 'class' => 'form-horizontal']) !!}
+        {!! Form::hidden('identificador', $id, ['class' => 'form-control']) !!}
                     <div class="form-group {{ $errors->has('data') ? 'has-error' : ''}}">
                 {!! Form::label('data', 'Data', ['class' => 'col-sm-3 control-label']) !!}
                 <div class="col-sm-6">
-                    {!! Form::date('data', null, ['class' => 'form-control']) !!}
+                    {!! Form::date('data', date('Y-m-d'), ['class' => 'form-control']) !!}
                     {!! $errors->first('data', '<p class="help-block">:message</p>') !!}
                 </div>
             </div>
@@ -51,7 +45,7 @@
 
         <div class="form-group">
             <div class="col-sm-offset-3 col-sm-3">
-                {!! Form::submit('Update', ['class' => 'btn btn-primary form-control']) !!}
+                {!! Form::submit('Create', ['class' => 'btn btn-primary form-control']) !!}
             </div>
         </div>
     {!! Form::close() !!}

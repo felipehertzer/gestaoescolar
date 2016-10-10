@@ -105,6 +105,18 @@
                                 <li><a href="{{ url('/admin/presencas') }}"><i class="fa fa-btn fa-calendar-check-o"></i>Presenças</a></li>
                             </ul>
                         </li>
+
+                        <li class="dropdown">
+                            <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+                                Relatórios <span class="caret"></span>
+                            </a>
+
+                            <ul class="dropdown-menu" role="menu">
+                                <li><a href="{{ url('/admin/relatorios/presencas') }}"><i class="fa fa-btn fa-calendar-check-o"></i>Presenças</a></li>
+                                <li><a href="{{ url('/admin/relatorios/matriculas') }}"><i class="fa fa-btn fa-user"></i>Matriculas</a></li>
+                                <li><a href="{{ url('/admin/relatorios/notas') }}"><i class="fa fa-btn fa-sort-numeric-desc"></i>Notas</a></li>
+                            </ul>
+                        </li>
                         @endif
                     </ul>
 

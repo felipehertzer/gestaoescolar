@@ -44,7 +44,13 @@ Route::post('admin/avaliacoes/get-turmas', ['uses' =>'AvaliacaoController@getTur
 
 Route::resource('admin/listaespera', 'ListaEsperaController');
 
+Route::resource('admin/notas', 'NotaController');
+
 Route::resource('admin/presencas', 'PresencaController');
+
+Route::get('admin/presencas/{id}', 'PresencaController@show');
+
+Route::get('admin/presencas/{id}/create', 'PresencaController@create');
 
 Route::resource('admin/matriculas', 'MatriculaController');
 
