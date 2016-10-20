@@ -8,7 +8,11 @@
         <table class="table table-bordered table-striped table-hover">
             <thead>
                 <tr>
-                    <th>S.No</th><th> Observacoes </th><th> Id Aluno </th><th> Id Turma </th><th>Actions</th>
+                    <th>S.No</th>
+                    <th> Aluno </th>
+                    <th> Turma </th>
+                    <th> Observacoes </th>
+                    <th>Actions</th>
                 </tr>
             </thead>
             <tbody>
@@ -17,7 +21,9 @@
                 {{-- */$x++;/* --}}
                 <tr>
                     <td>{{ $x }}</td>
-                    <td>{{ $item->observacoes }}</td><td>{{ $item->id_aluno }}</td><td>{{ $item->id_turma }}</td>
+                    <td>{{ $item->nome }}</td>
+                    <td>{{ $item->numero_turma }}</td>
+                    <td>{{ $item->observacoes }}</td>
                     <td>
                         <a href="{{ url('/admin/matriculas/' . $item->id) }}" class="btn btn-success btn-xs" title="View matricula"><span class="glyphicon glyphicon-eye-open" aria-hidden="true"/></a>
                         <a href="{{ url('/admin/matriculas/' . $item->id . '/edit') }}" class="btn btn-primary btn-xs" title="Edit matricula"><span class="glyphicon glyphicon-pencil" aria-hidden="true"/></a>

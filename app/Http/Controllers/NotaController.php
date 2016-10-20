@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Http\Requests;
 use App\Http\Controllers\Controller;
 
+use App\MateriaHasTurma;
 use App\Nota;
 use Illuminate\Http\Request;
 use Session;
@@ -22,9 +23,12 @@ class NotaController extends Controller
      */
     public function index()
     {
-        $notas = Nota::paginate(25);
+        $value = 1;
+        $notas = MateriaHasTurma::with('materia_has_professor', 'materia_has_professor.materia', 'turma')->whereHas('materia_has_professor', function($q) use($value) {
+            $q->where('id_professor', '=', $value);
+        })->paginate(25);
 
-        return view('notas.notas.index', compact('notas'));
+        return view('admin.notas.index', compact('notas'));
     }
 
     /**

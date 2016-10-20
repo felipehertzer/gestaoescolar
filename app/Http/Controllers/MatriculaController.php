@@ -9,6 +9,7 @@ use App\Http\Controllers\Controller;
 use App\Matricula;
 use App\Turma;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 use Session;
 
 class MatriculaController extends Controller
@@ -24,8 +25,13 @@ class MatriculaController extends Controller
      */
     public function index()
     {
-        $matriculas = Matricula::paginate(25);
-
+        $matriculas = DB::table('matriculas')
+            ->select('pessoas.nome', 'turmas.numero_turma', 'matriculas.observacoes', 'matriculas.id')
+            ->join('alunos', 'alunos.id', '=', 'matriculas.id_aluno')
+            ->join('pessoas', 'pessoas.id', '=', 'alunos.id_pessoas')
+            ->join('turmas', 'turmas.id', '=', 'matriculas.id_turma')
+            ->paginate(15);
+        //dd($matriculas);
         return view('admin.matriculas.index', compact('matriculas'));
     }
 

@@ -34,4 +34,8 @@ class Matricula extends Model
     public function turma() {
         return $this->hasMany(Turma::class, 'id', 'id_turma');
     }
+
+    public function presenca() {
+        return $this->hasMany(Presenca::class, 'id', 'id_matricula');
+    }
 }

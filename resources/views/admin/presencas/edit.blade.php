@@ -2,20 +2,18 @@
 
 @section('content')
 <div class="container">
-
     <h1>Edit presenca </h1>
 
     {!! Form::model($presenca, [
         'method' => 'PATCH',
-        'url' => ['/admin/presencas'],
-        'class' => 'form-horizontal',
-        'files' => true
+        'url' => ['/admin/presencas', $presenca[0]->id_presenca ],
+        'class' => 'form-horizontal'
     ]) !!}
 
                     <div class="form-group {{ $errors->has('data') ? 'has-error' : ''}}">
                 {!! Form::label('data', 'Data', ['class' => 'col-sm-3 control-label']) !!}
                 <div class="col-sm-6">
-                    {!! Form::date('data', null, ['class' => 'form-control']) !!}
+                    {!! Form::date('data', $presenca[0]->data, ['class' => 'form-control', 'readonly' => 'readonly']) !!}
                     {!! $errors->first('data', '<p class="help-block">:message</p>') !!}
                 </div>
             </div>
@@ -35,12 +33,12 @@
                     {{-- */$x++;/* --}}
                     <tr>
                         <td>{{ $x }}</td>
-                        <td>{{ $item->pessoa->nome }}</td>
-                        <td>{{ $item->matricula[0]->id }}</td>
+                        <td>{{ $item->nome }}</td>
+                        <td>{{ $item->id }}</td>
                         <td>
                             <div class="checkbox">
-                                <label>{!! Form::radio('presenca['.$item->matricula[0]->id.']', '1', true) !!} Sim</label>
-                                <label>{!! Form::radio('presenca['.$item->matricula[0]->id.']', '0') !!} Não</label>
+                                <label>{!! Form::radio('presenca['.$item->id.']', '1', $item->presenca == "presente" ? true : false) !!} Sim</label>
+                                <label>{!! Form::radio('presenca['.$item->id.']', '0', $item->presenca == "presente" ? false : true) !!} Não</label>
                             </div>
                             {!! $errors->first('presenca', '<p class="help-block">:message</p>') !!}
                         </td>

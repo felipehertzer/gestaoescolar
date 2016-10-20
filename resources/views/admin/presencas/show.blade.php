@@ -16,11 +16,11 @@
             @foreach($presencas as $item)
                 {{-- */$x++;/* --}}
                 <tr>
-                    <td>{{ $item->data }}</td>
+                    <td>{{ date("d/m/Y", strtotime($item->data)) }}</td>
                     <td>{{ $item->presentes }}</td>
                     <td>{{ $item->faltantes }}</td>
                     <td>
-                        <a href="{{ url('/admin/presencas/' . $id. '/edit' ) }}" class="btn btn-primary btn-xs" title="Fazer presenca"><span class="fa fa-bullhorn" aria-hidden="true"/></a>
+                        <a href="{{ url('/admin/presencas/' . $item->id. '/edit' ) }}" class="btn btn-primary btn-xs" title="Fazer presenca"><span class="fa fa-bullhorn" aria-hidden="true"/></a>
                     </td>
                 </tr>
             @endforeach

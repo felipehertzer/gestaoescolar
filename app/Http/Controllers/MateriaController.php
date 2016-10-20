@@ -10,6 +10,7 @@ use App\Pessoa;
 use App\Professor;
 use Illuminate\Http\Request;
 use Carbon\Carbon;
+use Illuminate\Support\Facades\DB;
 use Session;
 
 class MateriaController extends Controller
@@ -38,8 +39,15 @@ class MateriaController extends Controller
      */
     public function create()
     {
-        $professor = \App\Professor::with(['pessoa'])->get();
-        $professores = $professor->pluck('pessoa.nome','id');
+        $collection = collect(
+            DB::table('pessoas')
+                ->select('professores.id', 'pessoas.nome')
+                ->join('professores', 'pessoas.id', '=', 'professores.id_pessoas')
+                ->get()
+        );
+
+        $professores = $collection->pluck('nome', 'id');
+
         return view('admin.materias.create', compact('professores'));
     }
 
@@ -81,8 +89,14 @@ class MateriaController extends Controller
     public function edit($id)
     {
         $materia = Materia::findOrFail($id);
-        $professor = \App\Professor::with(['pessoa'])->get();
-        $professores = $professor->pluck('pessoa.nome','id');
+
+        $collection = collect(
+            DB::table('pessoas')
+                ->select('professores.id', 'pessoas.nome')
+                ->join('professores', 'pessoas.id', '=', 'professores.id_pessoas')
+                ->get()
+        );
+        $professores = $collection->pluck('nome', 'id');
 
         return view('admin.materias.edit', compact('materia', 'professores'));
     }

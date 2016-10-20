@@ -9,6 +9,7 @@ use App\Http\Controllers\Controller;
 use App\MateriaHasProfessor;
 use App\MateriaHasTurma;
 use App\Presenca;
+use App\PresencaHasMatricula;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Session;
@@ -52,8 +53,9 @@ class PresencaController extends Controller
      */
     public function store(Request $request)
     {
+        $pre = Presenca::create(['data' => $request->input('data'), 'id_materia_professor' => $request->input('identificador')]);
         foreach($request->only('presenca')['presenca'] as $matricula => $presenca){
-            Presenca::create(['data' => $request->input('data'), 'presenca' => $presenca == "1" ? "presente" : "falta", 'id_matricula' => $matricula, 'id_materia_professor' => $request->input('identificador') ]);
+            PresencaHasMatricula::create(['id_presenca' => $pre->id, 'presenca' => $presenca == "1" ? "presente" : "falta", 'id_matricula' => $matricula]);
         }
 
         Session::flash('success', 'Presenca added!');
@@ -69,9 +71,11 @@ class PresencaController extends Controller
      */
     public function show($id)
     {
-        $presencas = Presenca::where(function ($query) use ($id) {
-            return $query->where('id_materia_professor', '=', $id);
-        })->select('*', DB::raw('SUM(if(presenca = "presente", 1, 0)) as presentes, SUM(if(presenca = "falta", 1, 0)) as faltantes'))->groupBy('data')->paginate(15);
+        $presencas = DB::table('presencas')
+                ->selectRaw('presencas.*, (SELECT SUM(if(presenca = "presente", 1, 0)) FROM presenca_has_matricula WHERE presenca_has_matricula.id_presenca = presencas.id) as presentes, (SELECT SUM(if(presenca = "falta", 1, 0)) FROM presenca_has_matricula WHERE presenca_has_matricula.id_presenca = presencas.id) as faltantes')
+                ->join('presenca_has_matricula', 'presencas.id', '=', 'presenca_has_matricula.id_presenca')
+                ->where('id_materia_professor', '=', $id)
+                ->paginate(15);
         return view('admin.presencas.show', compact('presencas', 'id'));
     }
     /**
@@ -83,9 +87,21 @@ class PresencaController extends Controller
      */
     public function edit($id)
     {
-        $presenca = Aluno::with('pessoa','matricula', 'matricula.turma', 'matricula.turma.materia_has_turma')->whereHas('matricula.turma.materia_has_turma', function($q) use($id) {
-            $q->where('id_materia_professor', '=', $id);
-        })->get();
+        $presenca = collect(
+            DB::table('pessoas')
+                ->select('pessoas.nome', 'matriculas.id', 'presenca_has_matricula.presenca', 'presencas.data', 'presencas.id as id_presenca')
+                ->join('alunos', 'pessoas.id', '=', 'alunos.id_pessoas')
+                ->join('matriculas', 'alunos.id', '=', 'matriculas.id_aluno')
+                ->join('turmas', 'matriculas.id_turma', '=', 'turmas.id')
+                ->join('materia_has_turma', 'materia_has_turma.id_turma', '=', 'turmas.id')
+                ->join('presencas', 'materia_has_turma.id_materia_professor', '=', 'presencas.id_materia_professor')
+                ->join('presenca_has_matricula', function($join) {
+                    $join->on('presenca_has_matricula.id_presenca', '=', 'presencas.id');
+                    $join->on('presenca_has_matricula.id_matricula','=', 'matriculas.id');
+                })
+                ->where('presencas.id', '=', $id)
+                ->get()
+        );
         //dd($presenca);
         return view('admin.presencas.edit', compact('presenca'));
     }
@@ -100,11 +116,12 @@ class PresencaController extends Controller
      */
     public function update($id, Request $request)
     {
-        
-        $requestData = $request->all();
-        
-        $presenca = Presenca::findOrFail($id);
-        $presenca->update($requestData);
+
+        PresencaHasMatricula::where('id_presenca', '=', $id)->delete();
+
+        foreach($request->only('presenca')['presenca'] as $matricula => $presenca){
+            PresencaHasMatricula::create(['id_presenca' => $id , 'presenca' => $presenca == "1" ? "presente" : "falta", 'id_matricula' => $matricula]);
+        }
 
         Session::flash('flash_message', 'Presenca updated!');
 
