@@ -69,3 +69,9 @@ Route::resource('admin/biblioteca/multas', 'Biblioteca\\MultaController');
 Route::resource('admin/biblioteca/reservas', 'Biblioteca\\ReservaController');
 
 Route::resource('admin/biblioteca/retiradas', 'Biblioteca\\RetiradaController');
+
+Route::get('admin/biblioteca/retiradas/{id}/devolve_tudo', 'Biblioteca\\RetiradaController@devolve_tudo');
+
+Route::get('admin/biblioteca/retiradas/{id}/devolve_exemplares', 'Biblioteca\\RetiradaController@devolve_exemplares');
+
+Route::post('admin/biblioteca/retiradas/{id}/devolve_exemplares', 'Biblioteca\\RetiradaController@devolve_exemplares');

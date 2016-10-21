@@ -4,11 +4,11 @@ namespace App;
 
 use Illuminate\Database\Eloquent\Model;
 
-class Retirada extends Model
-{
+class Retirada extends Model {
+
     const STATUS_RETIRADO = 'retirado';
     const STATUS_DEVOLVIDO = 'devolvido';
-    
+
     /**
      * The database table used by the model.
      *
@@ -17,10 +17,10 @@ class Retirada extends Model
     protected $table = 'retiradas';
 
     /**
-    * The database primary key value.
-    *
-    * @var string
-    */
+     * The database primary key value.
+     *
+     * @var string
+     */
     protected $primaryKey = 'id';
 
     /**
@@ -33,15 +33,25 @@ class Retirada extends Model
     public function matricula() {
         return $this->belongsTo(Matricula::class);
     }
-    
+
+    public function exemplares() {
+        return $this->belongsToMany(Exemplar::class, 'retirada_has_exemplares', 'retirada_id', 'exemplar_id');
+    }
+
+    public function editaStatusParaDevolvido($id) {
+        $e = self::findOrFail($id);
+        $e->update(['status' => self::STATUS_DEVOLVIDO]);
+    }
+
     public static function getStatus() {
         return array(
             self::STATUS_RETIRADO => 'Retirado',
             self::STATUS_DEVOLVIDO => 'Devolvido'
         );
     }
-    
+
     public static function getNomeStatus($status) {
         return self::getStatus()[$status];
     }
+
 }

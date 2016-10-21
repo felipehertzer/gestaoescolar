@@ -8,7 +8,12 @@
         <table class="table table-bordered table-striped table-hover">
             <thead>
                 <tr>
-                    <th>S.No</th><th> Data Retirada </th><th> Data Devolucao </th><th> Renovacao </th><th>Actions</th>
+                    <th>S.No</th>
+                    <th> Data Retirada </th>
+                    <th> Data Devolucao </th>
+                    <th> Renovacao </th>
+                    <th> Status </th>
+                    <th>Actions</th>
                 </tr>
             </thead>
             <tbody>
@@ -20,21 +25,12 @@
                     <td>{{ $item->data_retirada }}</td>
                     <td>{{ $item->data_devolucao }}</td>
                     <td>{{ $item->renovacao }}</td>
+                    <td>{{ App\Retirada::getNomeStatus($item->status) }}</td>
                     <td>
                         <a href="{{ url('/admin/biblioteca/retiradas/' . $item->id) }}" class="btn btn-success btn-xs" title="View retirada"><span class="glyphicon glyphicon-eye-open" aria-hidden="true"/></a>
-                        <a href="{{ url('/admin/biblioteca/retiradas/' . $item->id . '/edit') }}" class="btn btn-primary btn-xs" title="Edit retirada"><span class="glyphicon glyphicon-pencil" aria-hidden="true"/></a>
-                        {!! Form::open([
-                            'method'=>'DELETE',
-                            'url' => ['/admin/biblioteca/retiradas', $item->id],
-                            'style' => 'display:inline'
-                        ]) !!}
-                            {!! Form::button('<span class="glyphicon glyphicon-trash" aria-hidden="true" title="Delete retirada" />', array(
-                                    'type' => 'submit',
-                                    'class' => 'btn btn-danger btn-xs',
-                                    'title' => 'Delete retirada',
-                                    'onclick'=>'return confirm("Confirm delete?")'
-                            )) !!}
-                        {!! Form::close() !!}
+                        <a href="{{ url('/admin/biblioteca/retiradas/' . $item->id . '/devolve_tudo') }}" class="btn btn-primary btn-xs" title="Devolver Tudo"><span class="glyphicon glyphicon-pencil" aria-hidden="true"/></a>
+                        <a href="{{ url('/admin/biblioteca/retiradas/' . $item->id . '/devolve_exemplares') }}" class="btn btn-primary btn-xs" title="Devolver por Exemplares"><span class="glyphicon glyphicon-pencil" aria-hidden="true"/></a>
+                        <a href="{{ url('/admin/biblioteca/retiradas/' . $item->id . '/renovar') }}" class="btn btn-primary btn-xs" title="Renovar"><span class="glyphicon glyphicon-pencil" aria-hidden="true"/></a>
                     </td>
                 </tr>
             @endforeach

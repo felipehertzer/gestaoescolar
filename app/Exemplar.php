@@ -38,6 +38,25 @@ class Exemplar extends Model
         return $this->belongsTo(TipoExemplar::class);
     }
     
+    public function retiradas() {
+        return $this->belongsToMany(Retirada::class, 'retirada_has_exemplares', 'exemplar_id', 'retirada_id');
+    }
+    
+    public function editaStatusParaEmprestado($exemplaresIds) {
+        $this->editaStatusExemplares($exemplaresIds, self::STATUS_EMPRESTADO);
+    }
+    
+    public function editaStatusParaDisponivel($exemplaresIds) {
+        $this->editaStatusExemplares($exemplaresIds, self::STATUS_DISPONIVEL);
+    }
+    
+    public function editaStatusExemplares($exemplaresIds, $status) {
+        foreach ($exemplaresIds as $exemplarId) {
+            $e = self::findOrFail($exemplarId);
+            $e->update(['status' => $status]);
+        }        
+    }
+    
     public static function getStatus() {
         return array(
             self::STATUS_EMPRESTADO => 'Emprestado',

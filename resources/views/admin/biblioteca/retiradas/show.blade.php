@@ -24,10 +24,29 @@
                 <tr>
                     <th>ID</th><td>{{ $retirada->id }}</td>
                 </tr>
-                <tr><th> Data Retirada </th><td> {{ $retirada->data_retirada }} </td></tr><tr><th> Data Devolucao </th><td> {{ $retirada->data_devolucao }} </td></tr><tr><th> Renovacao </th><td> {{ $retirada->renovacao }} </td></tr>
+                <tr>
+                    <th> Data Retirada </th><td> {{ $retirada->data_retirada }} </td>
+                </tr>
+                <tr>
+                    <th> Data Devolucao </th><td> {{ $retirada->data_devolucao }} </td>
+                </tr>
+                <tr>
+                    <th> Renovacao </th><td> {{ $retirada->renovacao }} </td>
+                </tr>
+                <tr>
+                    <th> Status </th><td> {{ App\Retirada::getNomeStatus($retirada->status) }} </td>
+                </tr>
             </tbody>
         </table>
     </div>
+    
+    <div class="exemplares">
+        <h2>Exemplares Retirados</h2>
+        @foreach($retirada->exemplares as $exemplar)
+            <span> {{ $exemplar->livro->nome }} </span> <br />
+        @endforeach
+    </div>
+    
 
 </div>
 @endsection
