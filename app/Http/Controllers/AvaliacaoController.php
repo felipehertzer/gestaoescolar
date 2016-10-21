@@ -43,7 +43,11 @@ class AvaliacaoController extends Controller
     {
         $materia = MateriaHasProfessor::with('materia')->where('id_professor', 1)->get();
         $materias = $materia->pluck('materia.nome','id');
-        return view('admin.avaliacoes.create', compact('materias'));
+        
+        $turma = MateriaHasTurma::with('turma')->where('id_materia_professor', key(head($materias)))->get();
+        $turmas = $turma->pluck('turma.numero_turma', 'turma.id');
+
+        return view('admin.avaliacoes.create', compact('materias', 'turmas'));
     }
 
     /**
@@ -70,7 +74,9 @@ class AvaliacaoController extends Controller
      */
     public function show($id)
     {
-        $avaliaco = Avaliacao::findOrFail($id);
+        $avaliaco = Avaliacao::with('materias', 'turmas', 'professores.pessoa')->findOrFail($id);
+
+        //dd($avaliaco);
 
         return view('admin.avaliacoes.show', compact('avaliaco'));
     }
@@ -88,7 +94,10 @@ class AvaliacaoController extends Controller
         $materia = MateriaHasProfessor::with('materia')->where('id_professor', 1)->get();
         $materias = $materia->pluck('materia.nome','id');
 
-        return view('admin.avaliacoes.edit', compact('avaliaco', 'materias'));
+        $turma = MateriaHasTurma::with('turma')->where('id_materia_professor', $avaliaco->id_materia)->get();
+        $turmas = $turma->pluck('turma.numero_turma', 'turma.id');
+
+        return view('admin.avaliacoes.edit', compact('avaliaco', 'materias', 'turmas'));
     }
 
     /**

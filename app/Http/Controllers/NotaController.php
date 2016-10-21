@@ -2,12 +2,14 @@
 
 namespace App\Http\Controllers;
 
+use App\Avaliacao;
 use App\Http\Requests;
 use App\Http\Controllers\Controller;
 
 use App\MateriaHasTurma;
 use App\Nota;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 use Session;
 
 class NotaController extends Controller
@@ -69,9 +71,17 @@ class NotaController extends Controller
      */
     public function show($id)
     {
-        $nota = Nota::findOrFail($id);
-
-        return view('admin.notas.show', compact('nota'));
+        $avaliacoes = DB::table('avaliacoes')
+            ->select('avaliacoes.nome', 'peso', 'trimestre', 'tipo', 'avaliacoes.id')
+            ->join('materia_has_professor', function($join) {
+                $join->on('materia_has_professor.id_materia', '=', 'avaliacoes.id_materia');
+                $join->on('materia_has_professor.id_professor','=', 'avaliacoes.id_professor');
+            })
+            ->join('materias', 'materias.id', '=', 'avaliacoes.id_materia')
+            ->where('avaliacoes.id_materia', '=', $id) // id_professor = session id_professor
+            ->paginate(15);
+        //dd($avaliacoes);
+        return view('admin.notas.show', compact('avaliacoes'));
     }
 
     /**
@@ -83,9 +93,19 @@ class NotaController extends Controller
      */
     public function edit($id)
     {
-        $nota = Nota::findOrFail($id);
-
-        return view('admin.notas.edit', compact('nota'));
+        $alunos = DB::table('avaliacoes')
+            ->select('matriculas.id', 'pessoas.nome', 'nota')
+            ->join('matriculas', 'matriculas.id_turma', '=', 'avaliacoes.id_turma')
+            ->join('alunos', 'alunos.id', '=', 'matriculas.id_aluno')
+            ->join('pessoas', 'pessoas.id', '=', 'alunos.id_pessoas')
+            ->join('notas', function($join){
+                $join->on('notas.id_avaliacao', '=', 'avaliacoes.id');
+                $join->on('notas.id_matricula','=', 'matriculas.id_aluno');
+            })
+            ->where('avaliacoes.id', '=', $id)
+            ->get();
+        //dd($alunos);
+        return view('admin.notas.edit', compact('alunos', 'id'));
     }
 
     /**
@@ -98,11 +118,11 @@ class NotaController extends Controller
      */
     public function update($id, Request $request)
     {
-        
-        $requestData = $request->all();
-        
-        $nota = Nota::findOrFail($id);
-        $nota->update($requestData);
+        Nota::where('id_avaliacao', '=', $id)->delete();
+
+        foreach($request->only('notas')['notas'] as $matricula => $nota){
+            Nota::create(['id_avaliacao' => $id , 'id_matricula' => $matricula, 'nota' => $nota]);
+        }
 
         Session::flash('success', 'Nota updated!');
 

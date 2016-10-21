@@ -40,6 +40,8 @@ Route::resource('admin/advertencias', 'AdvertenciaController');
 
 Route::resource('admin/avaliacoes', 'AvaliacaoController');
 
+Route::post('admin/avaliacoes/{id}/get-turmas', ['uses' =>'AvaliacaoController@getTurmas']);
+
 Route::post('admin/avaliacoes/get-turmas', ['uses' =>'AvaliacaoController@getTurmas']);
 
 Route::resource('admin/listaespera', 'ListaEsperaController');

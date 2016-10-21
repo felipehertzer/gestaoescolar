@@ -21,10 +21,15 @@
     <div class="table-responsive">
         <table class="table table-bordered table-striped table-hover">
             <tbody>
-                <tr>
-                    <th>ID</th><td>{{ $avaliaco->id }}</td>
-                </tr>
-                <tr><th> Nome </th><td> {{ $avaliaco->nome }} </td></tr><tr><th> Peso </th><td> {{ $avaliaco->peso }} </td></tr><tr><th> Observacoes </th><td> {{ $avaliaco->observacoes }} </td></tr>
+                <tr><th> ID </th><td>{{ $avaliaco->id }}</td></tr>
+                <tr><th> Nome </th><td> {{ $avaliaco->nome }} </td></tr>
+                <tr><th> Peso </th><td> {{ $avaliaco->peso }} </td></tr>
+                <tr><th> Tipo </th><td> {{ $avaliaco->tipo }} </td></tr>
+                <tr><th> Trimestre </th><td> {{ $avaliaco->trimestre }} </td></tr>
+                <tr><th> Professor </th><td> {{ $avaliaco->professores->pessoa->nome }} </td></tr>
+                <tr><th> Materia </th><td> {{ $avaliaco->materias->nome }} </td></tr>
+                <tr><th> Turma </th><td> {{ $avaliaco->turmas->numero_turma }} </td></tr>
+                <tr><th> Observacoes </th><td> {{ $avaliaco->observacoes }} </td></tr>
             </tbody>
         </table>
     </div>
