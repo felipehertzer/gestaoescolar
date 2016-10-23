@@ -8,7 +8,7 @@
         <table class="table table-bordered table-striped table-hover">
             <thead>
                 <tr>
-                    <th>S.No</th><th> Data Reserva </th><th> Data Agenda </th><th> Matricula Id </th><th>Actions</th>
+                    <th>S.No</th><th> Data Reserva </th><th> Data Agenda </th><th> Aluno </th><th>Actions</th>
                 </tr>
             </thead>
             <tbody>
@@ -17,9 +17,9 @@
             {{-- */$x++;/* --}}
                 <tr>
                     <td>{{ $x }}</td>
-                    <td>{{ $item->data_reserva }}</td>
-                    <td>{{ $item->data_agenda }}</td>
-                    <td>{{ $item->matricula_id }}</td>
+                    <td>{{ $item->data_reserva->format('d/m/Y') }}</td>
+                    <td>{{ $item->data_agenda->format('d/m/Y') }}</td>
+                    <td>{{ $item->matricula->aluno->pessoa->nome }}</td>
                     <td>
                         <a href="{{ url('/admin/biblioteca/reservas/' . $item->id) }}" class="btn btn-success btn-xs" title="View reserva"><span class="glyphicon glyphicon-eye-open" aria-hidden="true"/></a>
                         <a href="{{ url('/admin/biblioteca/reservas/' . $item->id . '/edit') }}" class="btn btn-primary btn-xs" title="Edit reserva"><span class="glyphicon glyphicon-pencil" aria-hidden="true"/></a>

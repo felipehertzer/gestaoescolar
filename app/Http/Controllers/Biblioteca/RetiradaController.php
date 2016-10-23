@@ -94,7 +94,6 @@ class RetiradaController extends Controller {
     public function update($id, Request $request) {
 
         $requestData = $request->all();
-        dd($request);
 
         $retirada = Retirada::findOrFail($id);
         $retirada->update($requestData);
@@ -126,13 +125,27 @@ class RetiradaController extends Controller {
      * @return \Illuminate\Http\RedirectResponse|\Illuminate\Routing\Redirector
      */
     public function devolve_tudo($id) {
-        $retirada = Retirada::findOrFail($id);
-        $exemplares = $retirada->exemplares()->lists('exemplares.id');
-        (new \App\RetiradaHasExemplar)->editaStatusParaDevolvido($id, $exemplares);
-        (new \App\Exemplar)->editaStatusParaDisponivel($exemplares);
-        (new \App\Retirada)->editaStatusParaDevolvido($id);
+        DB::beginTransaction();
+        try {
+            $retirada = Retirada::findOrFail($id);
+            $exemplares = $retirada->exemplares()->lists('exemplares.id');
 
-        Session::flash('success', 'Os Exemplares foram devolvidos com sucesso!');
+            (new \App\RetiradaHasExemplar)->editaStatusParaDevolvido($id, $exemplares);
+            (new \App\Exemplar)->editaStatusParaDisponivel($exemplares);
+            $multaId = (new \App\Retirada)->editaStatusParaDevolvido($id);
+
+            DB::commit();
+
+            if ($multaId) {
+                Session::flash('warning', 'Multa gerada pelo atraso!');
+                return redirect('admin/biblioteca/multas/' . $multaId);
+            }
+
+            Session::flash('success', 'Os Exemplares foram devolvidos com sucesso!');
+        } catch (\Exception $ex) {
+            DB::rollback();
+            Session::flash('danger', $ex->getMessage());
+        }
 
         return redirect('admin/biblioteca/retiradas');
     }
@@ -142,23 +155,36 @@ class RetiradaController extends Controller {
      * ******MELHORAR CÓDIGO DEPOIS********* TEM UM POCO DE POG HEHEHEHE
      * 
      * @param int $id
+     * @param \Illuminate\Http\Request $request
      * @return \Illuminate\Http\RedirectResponse|\Illuminate\Routing\Redirector
      */
     public function devolve_exemplares($id, Request $request) {
 
         if (!empty($request->all())) {
-            $dados = $request->all();
-            $RHE = new \App\RetiradaHasExemplar;
-            $RHE->editaStatusParaDevolvido($id, $dados['exemplares_devolvidos']);
-            (new \App\Exemplar)->editaStatusParaDisponivel($dados['exemplares_devolvidos']);
-            
-            if($RHE->todosExemplaresForamDevolvidos($id)) {
-                (new \App\Retirada)->editaStatusParaDevolvido($id);
-            }
-            
-            Session::flash('success', 'Os Exemplares foram devolvidos com sucesso!');
+            DB::beginTransaction();
+            try {
+                $dados = $request->all();
+                $RHE = new \App\RetiradaHasExemplar;
+                $RHE->editaStatusParaDevolvido($id, $dados['exemplares_devolvidos']);
+                (new \App\Exemplar)->editaStatusParaDisponivel($dados['exemplares_devolvidos']);
 
-            return redirect('admin/biblioteca/retiradas');
+                $multaId = false;
+                if ($RHE->todosExemplaresForamDevolvidos($id)) {
+                    $multaId = (new \App\Retirada)->editaStatusParaDevolvido($id);
+                }
+
+                DB::commit();
+                if ($multaId) {
+                    Session::flash('warning', 'Multa gerada pelo atraso!');
+                    return redirect('admin/biblioteca/multas/' . $multaId);
+                }
+                
+                Session::flash('success', 'Os Exemplares foram devolvidos com sucesso!');
+                return redirect('admin/biblioteca/retiradas');
+            } catch (\Exception $ex) {
+                DB::rollback();
+                Session::flash('danger', $ex->getMessage());
+            }
         }
 
         $retirada = Retirada::findOrFail($id);
@@ -171,14 +197,31 @@ class RetiradaController extends Controller {
                 ->join('livros', 'livros.id', '=', 'exemplares.livro_id')
                 ->whereIn('exemplares.id', $IdsExemplaresRetirados)
                 ->lists('full_name', 'exemplares.id');
-        
+
         $exemplaresDevolvidos = \App\Exemplar::select("exemplares.id"
                         , DB::raw("CONCAT('L:', livros.nome,' - Ex:', exemplares.id) as full_name"))
                 ->join('livros', 'livros.id', '=', 'exemplares.livro_id')
                 ->whereIn('exemplares.id', $IdsExemplaresDevolvidos)
-                ->lists('full_name', 'exemplares.id');     
+                ->lists('full_name', 'exemplares.id');
 
         return view('admin/biblioteca.retiradas.devolve_exemplares', compact('retirada', 'exemplaresRetirados', 'exemplaresDevolvidos'));
+    }
+
+    /**
+     * Renova o registro de retirada por 7 dias
+     * 
+     * @param int $id
+     * @return \Illuminate\Http\RedirectResponse|\Illuminate\Routing\Redirector
+     */
+    public function renovar($id) {
+        try {
+            (new \App\Retirada)->renovarRetirada($id);
+            Session::flash('success', 'A renovação foi feito com sucesso!');
+        } catch (\Exception $ex) {
+            Session::flash('danger', $ex->getMessage());
+        }
+
+        return redirect('admin/biblioteca/retiradas');
     }
 
 }

@@ -28,16 +28,19 @@ class ReservaController extends Controller {
      * @return \Illuminate\View\View
      */
     public function create() {
-        $collection = collect(
-                DB::table('matriculas')
-                        ->select('matriculas.id', 'pessoas.nome')
-                        ->join('alunos', 'alunos.id', '=', 'matriculas.id_aluno')
-                        ->join('pessoas', 'pessoas.id', '=', 'alunos.id_pessoas')
-                        ->get()
-        );
+        $matriculas = \App\Matricula::select('matriculas.id', 'pessoas.nome')
+                ->join('alunos', 'alunos.id', '=', 'matriculas.id_aluno')
+                ->join('pessoas', 'pessoas.id', '=', 'alunos.id_pessoas')
+                ->lists('pessoas.nome', 'matriculas.id');
+
+
+        $exemplares = \App\Exemplar::select("exemplares.id"
+                        , DB::raw("CONCAT('L:', livros.nome,' - Ex:', exemplares.id) as full_name"))
+                ->join('livros', 'livros.id', '=', 'exemplares.livro_id')
+                ->where('exemplares.status', \App\Exemplar::STATUS_DISPONIVEL)
+                ->lists('full_name', 'exemplares.id');
         
-        $matriculas = $collection->pluck('nome', 'id');
-        return view('admin/biblioteca.reservas.create', compact('matriculas'));
+        return view('admin/biblioteca.reservas.create', compact('matriculas', 'exemplares'));
     }
 
     /**

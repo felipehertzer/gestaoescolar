@@ -24,6 +24,13 @@ class Retirada extends Model {
     protected $primaryKey = 'id';
 
     /**
+     * The attributes that should be mutated to dates.
+     * 
+     * @var array 
+     */
+    protected $dates = ['data_retirada', 'data_devolucao'];
+
+    /**
      * Attributes that should be mass-assignable.
      *
      * @var array
@@ -38,9 +45,58 @@ class Retirada extends Model {
         return $this->belongsToMany(Exemplar::class, 'retirada_has_exemplares', 'retirada_id', 'exemplar_id');
     }
 
+    /**
+     * Atualiza status da retirada para devolvido
+     * @param int $id
+     */
     public function editaStatusParaDevolvido($id) {
+        $retirada = self::findOrFail($id);
+        $atualDataDevolucao = $retirada->data_devolucao->toDateString();
+        $gerouMulta = false;
+        if (self::isVencidaRetirada($atualDataDevolucao)) {
+            $idMulta = $this->geraMulta($id, $atualDataDevolucao);
+            $gerouMulta = $idMulta;
+        }
+        
+        $retirada->update(['status' => self::STATUS_DEVOLVIDO]);
+        return $gerouMulta;
+    }
+    
+    private function geraMulta($retirada_id, $dataDevolucao) {
+        return (new \App\Multa)->adicionar($retirada_id, $dataDevolucao);
+    }
+
+    /**
+     * Renova o registro da retirada por x dias e incrementa o campo renovacao.
+     * Antes de renovar faz algumas validações para ver se é possivel renovar
+     * 
+     * @param int $id
+     * @param int $dias, por default recebe 7
+     * @throws \Exception
+     */
+    public function renovarRetirada($id, $dias = 7) {
         $e = self::findOrFail($id);
-        $e->update(['status' => self::STATUS_DEVOLVIDO]);
+        $atualDataDevolucao = $e->data_devolucao->toDateString();
+
+        if (self::isVencidaRetirada($atualDataDevolucao)) {
+            throw new \Exception('Retirada está vencida!');
+        }
+
+        $novaDataDevolucao = $e->data_devolucao->addDays($dias);
+
+        $dados = [
+            'renovacao' => $e->renovacao + 1,
+            'data_devolucao' => $novaDataDevolucao->toDateString()
+        ];
+
+        if (!$e->update($dados)) {
+            throw new \Exception('Não foi possível renovar a retirada!');
+        }
+    }
+
+    public static function isVencidaRetirada($dataDevolucao) {
+        $dataAtual = date('Y-m-d');
+        return $dataAtual > $dataDevolucao;
     }
 
     public static function getStatus() {

@@ -24,7 +24,15 @@
                 <tr>
                     <th>ID</th><td>{{ $reserva->id }}</td>
                 </tr>
-                <tr><th> Data Reserva </th><td> {{ $reserva->data_reserva }} </td></tr><tr><th> Data Agenda </th><td> {{ $reserva->data_agenda }} </td></tr><tr><th> Matricula Id </th><td> {{ $reserva->matricula_id }} </td></tr>
+                <tr>
+                    <th> Data Reserva </th><td> {{ $reserva->data_reserva->format('d/m/Y') }} </td>
+                </tr>
+                <tr>
+                    <th> Data Agenda </th><td> {{ $reserva->data_agenda->format('d/m/Y') }} </td>
+                </tr>
+                <tr>
+                    <th> Matricula Id </th><td> {{ $reserva->matricula_id }} </td>
+                </tr>
             </tbody>
         </table>
     </div>

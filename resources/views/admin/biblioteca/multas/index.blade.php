@@ -9,9 +9,10 @@
             <thead>
                 <tr>
                     <th>S.No</th>
-                    <th> Valor </th>
-                    <th> Data Pagamento </th>
-                    <th> Tipo Multa </th>
+                    <th>Aluno</th>
+                    <th>Status</th>
+                    <th>Valor</th>
+                    <th>Tipo Multa</th>
                     <th>Actions</th>
                 </tr>
             </thead>
@@ -19,14 +20,16 @@
             {{-- */$x=0;/* --}}
             @foreach($multas as $item)
                 {{-- */$x++;/* --}}
-                <tr>
+                <tr>                    
                     <td>{{ $x }}</td>
+                    <td>{{ $item->retirada->matricula->aluno->pessoa->nome }}</td>
+                    <td>{{ App\Multa::getNomeStatus($item->status) }}</td>
                     <td>R$ {{ number_format($item->valor, 2, ",", ".") }}</td>
-                    <td>{{ date('d/m/Y', strtotime($item->data_pagamento)) }}</td>
                     <td>{{ $item->tipomulta->nome }}</td>
                     <td>
                         <a href="{{ url('/admin/biblioteca/multas/' . $item->id) }}" class="btn btn-success btn-xs" title="View multa"><span class="glyphicon glyphicon-eye-open" aria-hidden="true"/></a>
                         <a href="{{ url('/admin/biblioteca/multas/' . $item->id . '/edit') }}" class="btn btn-primary btn-xs" title="Edit multa"><span class="glyphicon glyphicon-pencil" aria-hidden="true"/></a>
+                        <a href="{{ url('/admin/biblioteca/multas/' . $item->id . '/edit') }}" class="btn btn-primary btn-xs" title="Pagar multa"><span class="glyphicon glyphicon-usd" aria-hidden="true"/></a>
                         {!! Form::open([
                             'method'=>'DELETE',
                             'url' => ['/admin/biblioteca/multas', $item->id],

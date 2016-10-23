@@ -9,9 +9,8 @@
             <thead>
                 <tr>
                     <th>S.No</th>
-                    <th> Data Retirada </th>
                     <th> Data Devolucao </th>
-                    <th> Renovacao </th>
+                    <th> Aluno </th>
                     <th> Status </th>
                     <th>Actions</th>
                 </tr>
@@ -22,15 +21,14 @@
             {{-- */$x++;/* --}}
                 <tr>
                     <td>{{ $x }}</td>
-                    <td>{{ $item->data_retirada }}</td>
-                    <td>{{ $item->data_devolucao }}</td>
-                    <td>{{ $item->renovacao }}</td>
+                    <td>{{ $item->data_devolucao->format('d/m/Y') }}</td>
+                    <td>{{ $item->matricula->aluno->pessoa->nome }}</td>
                     <td>{{ App\Retirada::getNomeStatus($item->status) }}</td>
                     <td>
                         <a href="{{ url('/admin/biblioteca/retiradas/' . $item->id) }}" class="btn btn-success btn-xs" title="View retirada"><span class="glyphicon glyphicon-eye-open" aria-hidden="true"/></a>
-                        <a href="{{ url('/admin/biblioteca/retiradas/' . $item->id . '/devolve_tudo') }}" class="btn btn-primary btn-xs" title="Devolver Tudo"><span class="glyphicon glyphicon-pencil" aria-hidden="true"/></a>
-                        <a href="{{ url('/admin/biblioteca/retiradas/' . $item->id . '/devolve_exemplares') }}" class="btn btn-primary btn-xs" title="Devolver por Exemplares"><span class="glyphicon glyphicon-pencil" aria-hidden="true"/></a>
-                        <a href="{{ url('/admin/biblioteca/retiradas/' . $item->id . '/renovar') }}" class="btn btn-primary btn-xs" title="Renovar"><span class="glyphicon glyphicon-pencil" aria-hidden="true"/></a>
+                        <a href="{{ url('/admin/biblioteca/retiradas/' . $item->id . '/devolve_tudo') }}" class="btn btn-primary btn-xs" title="Devolver Tudo"><span class="glyphicon glyphicon-check" aria-hidden="true"/></a>
+                        <a href="{{ url('/admin/biblioteca/retiradas/' . $item->id . '/devolve_exemplares') }}" class="btn btn-primary btn-xs" title="Devolver por Exemplares"><span class="glyphicon glyphicon-book" aria-hidden="true"/></a>
+                        <a href="{{ url('/admin/biblioteca/retiradas/' . $item->id . '/renovar') }}" class="btn btn-primary btn-xs" title="Renovar"><span class="glyphicon glyphicon-repeat" aria-hidden="true"/></a>
                     </td>
                 </tr>
             @endforeach

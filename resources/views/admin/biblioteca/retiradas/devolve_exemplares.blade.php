@@ -12,6 +12,27 @@
     ]) !!}
 
     <div class="form-group">
+        {!! Form::label('data_devolucao', 'Aluno', ['class' => 'col-sm-3 control-label']) !!}
+        <div class="col-sm-6">
+            <span class="form-control">{!! $retirada->matricula->aluno->pessoa->nome !!}</span>
+        </div>
+    </div>
+    
+    <div class="form-group">
+        {!! Form::label('data_retirada', 'Data Retirada', ['class' => 'col-sm-3 control-label']) !!}
+        <div class="col-sm-6">
+            <span class="form-control">{!! $retirada->data_retirada->format('d/m/Y') !!}</span>
+        </div>
+    </div>
+    
+    <div class="form-group">
+        {!! Form::label('data_devolucao', 'Data Devolucao', ['class' => 'col-sm-3 control-label']) !!}
+        <div class="col-sm-6">
+            <span class="form-control">{!! $retirada->data_devolucao->format('d/m/Y') !!}</span>
+        </div>
+    </div>
+    
+    <div class="form-group">
         {!! Form::label('exemplares', 'Retirados', ['class' => 'col-sm-3 control-label']) !!}
         <div class="col-sm-6">
             <div class="row">

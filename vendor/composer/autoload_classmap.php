@@ -6,6 +6,7 @@ $vendorDir = dirname(dirname(__FILE__));
 $baseDir = dirname($vendorDir);
 
 return array(
+    'AddNewCollumn' => $baseDir . '/database/migrations/2016_10_22_233255_add_new_collumn.php',
     'CreateAdvertenciasTable' => $baseDir . '/database/migrations/2016_09_04_015431_create_advertencias_table.php',
     'CreateAlunosTable' => $baseDir . '/database/migrations/2016_09_04_012025_create_alunos_table.php',
     'CreateAutorsTable' => $baseDir . '/database/migrations/2016_08_19_174650_create_autors_table.php',
@@ -25,10 +26,12 @@ return array(
     'CreateNotasTable' => $baseDir . '/database/migrations/2016_09_04_020221_create_notas_table.php',
     'CreatePasswordResetsTable' => $baseDir . '/database/migrations/2014_10_12_100000_create_password_resets_table.php',
     'CreatePessoasTable' => $baseDir . '/database/migrations/2016_08_19_173046_create_pessoas_table.php',
-    'CreatePresencasTable' => $baseDir . '/database/migrations/2016_09_04_021136_create_presencas_table.php',
+    'CreatePresencaHasMatriculaTable' => $baseDir . '/database/migrations/2016_10_20_123451_create_presenca_has_matricula_table.php',
+    'CreatePresencasTable' => $baseDir . '/database/migrations/2016_10_20_122643_create_presencas_table.php',
     'CreateProfessoresTable' => $baseDir . '/database/migrations/2016_09_04_012907_create_professores_table.php',
     'CreateReservasTable' => $baseDir . '/database/migrations/2016_09_04_014305_create_reservas_table.php',
     'CreateResponsaveisTable' => $baseDir . '/database/migrations/2016_09_04_013515_create_responsaveis_table.php',
+    'CreateRetiradaHasExemplaresTable' => $baseDir . '/database/migrations/2016_10_20_135227_create_retirada_has_exemplares_table.php',
     'CreateRetiradasTable' => $baseDir . '/database/migrations/2016_10_09_021231_create_retiradas_table.php',
     'CreateSalasTable' => $baseDir . '/database/migrations/2016_08_19_163642_create_salas_table.php',
     'CreateSeriesTable' => $baseDir . '/database/migrations/2016_09_03_234148_create_series_table.php',
@@ -41,8 +44,6 @@ return array(
     'EditColumnDatasReservas' => $baseDir . '/database/migrations/2016_10_09_012548_edit_column_datas_reservas.php',
     'EditColumnIdMatriculaReservas' => $baseDir . '/database/migrations/2016_09_11_035505_edit_column_id_matricula_reservas.php',
     'EditColumnIdTipomultaMultas' => $baseDir . '/database/migrations/2016_09_11_024054_edit_column_id_tipomulta_multas.php',
-    'EditColumnPresenca' => $baseDir . '/database/migrations/2016_10_10_134908_edit_column_presenca.php',
-    'EditColumnPresencas' => $baseDir . '/database/migrations/2016_10_10_012548_edit_column_presenca.php',
     'EditColumnStatusExemplares' => $baseDir . '/database/migrations/2016_09_10_231345_edit_column_status_exemplares.php',
     'File_Iterator' => $vendorDir . '/phpunit/php-file-iterator/src/Iterator.php',
     'File_Iterator_Facade' => $vendorDir . '/phpunit/php-file-iterator/src/Facade.php',

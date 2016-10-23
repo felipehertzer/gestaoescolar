@@ -4,21 +4,19 @@ namespace App\Http\Controllers\Biblioteca;
 
 use App\Http\Requests;
 use App\Http\Controllers\Controller;
-
 use App\Multa;
 use App\TipoMulta;
 use Illuminate\Http\Request;
 use Session;
 
-class MultaController extends Controller
-{
+class MultaController extends Controller {
+
     /**
      * Display a listing of the resource.
      *
      * @return \Illuminate\View\View
      */
-    public function index()
-    {
+    public function index() {
         $multas = Multa::paginate(25);
 
         return view('admin/biblioteca.multas.index', compact('multas'));
@@ -29,9 +27,8 @@ class MultaController extends Controller
      *
      * @return \Illuminate\View\View
      */
-    public function create()
-    {
-        $tipomultas = TipoMulta::pluck('nome','id');
+    public function create() {
+        $tipomultas = TipoMulta::pluck('nome', 'id');
         return view('admin/biblioteca.multas.create', compact('tipomultas'));
     }
 
@@ -42,11 +39,10 @@ class MultaController extends Controller
      *
      * @return \Illuminate\Http\RedirectResponse|\Illuminate\Routing\Redirector
      */
-    public function store(Request $request)
-    {
-        
+    public function store(Request $request) {
+
         $requestData = $request->all();
-        
+
         Multa::create($requestData);
 
         Session::flash('success', 'Multa added!');
@@ -61,8 +57,7 @@ class MultaController extends Controller
      *
      * @return \Illuminate\View\View
      */
-    public function show($id)
-    {
+    public function show($id) {
         $multa = Multa::findOrFail($id);
 
         return view('admin/biblioteca.multas.show', compact('multa'));
@@ -75,10 +70,9 @@ class MultaController extends Controller
      *
      * @return \Illuminate\View\View
      */
-    public function edit($id)
-    {
+    public function edit($id) {
         $multa = Multa::findOrFail($id);
-        $tipomultas = TipoMulta::pluck('nome','id');
+        $tipomultas = TipoMulta::pluck('nome', 'id');
 
         return view('admin/biblioteca.multas.edit', compact('multa', 'tipomultas'));
     }
@@ -91,11 +85,10 @@ class MultaController extends Controller
      *
      * @return \Illuminate\Http\RedirectResponse|\Illuminate\Routing\Redirector
      */
-    public function update($id, Request $request)
-    {
-        
+    public function update($id, Request $request) {
+
         $requestData = $request->all();
-        
+
         $multa = Multa::findOrFail($id);
         $multa->update($requestData);
 
@@ -111,12 +104,29 @@ class MultaController extends Controller
      *
      * @return \Illuminate\Http\RedirectResponse|\Illuminate\Routing\Redirector
      */
-    public function destroy($id)
-    {
+    public function destroy($id) {
         Multa::destroy($id);
 
         Session::flash('success', 'Multa deleted!');
 
         return redirect('admin/biblioteca/multas');
     }
+
+    /**
+     * Funcao para pagar a multa
+     * 
+     * @param int $id
+     * @return \Illuminate\Http\RedirectResponse|\Illuminate\Routing\Redirector
+     */
+    public function pagar_multa($id) {
+        try {
+            Multa::pagarMulta($id);
+            Session::flash('success', 'Multa paga com sucesso!');
+        } catch (\Exception $ex) {
+            Session::flash('danger', $ex->getMessage());
+        }
+
+        return redirect('admin/biblioteca/multas/' . $id);
+    }
+
 }
