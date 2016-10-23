@@ -28,7 +28,7 @@ class Matricula extends Model
     protected $fillable = ['observacoes', 'id_aluno', 'id_turma'];
 
     public function aluno() {
-        return $this->belongsTo(Aluno::class, 'id', 'id_matricula');
+        return $this->belongsTo(Aluno::class, 'id_aluno');
     }
 
     public function turma() {
