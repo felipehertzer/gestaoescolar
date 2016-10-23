@@ -25,11 +25,11 @@ class Aluno extends Model
      *
      * @var array
      */
-    protected $fillable = ['observacoes', 'id_pessoa'];
+    protected $fillable = ['observacoes', 'id_pessoas'];
 
     public function pessoa()
     {
-        return $this->belongsTo(Pessoa::class, 'id_pessoas', 'id');
+        return $this->belongsTo(Pessoa::class, 'id_pessoas');
     }
 
     public function matricula() {
