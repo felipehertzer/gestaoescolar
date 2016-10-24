@@ -11,6 +11,7 @@ class Multa extends Model {
     const STATUS_NAO_PAGO = 'nao_pago';
     
     const VALOR_MULTA_POR_DIA = 0.50;
+    const NOME_TIPO_MULTA_ATRASO_DEVOLUCAO_LIVROS = "ATRASO DEVOLUÇÃO DE LIVROS";
 
     /**
      * The database table used by the model.
@@ -42,8 +43,7 @@ class Multa extends Model {
     }
 
     /**
-     * Salva uma nova multa para a $retirada_id
-     *  *****PRECISA FAZER FUNCAO QUE BUSCA UM TIPO DE MULTA QUE SEJA DE ATRASO DA DEVOLUÇÃO
+     * Cria uma multa para a $retirada_id
      * 
      * @param int $retirada_id
      * @param date $dataDevolucao
@@ -56,13 +56,35 @@ class Multa extends Model {
         $this->status = self::STATUS_NAO_PAGO;
         $this->data_pagamento = NULL;
         $this->retirada_id = $retirada_id;
-        $this->tipomulta_id = "1"; //$this->getIdTipoMultaAtrasoDevolucaoLivros() --precisa ser feito
+        $this->tipomulta_id = $this->getIdTipoMultaAtrasoDevolucaoLivros();
 
         if (!$this->save()) {
             throw new \Exception('Não foi possível adicionar a multa!');
         }
 
         return $this->id;
+    }
+    
+    /**
+     * Retorna o id do tipo de multa de atraso de devolução de livros
+     * Se não existe esse tipo, entao chama funcao que cria ela
+     * @return int
+     */
+    public function getIdTipoMultaAtrasoDevolucaoLivros() {
+        $tipoMulta = TipoMulta::where('nome', '=', self::NOME_TIPO_MULTA_ATRASO_DEVOLUCAO_LIVROS)->first();
+        if(empty($tipoMulta)) {
+            $tipoMulta = $this->criaTipoMultaAtrasoDevolucaoLivros();
+        }
+        
+        return $tipoMulta->id;
+    }
+    
+    /**
+     * 
+     * @return object
+     */
+    public function criaTipoMultaAtrasoDevolucaoLivros() {        
+        return TipoMulta::create(['nome' => self::NOME_TIPO_MULTA_ATRASO_DEVOLUCAO_LIVROS]);
     }
     
     public static function getStatus() {
