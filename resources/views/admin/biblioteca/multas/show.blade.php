@@ -25,11 +25,13 @@
                 <tr>
                     <th>ID</th><td>{{ $multa->id }}</td>
                 </tr>
+                <?php if (!empty($multa->retirada_id)) : ?>
+                    <tr>
+                        <th>Retirada ID</th><td>{{ $multa->retirada_id }}</td>
+                    </tr>
+                <?php endif; ?>
                 <tr>
-                    <th>Retirada ID</th><td>{{ $multa->retirada->id }}</td>
-                </tr>
-                <tr>
-                    <th>Aluno</th><td>{{ $multa->retirada->matricula->aluno->pessoa->nome }}</td>
+                    <th>Aluno</th><td>{{ $multa->matricula->aluno->pessoa->nome }}</td>
                 </tr>
                 <tr>
                     <th> Valor </th><td> R$ {{ number_format($multa->valor, 2, ",", ".") }} </td>

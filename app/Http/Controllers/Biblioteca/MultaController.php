@@ -28,8 +28,13 @@ class MultaController extends Controller {
      * @return \Illuminate\View\View
      */
     public function create() {
-        $tipomultas = TipoMulta::pluck('nome', 'id');
-        return view('admin/biblioteca.multas.create', compact('tipomultas'));
+        $tipomultas = TipoMulta::pluck('nome', 'id');        
+        $matriculas = \App\Matricula::select('matriculas.id', 'pessoas.nome')
+                ->join('alunos', 'alunos.id', '=', 'matriculas.id_aluno')
+                ->join('pessoas', 'pessoas.id', '=', 'alunos.id_pessoas')
+                ->lists('pessoas.nome', 'matriculas.id');
+        
+        return view('admin/biblioteca.multas.create', compact('tipomultas', 'matriculas'));
     }
 
     /**
@@ -73,8 +78,12 @@ class MultaController extends Controller {
     public function edit($id) {
         $multa = Multa::findOrFail($id);
         $tipomultas = TipoMulta::pluck('nome', 'id');
+        $matriculas = \App\Matricula::select('matriculas.id', 'pessoas.nome')
+                ->join('alunos', 'alunos.id', '=', 'matriculas.id_aluno')
+                ->join('pessoas', 'pessoas.id', '=', 'alunos.id_pessoas')
+                ->lists('pessoas.nome', 'matriculas.id');
 
-        return view('admin/biblioteca.multas.edit', compact('multa', 'tipomultas'));
+        return view('admin/biblioteca.multas.edit', compact('multa', 'tipomultas', 'matriculas'));
     }
 
     /**
@@ -126,7 +135,7 @@ class MultaController extends Controller {
             Session::flash('danger', $ex->getMessage());
         }
 
-        return redirect('admin/biblioteca/multas/' . $id);
+        return redirect('admin/biblioteca/multas');
     }
 
 }

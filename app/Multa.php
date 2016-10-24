@@ -32,8 +32,12 @@ class Multa extends Model {
      *
      * @var array
      */
-    protected $fillable = ['valor', 'data_pagamento', 'status', 'retirada_id', 'tipomulta_id'];
+    protected $fillable = ['valor', 'data_pagamento', 'status', 'matricula_id', 'retirada_id', 'tipomulta_id'];
 
+    public function matricula() {
+        return $this->belongsTo(Matricula::class);
+    }
+    
     public function tipomulta() {
         return $this->belongsTo(TipoMulta::class);
     }
@@ -43,19 +47,21 @@ class Multa extends Model {
     }
 
     /**
-     * Cria uma multa para a $retirada_id
+     * Cria uma multa para a $retirada_id da matricula $matricula_id
      * 
+     * @param int $matricula_id
      * @param int $retirada_id
      * @param date $dataDevolucao
-     * @return int $id
+     * @return int $id da multa adicionada
      * @throws Exception
      */
-    public function adicionar($retirada_id, $dataDevolucao) {
+    public function adicionaMultaAtrasoLivros($retirada_id, $matricula_id, $dataDevolucao) {
 
         $this->valor = self::getValorMulta($dataDevolucao);
         $this->status = self::STATUS_NAO_PAGO;
         $this->data_pagamento = NULL;
         $this->retirada_id = $retirada_id;
+        $this->matricula_id = $matricula_id;
         $this->tipomulta_id = $this->getIdTipoMultaAtrasoDevolucaoLivros();
 
         if (!$this->save()) {
@@ -130,6 +136,10 @@ class Multa extends Model {
      */
     public static function pagarMulta($id) {        
         $multa = Multa::findOrFail($id);
+        if($multa->status == self::STATUS_PAGO) {
+            throw new \Exception('Multa já está paga!');
+        }
+        
         $multa->update(['status' => self::STATUS_PAGO, 'data_pagamento' => date('Y-m-d')]);
     }
 

@@ -6,6 +6,7 @@ $vendorDir = dirname(dirname(__FILE__));
 $baseDir = dirname($vendorDir);
 
 return array(
+    'AddMatriculaMultas' => $baseDir . '/database/migrations/2016_10_24_145347_add_matricula_multas.php',
     'AddNewCollumn' => $baseDir . '/database/migrations/2016_10_22_233255_add_new_collumn.php',
     'CreateAdvertenciasTable' => $baseDir . '/database/migrations/2016_09_04_015431_create_advertencias_table.php',
     'CreateAlunosTable' => $baseDir . '/database/migrations/2016_09_04_012025_create_alunos_table.php',
