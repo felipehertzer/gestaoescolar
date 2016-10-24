@@ -51,23 +51,45 @@ class RetiradaController extends Controller {
      * @return \Illuminate\Http\RedirectResponse|\Illuminate\Routing\Redirector
      */
     public function store(Request $request) {
-        $retiradaTag = [];
-        $exemplaresEscolhidos = $request->get('exemplares_escolhidos');
-        foreach ($exemplaresEscolhidos as $exemplar) {
-            $retiradaTag[] = [
-                'exemplar_id' => $exemplar,
-                'status' => Retirada::STATUS_RETIRADO
-            ];
+        try {
+            $this->validacoes($request->all());
+            $retiradaTag = [];
+            $exemplaresEscolhidos = $request->get('exemplares_escolhidos');
+            foreach ($exemplaresEscolhidos as $exemplar) {
+                $retiradaTag[] = [
+                    'exemplar_id' => $exemplar,
+                    'status' => Retirada::STATUS_RETIRADO
+                ];
+            }
+
+            $r = Retirada::create($request->except(array('exemplares', 'exemplares_escolhidos')));
+            $r->exemplares()->attach($retiradaTag);
+
+            (new \App\Exemplar)->editaStatusParaEmprestado($exemplaresEscolhidos);
+            Session::flash('success', 'Retirada added!');            
+        } catch (\Exception $ex) {
+            Session::flash('danger', $ex->getMessage());
         }
-
-        $r = Retirada::create($request->except(array('exemplares', 'exemplares_escolhidos')));
-        $r->exemplares()->attach($retiradaTag);
-
-        (new \App\Exemplar)->editaStatusParaEmprestado($exemplaresEscolhidos);
-
-        Session::flash('success', 'Retirada added!');
-
+        
         return redirect('admin/biblioteca/retiradas');
+    }
+    
+    /**
+     * Faz validacao de limite de retiradas por aluno
+     * Verifica se foi escolhido exemplares
+     * 
+     * @param array $dados
+     * @throws \Exception
+     */
+    private function validacoes($dados) {
+        $retiradasTotalDoAluno = Retirada::where('matricula_id', '=', $dados['matricula_id'])->count();
+        if($retiradasTotalDoAluno > 10) {
+            throw new \Exception('O aluno já passou do limite de 10 retiradas!');
+        }
+        
+        if(!isset($dados['exemplares_escolhidos'])) {
+            throw new \Exception('Não foi escolhido exemplar(es) para fazer a retirada!');
+        }        
     }
 
     /**
@@ -178,7 +200,7 @@ class RetiradaController extends Controller {
                     Session::flash('warning', 'Multa gerada pelo atraso!');
                     return redirect('admin/biblioteca/multas/' . $multaId);
                 }
-                
+
                 Session::flash('success', 'Os Exemplares foram devolvidos com sucesso!');
                 return redirect('admin/biblioteca/retiradas');
             } catch (\Exception $ex) {
