@@ -77,7 +77,7 @@ class Retirada extends Model {
      */
     public function renovarRetirada($id, $dias = 7) {
         $retirada = self::findOrFail($id);
-        self::validacoes($retirada);
+        self::validacoesParaRenovar($retirada);
 
         $novaDataDevolucao = $retirada->data_devolucao->addDays($dias);
 
@@ -91,7 +91,7 @@ class Retirada extends Model {
         }
     }
     
-    public static function validacoes($retirada) {
+    public static function validacoesParaRenovar($retirada) {
         $atualDataDevolucao = $retirada->data_devolucao->toDateString();        
 
         if (self::isVencidaRetirada($atualDataDevolucao)) {
