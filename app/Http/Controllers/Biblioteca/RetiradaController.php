@@ -9,6 +9,8 @@ use App\Retirada;
 use Illuminate\Http\Request;
 use Session;
 
+use App\Multa;
+
 class RetiradaController extends Controller {
 
     /**
@@ -77,6 +79,7 @@ class RetiradaController extends Controller {
     /**
      * Faz validacao de limite de retiradas por aluno
      * Verifica se foi escolhido exemplares
+     * Verifica se exite multas nao pagas do aluno
      * 
      * @param array $dados
      * @throws \Exception
@@ -89,7 +92,14 @@ class RetiradaController extends Controller {
         
         if(!isset($dados['exemplares_escolhidos'])) {
             throw new \Exception('Não foi escolhido exemplar(es) para fazer a retirada!');
-        }        
+        }
+
+        $multasNaoPagasDoAluno = Multa::where('matricula_id', '=', $dados['matricula_id'])
+                ->where('status', '=', Multa::STATUS_NAO_PAGO)
+                ->count();
+        if($multasNaoPagasDoAluno > 0) {
+            throw new \Exception('Aluno deve pagar as multas para poder retirar livros!');
+        }
     }
 
     /**

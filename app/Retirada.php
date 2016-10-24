@@ -52,9 +52,10 @@ class Retirada extends Model {
     public function editaStatusParaDevolvido($id) {
         $retirada = self::findOrFail($id);
         $atualDataDevolucao = $retirada->data_devolucao->toDateString();
+        $matricula_id = $retirada->matricula_id;
         $gerouMulta = false;
         if (self::isVencidaRetirada($atualDataDevolucao)) {
-            $idMulta = $this->geraMulta($id, $atualDataDevolucao);
+            $idMulta = $this->geraMulta($id, $matricula_id, $atualDataDevolucao);
             $gerouMulta = $idMulta;
         }
         
@@ -62,8 +63,8 @@ class Retirada extends Model {
         return $gerouMulta;
     }
     
-    private function geraMulta($retirada_id, $dataDevolucao) {
-        return (new \App\Multa)->adicionar($retirada_id, $dataDevolucao);
+    private function geraMulta($retirada_id, $matricula_id, $dataDevolucao) {
+        return (new \App\Multa)->adicionaMultaAtrasoLivros($retirada_id, $matricula_id, $dataDevolucao);
     }
 
     /**
@@ -75,22 +76,30 @@ class Retirada extends Model {
      * @throws \Exception
      */
     public function renovarRetirada($id, $dias = 7) {
-        $e = self::findOrFail($id);
-        $atualDataDevolucao = $e->data_devolucao->toDateString();
+        $retirada = self::findOrFail($id);
+        self::validacoes($retirada);
+
+        $novaDataDevolucao = $retirada->data_devolucao->addDays($dias);
+
+        $dados = [
+            'renovacao' => $retirada->renovacao + 1,
+            'data_devolucao' => $novaDataDevolucao->toDateString()
+        ];
+
+        if (!$retirada->update($dados)) {
+            throw new \Exception('Não foi possível renovar a retirada!');
+        }
+    }
+    
+    public static function validacoes($retirada) {
+        $atualDataDevolucao = $retirada->data_devolucao->toDateString();        
 
         if (self::isVencidaRetirada($atualDataDevolucao)) {
             throw new \Exception('Retirada está vencida!');
         }
-
-        $novaDataDevolucao = $e->data_devolucao->addDays($dias);
-
-        $dados = [
-            'renovacao' => $e->renovacao + 1,
-            'data_devolucao' => $novaDataDevolucao->toDateString()
-        ];
-
-        if (!$e->update($dados)) {
-            throw new \Exception('Não foi possível renovar a retirada!');
+        
+        if($retirada->renovacao == 10) {
+            throw new \Exception('Limite de renovações ja foi alcançado!');
         }
     }
 
