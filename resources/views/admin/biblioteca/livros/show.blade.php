@@ -28,6 +28,13 @@
             </tbody>
         </table>
     </div>
+    
+    <div class="autores">
+        <h2>Autores</h2>
+        @foreach($livro->autores as $autor)
+            <span> {{ $autor->nome }} </span> <br />
+        @endforeach
+    </div>
 
 </div>
 @endsection

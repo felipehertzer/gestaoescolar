@@ -23,7 +23,7 @@
                         <a href="{{ url('/admin/biblioteca/livros/' . $item->id . '/edit') }}" class="btn btn-primary btn-xs" title="Edit livro"><span class="glyphicon glyphicon-pencil" aria-hidden="true"/></a>
                         {!! Form::open([
                             'method'=>'DELETE',
-                            'url' => ['/admin/livros', $item->id],
+                            'url' => ['/admin/biblioteca/livros', $item->id],
                             'style' => 'display:inline'
                         ]) !!}
                             {!! Form::button('<span class="glyphicon glyphicon-trash" aria-hidden="true" title="Delete livro" />', array(

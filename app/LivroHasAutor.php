@@ -4,14 +4,14 @@ namespace App;
 
 use Illuminate\Database\Eloquent\Model;
 
-class Livro extends Model
+class LivroHasAutor extends Model
 {
     /**
      * The database table used by the model.
      *
      * @var string
      */
-    protected $table = 'livros';
+    protected $table = 'livro_has_autores';
 
     /**
     * The database primary key value.
@@ -25,14 +25,7 @@ class Livro extends Model
      *
      * @var array
      */
-    protected $fillable = ['nome', 'ano'];
+    protected $fillable = ['livro_id', 'autor_id'];
 
-    public function autores() {
-        return $this->belongsToMany(Autor::class, 'livro_has_autores', 'livro_id', 'autor_id');
-    }
-    
-    public function getAutoresIdsAttribute() {
-        return $this->autores->lists('nome', 'id');
-    }
     
 }

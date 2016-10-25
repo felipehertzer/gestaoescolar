@@ -26,4 +26,8 @@ class Autor extends Model
      * @var array
      */
     protected $fillable = ['nome'];
+    
+    public function livros() {
+        return $this->belongsToMany(Livro::class, 'livro_has_autores', 'autor_id', 'livro_id');
+    }
 }
