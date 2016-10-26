@@ -85,13 +85,14 @@ class TurmaController extends Controller
      */
     public function edit($id)
     {
+        $turma = Turma::findOrFail($id);
         $salas = Sala::pluck('numero','id');
         $series = Serie::pluck('nome','id');
         $materia = MateriaHasProfessor::with('professor', 'materia', 'professor.pessoa')->get();
         $materias = $materia->pluck("ProfessorMateria", "id");
-        $turma = Turma::findOrFail($id);
+        $materias_escolhidas = $turma->getMateriasIdsAttribute();
 
-        return view('admin.turmas.edit', compact('salas', 'series', 'turma', 'materias'));
+        return view('admin.turmas.edit', compact('salas', 'series', 'turma', 'materias', 'materias_escolhidas'));
     }
 
     /**

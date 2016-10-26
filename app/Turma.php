@@ -56,4 +56,13 @@ class Turma extends Model
         return $this->hasMany(Matricula::class, 'id_turma', 'id');
     }
 
+    public function materia_professor() {
+        return $this->belongsToMany(Materia::class, 'materia_has_turma', 'id_turma', 'id_materia_professor');
+    }
+
+    public function getMateriasIdsAttribute() {
+        //dd($this->materia_professor);
+        return $this->materia_professor->lists('nome', 'id');
+    }
+
 }

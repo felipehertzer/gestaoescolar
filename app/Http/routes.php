@@ -56,6 +56,8 @@ Route::get('admin/presencas/{id}/create', 'PresencaController@create');
 
 Route::resource('admin/matriculas', 'MatriculaController');
 
+Route::resource('admin/emprestarmateriais', 'EmprestaMateriaisController');
+
 Route::resource('admin/biblioteca/autores', 'Biblioteca\\AutorController');
 
 Route::resource('admin/biblioteca/tipomulta', 'Biblioteca\\TipoMultaController');

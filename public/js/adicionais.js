@@ -4,6 +4,11 @@
 $( document ).ready(function() {
     $('#multiselect').multiselect();
 
+    $('.selectpicker').selectpicker({
+        style: 'btn-default',
+        size: 4
+    });
+
     $('#tipopessoa').on('change', function() {
         if($(this).val() == "3"){
             $("#professor_funcionario, #responsavel, #funcoes").css('display', 'none');

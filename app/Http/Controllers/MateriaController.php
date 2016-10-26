@@ -97,8 +97,9 @@ class MateriaController extends Controller
                 ->get()
         );
         $professores = $collection->pluck('nome', 'id');
-
-        return view('admin.materias.edit', compact('materia', 'professores'));
+        $professores_escolhidos = array();
+        //dd($professores_escolhidos);
+        return view('admin.materias.edit', compact('materia', 'professores', 'professores_escolhidos'));
     }
 
     /**

@@ -44,7 +44,7 @@
             <div class="form-group {{ $errors->has('livro_id') ? 'has-error' : ''}}">
                 {!! Form::label('livro_id', 'Livro', ['class' => 'col-sm-3 control-label']) !!}
                 <div class="col-sm-6">
-                    {!! Form::select('livro_id', $livros, null, ['class' => 'form-control']) !!}
+                    {!! Form::select('livro_id', $livros, null, ['class' => 'form-control selectpicker', 'data-live-search' => 'true']) !!}
                     {!! $errors->first('livro_id', '<p class="help-block">:message</p>') !!}
                 </div>
             </div>

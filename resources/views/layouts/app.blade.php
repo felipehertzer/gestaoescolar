@@ -8,11 +8,13 @@
         <title>Gestão Escolar</title>
 
         <!-- Fonts -->
-        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.6.3/css/font-awesome.min.css" integrity="" crossorigin="anonymous">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" integrity="" crossorigin="anonymous">
         <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Lato:100,300,400,700">
 
         <!-- Styles -->
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/css/bootstrap.min.css" integrity="" crossorigin="anonymous">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.11.2/css/bootstrap-select.min.css" integrity="" crossorigin="anonymous">
+        <link rel="stylesheet" href="{{asset('/css/style.css') }}" integrity="" crossorigin="anonymous">
         {{-- <link href="{{ elixir('css/app.css') }}" rel="stylesheet"> --}}
 
         <style>
@@ -26,7 +28,7 @@
         </style>
     </head>
     <body id="app-layout">
-        <nav class="navbar navbar-default navbar-static-top">
+        <nav class="navbar navbar-default navbar-static-top navbar-inverse">
             <div class="container">
                 <div class="navbar-header">
 
@@ -40,7 +42,7 @@
 
                     <!-- Branding Image -->
                     <a class="navbar-brand" href="{{ url('/') }}">
-                        Gestao Escolar
+                        Gestão Escolar
                     </a>
                 </div>
 
@@ -91,6 +93,7 @@
                                 <li><a href="{{ url('/admin/series') }}"><i class="fa fa-btn fa-star"></i>Série</a></li>
                                 <li><a href="{{ url('/admin/funcoes') }}"><i class="fa fa-btn fa-cogs"></i>Funções</a></li>
                                 <li><a href="{{ url('/admin/tipomateriais') }}"><i class="fa fa-btn fa-archive"></i>Tipo de Material</a></li>
+                                <li><a href="{{ url('/admin/emprestarmateriais') }}"><i class="fa fa-share-square-o"></i> Emprestar Material</a></li>
                                 <li><a href="{{ url('/admin/feriados') }}"><i class="fa fa-btn fa-sun-o"></i>Feriados</a></li>
                             </ul>
                         </li>
@@ -151,10 +154,16 @@
         </div>
         
         @yield('content')
-
+        <footer>
+            <div class="text-center">
+                <b>UNISC - Trabalho de Projeto e Desenvolvimento de Sistemas</b><br>
+                Felipe Augusto Hertzer, Luiza Rabuski, Willian Serafini
+            </div>
+        </footer>
         <!-- JavaScripts -->
         <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.2.3/jquery.min.js" integrity="sha384-I6F5OKECLVtK/BL+8iSLDEHowSAfUo76ZL9+kGAgTRdiByINKJaqTPH/QVNS1VDb" crossorigin="anonymous"></script>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.6/js/bootstrap.min.js" integrity="sha384-0mSbJDEHialfmuBBQP6A4Qrprq5OVfW37PRR3j5ELqxss1yVqOtnepnHVP9aJ7xS" crossorigin="anonymous"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.11.2/js/bootstrap-select.min.js" integrity="" crossorigin="anonymous"></script>
         <script src="{{asset('/js/multiselect.min.js') }}"></script>
         <script src="{{asset('/js/adicionais.js') }}"></script>
         {{-- <script src="{{ elixir('js/app.js') }}"></script> --}}

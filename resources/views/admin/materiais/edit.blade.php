@@ -23,7 +23,7 @@
             <div class="form-group {{ $errors->has('id_tipomaterial') ? 'has-error' : ''}}">
                 {!! Form::label('id_tipomaterial', 'Tipo do Material', ['class' => 'col-sm-3 control-label']) !!}
                 <div class="col-sm-6">
-                    {!! Form::select('id_tipomaterial', $tipomaterial, null, ['class' => 'form-control']) !!}
+                    {!! Form::select('id_tipomaterial', $tipomaterial, null, ['class' => 'form-control selectpicker', 'data-live-search' => 'true']) !!}
                     {!! $errors->first('id_tipomaterial', '<p class="help-block">:message</p>') !!}
                 </div>
             </div>

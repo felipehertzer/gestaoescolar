@@ -25,7 +25,7 @@
     <div class="form-group {{ $errors->has('matricula_id') ? 'has-error' : ''}}">
         {!! Form::label('matricula_id', 'Aluno', ['class' => 'col-sm-3 control-label']) !!}
         <div class="col-sm-6">
-            {!! Form::select('matricula_id', $matriculas, null, ['class' => 'form-control']) !!}
+            {!! Form::select('matricula_id', $matriculas, null, ['class' => 'form-control selectpicker', 'data-live-search' => 'true']) !!}
             {!! $errors->first('matricula_id', '<p class="help-block">:message</p>') !!}
         </div>
     </div>
