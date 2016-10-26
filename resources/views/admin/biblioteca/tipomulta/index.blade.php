@@ -23,7 +23,7 @@
                         <a href="{{ url('/admin/biblioteca/tipomulta/' . $item->id . '/edit') }}" class="btn btn-primary btn-xs" title="Edit tipomultum"><span class="glyphicon glyphicon-pencil" aria-hidden="true"/></a>
                         {!! Form::open([
                             'method'=>'DELETE',
-                            'url' => ['/admin/tipomulta', $item->id],
+                            'url' => ['/admin/biblioteca/tipomulta', $item->id],
                             'style' => 'display:inline'
                         ]) !!}
                             {!! Form::button('<span class="glyphicon glyphicon-trash" aria-hidden="true" title="Delete tipomultum" />', array(
