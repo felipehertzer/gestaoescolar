@@ -51,28 +51,32 @@ class PessoaController extends Controller
      */
     public function store(Request $request)
     {
-        
-        $p = Pessoa::create($request->except(array('funcao', 'pis', 'salario', 'empresa', 'observacoes')));
-        switch($request->get('tipopessoa')){
-            // alunos
-            case 3:
-                $p->aluno()->create(['observacoes' => $request->get('observacoes')]);
-                break;
-            // responsaveis
-            case 2:
-                $p->responsavel()->create(['empresa' => $request->get('empresa'), 'id_funcao' => $request->get('funcao')]);
-                break;
-            // professores
-            case 1:
-                $p->professor()->create(['pis' => $request->get('pis'), 'salario' => $request->get('salario')]);
-                break;
-            // funcionarios
-            default:
-                $p->funcionario()->create(['pis' => $request->get('pis'), 'salario' => $request->get('salario'), 'id_funcao' => $request->get('funcao')]);
-                break;
-        }
+        try{
+			
+			$p = Pessoa::create($request->except(array('funcao', 'pis', 'salario', 'empresa', 'observacoes')));
+			switch($request->get('tipopessoa')){
+				// alunos
+				case 3:
+					$p->aluno()->create(['observacoes' => $request->get('observacoes')]);
+					break;
+				// responsaveis
+				case 2:
+					$p->responsavel()->create(['empresa' => $request->get('empresa'), 'id_funcao' => $request->get('funcao')]);
+					break;
+				// professores
+				case 1:
+					$p->professor()->create(['pis' => $request->get('pis'), 'salario' => $request->get('salario')]);
+					break;
+				// funcionarios
+				default:
+					$p->funcionario()->create(['pis' => $request->get('pis'), 'salario' => $request->get('salario'), 'id_funcao' => $request->get('funcao')]);
+					break;
+			}
 
-        Session::flash('success', 'Pessoa added!');
+			Session::flash('success', 'Pessoa added!');
+		} catch (\Exception $ex) {
+            Session::flash('danger', $ex->getMessage());
+        }
 
         return redirect('admin/pessoas');
     }
@@ -100,10 +104,18 @@ class PessoaController extends Controller
      */
     public function edit($id)
     {
-        $pessoa = Pessoa::findOrFail($id);
-        $funcoes = Funcao::pluck('nome','id');
-        return view('admin.pessoas.edit', compact('pessoa', 'funcoes'));
-    }
+		try{
+		
+			$pessoa = Pessoa::findOrFail($id);
+			$funcoes = Funcao::pluck('nome','id');
+			return view('admin.pessoas.edit', compact('pessoa', 'funcoes'));
+				
+		} catch (\Exception $ex) {
+				Session::flash('danger', $ex->getMessage());
+		}
+		 
+    
+	}
 
     /**
      * Update the specified resource in storage.
@@ -114,30 +126,34 @@ class PessoaController extends Controller
      */
     public function update($id, Request $request)
     {
+		try {  
         
-        $pessoa = Pessoa::findOrFail($id);
-        $pessoa->update($request->except(array('funcao', 'pis', 'salario', 'empresa', 'observacoes')));
-        /*switch($request->get('tipopessoa')){
-            // alunos
-            case 3:
-                $pessoa->aluno()->update(['observacoes' => $request->get('observacoes')]);
-                break;
-            // responsaveis
-            case 2:
-                $pessoa->responsavel()->update(['empresa' => $request->get('empresa'), 'id_funcao' => $request->get('funcao')]);
-                break;
-            // professores
-            case 1:
-                $pessoa->professor()->update(['pis' => $request->get('pis'), 'salario' => $request->get('salario')]);
-                break;
-            // funcionarios
-            default:
-                $pessoa->funcionario()->update(['pis' => $request->get('pis'), 'salario' => $request->get('salario'), 'id_funcao' => $request->get('funcao')]);
-                break;
-        }*/
-        Session::flash('success', 'Pessoa updated!');
-
-        return redirect('admin/pessoas');
+			$pessoa = Pessoa::findOrFail($id);
+			$pessoa->update($request->except(array('funcao', 'pis', 'salario', 'empresa', 'observacoes')));
+			/*switch($request->get('tipopessoa')){
+				// alunos
+				case 3:
+					$pessoa->aluno()->update(['observacoes' => $request->get('observacoes')]);
+					break;
+				// responsaveis
+				case 2:
+					$pessoa->responsavel()->update(['empresa' => $request->get('empresa'), 'id_funcao' => $request->get('funcao')]);
+					break;
+				// professores
+				case 1:
+					$pessoa->professor()->update(['pis' => $request->get('pis'), 'salario' => $request->get('salario')]);
+					break;
+				// funcionarios
+				default:
+					$pessoa->funcionario()->update(['pis' => $request->get('pis'), 'salario' => $request->get('salario'), 'id_funcao' => $request->get('funcao')]);
+					break;
+			}*/
+			Session::flash('success', 'Pessoa updated!');
+		} catch (\Exception $ex) {
+					Session::flash('danger', $ex->getMessage());
+				
+		}
+		return redirect('admin/pessoas');
     }
 
     /**

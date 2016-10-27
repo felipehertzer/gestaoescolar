@@ -27,6 +27,25 @@ $( document ).ready(function() {
             $("#professor_funcionario").css('display', 'block');
         }
     });
+	
+	
+	if($('#tipopessoa').val() == "3"){
+            $("#professor_funcionario, #responsavel, #funcoes").css('display', 'none');
+            $("#aluno").css('display', 'block');
+        } else if($('#tipopessoa').val() == "2"){
+
+            $("#aluno, #professor_funcionario").css('display', 'none');
+            $("#responsavel, #funcoes").css('display', 'block');
+        } else {
+            if($('#tipopessoa').val() == "0"){
+                $("#funcoes").css('display', 'block');
+            } else {
+                $("#funcoes").css('display', 'none');
+            }
+            $("#aluno, #responsavel").css('display', 'none');
+            $("#professor_funcionario").css('display', 'block');
+        }
+   
 
     $('#id_materia').on('change', function() {
         var id_materia = $(this).val();

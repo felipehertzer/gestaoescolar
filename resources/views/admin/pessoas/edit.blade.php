@@ -111,7 +111,7 @@
                 </div>
             </div>
             <div id="responsavel" style="display:none;">
-                <div class="form-group {{ $errors->has('pis') ? 'has-error' : ''}}">
+                <div class="form-group {{ $errors->has('empresa') ? 'has-error' : ''}}">
                     {!! Form::label('empresa', 'Empresa', ['class' => 'col-sm-3 control-label']) !!}
                     <div class="col-sm-6">
                         {!! Form::text('empresa', null, ['class' => 'form-control']) !!}
@@ -120,7 +120,7 @@
                 </div>
             </div>
             <div id="aluno" style="display:none;">
-                <div class="form-group {{ $errors->has('pis') ? 'has-error' : ''}}">
+                <div class="form-group {{ $errors->has('observacoes') ? 'has-error' : ''}}">
                     {!! Form::label('observacoes', 'Observacoes', ['class' => 'col-sm-3 control-label']) !!}
                     <div class="col-sm-6">
                         {!! Form::textarea('observacoes', null, ['class' => 'form-control']) !!}
