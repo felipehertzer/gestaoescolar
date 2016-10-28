@@ -51,13 +51,15 @@ class ReservaController extends Controller {
      * @return \Illuminate\Http\RedirectResponse|\Illuminate\Routing\Redirector
      */
     public function store(Request $request) {
+		try{
+			$requestData = $request->all();
 
-        $requestData = $request->all();
+			Reserva::create($requestData);
 
-        Reserva::create($requestData);
-
-        Session::flash('success', 'Reserva added!');
-
+			Session::flash('success', 'Reserva added!');
+		} catch (\Exception $ex) {
+            Session::flash('danger', $ex->getMessage());
+        }
         return redirect('admin/biblioteca/reservas');
     }
 
@@ -105,15 +107,19 @@ class ReservaController extends Controller {
      * @return \Illuminate\Http\RedirectResponse|\Illuminate\Routing\Redirector
      */
     public function update($id, Request $request) {
+		try{
+			$requestData = $request->all();
 
-        $requestData = $request->all();
+			$reserva = Reserva::findOrFail($id);
+			$reserva->update($requestData);
 
-        $reserva = Reserva::findOrFail($id);
-        $reserva->update($requestData);
+			Session::flash('success', 'Reserva updated!');
 
-        Session::flash('success', 'Reserva updated!');
-
-        return redirect('admin/biblioteca/reservas');
+			return redirect('admin/biblioteca/reservas');
+		} catch (\Exception $ex) {
+            Session::flash('danger', $ex->getMessage());   
+			return redirect('admin/biblioteca/reservas/' . $id . '/edit');
+        }
     }
 
     /**
@@ -124,10 +130,13 @@ class ReservaController extends Controller {
      * @return \Illuminate\Http\RedirectResponse|\Illuminate\Routing\Redirector
      */
     public function destroy($id) {
-        Reserva::destroy($id);
+		try{
+			Reserva::destroy($id);
 
-        Session::flash('success', 'Reserva deleted!');
-
+			Session::flash('success', 'Reserva deleted!');
+		} catch (\Exception $ex) {
+			Session::flash('danger', $ex->getMessage());
+		}
         return redirect('admin/biblioteca/reservas');
     }
 
