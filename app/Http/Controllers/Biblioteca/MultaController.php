@@ -45,14 +45,18 @@ class MultaController extends Controller {
      * @return \Illuminate\Http\RedirectResponse|\Illuminate\Routing\Redirector
      */
     public function store(Request $request) {
+		try {
+			$requestData = $request->all();
 
-        $requestData = $request->all();
+			Multa::create($requestData);
 
-        Multa::create($requestData);
+			Session::flash('success', 'Multa added!');
+			
+		} catch (\Exception $ex) {
+            Session::flash('danger', $ex->getMessage());
+        }
 
-        Session::flash('success', 'Multa added!');
-
-        return redirect('admin/biblioteca/multas');
+		return redirect('admin/biblioteca/multas');
     }
 
     /**
@@ -95,15 +99,19 @@ class MultaController extends Controller {
      * @return \Illuminate\Http\RedirectResponse|\Illuminate\Routing\Redirector
      */
     public function update($id, Request $request) {
+		try {
+			$requestData = $request->all();
 
-        $requestData = $request->all();
+			$multa = Multa::findOrFail($id);
+			$multa->update($requestData);
 
-        $multa = Multa::findOrFail($id);
-        $multa->update($requestData);
+			Session::flash('success', 'Multa updated!');
 
-        Session::flash('success', 'Multa updated!');
-
-        return redirect('admin/biblioteca/multas');
+			return redirect('admin/biblioteca/multas');
+		} catch (\Exception $ex) {
+            Session::flash('danger', $ex->getMessage());
+            return redirect('admin/biblioteca/multas/' . $id . '/edit');
+        }
     }
 
     /**
@@ -114,9 +122,13 @@ class MultaController extends Controller {
      * @return \Illuminate\Http\RedirectResponse|\Illuminate\Routing\Redirector
      */
     public function destroy($id) {
-        Multa::destroy($id);
+		try {
+			Multa::destroy($id);
 
-        Session::flash('success', 'Multa deleted!');
+			Session::flash('success', 'Multa deleted!');
+		} catch (\Exception $ex) {
+            Session::flash('danger', $ex->getMessage());
+        }
 
         return redirect('admin/biblioteca/multas');
     }

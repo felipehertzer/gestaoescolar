@@ -41,11 +41,14 @@ class TipoMultaController extends Controller
      */
     public function store(Request $request)
     {
-        
-        TipoMulta::create($request->all());
+        try{
+			$this->validate($request, ['nome' => 'required', ]);
+			TipoMulta::create($request->all());
 
-        Session::flash('success', 'TipoMulta added!');
-
+			Session::flash('success', 'TipoMulta added!');
+		} catch (\Exception $ex) {
+            Session::flash('danger', $ex->getMessage());
+        }
         return redirect('admin/biblioteca/tipomulta');
     }
 
@@ -86,13 +89,18 @@ class TipoMultaController extends Controller
      */
     public function update($id, Request $request)
     {
-        
-        $tipo_multum = TipoMulta::findOrFail($id);
-        $tipo_multum->update($request->all());
+		try{
+			$this->validate($request, ['nome' => 'required', ]);
+			$tipo_multum = TipoMulta::findOrFail($id);
+			$tipo_multum->update($request->all());
 
-        Session::flash('success', 'TipoMulta updated!');
+			Session::flash('success', 'TipoMulta updated!');
 
-        return redirect('admin/biblioteca/tipomulta');
+			return redirect('admin/biblioteca/tipomulta');
+		} catch (\Exception $ex) {
+            Session::flash('danger', $ex->getMessage());   
+			return redirect('admin/biblioteca/tipomulta/' . $id . '/edit');
+        }
     }
 
     /**
@@ -104,10 +112,13 @@ class TipoMultaController extends Controller
      */
     public function destroy($id)
     {
-        TipoMulta::destroy($id);
+		try{
+			TipoMulta::destroy($id);
 
-        Session::flash('success', 'TipoMulta deleted!');
-
+			Session::flash('success', 'TipoMulta deleted!');
+		} catch (\Exception $ex) {
+            Session::flash('danger', $ex->getMessage());   
+		}
         return redirect('admin/biblioteca/tipomulta');
     }
 }
