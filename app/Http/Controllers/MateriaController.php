@@ -39,15 +39,15 @@ class MateriaController extends Controller
      */
     public function create()
     {
-        $collection = collect(
-            DB::table('pessoas')
-                ->select('professores.id', 'pessoas.nome')
-                ->join('professores', 'pessoas.id', '=', 'professores.id_pessoas')
-                ->get()
-        );
-
-        $professores = $collection->pluck('nome', 'id');
-
+		
+		$collection = collect(
+			DB::table('pessoas')
+				->select('professores.id', 'pessoas.nome')
+				->join('professores', 'pessoas.id', '=', 'professores.id_pessoas')
+				->get()
+		);
+		$professores = $collection->pluck('nome', 'id');
+		
         return view('admin.materias.create', compact('professores'));
     }
 
@@ -58,9 +58,13 @@ class MateriaController extends Controller
      */
     public function store(Request $request)
     {
-        $m = Materia::create($request->except(array('professores','professores_escolhidos')));
-        $m->professor()->attach($request->get('professores_escolhidos'));
-        Session::flash('success', 'Materia added!');
+		try{
+			$m = Materia::create($request->except(array('professores','professores_escolhidos')));
+			$m->professor()->attach($request->get('professores_escolhidos'));
+			Session::flash('success', 'Materia added!');
+		} catch (\Exception $ex) {
+            Session::flash('danger', $ex->getMessage());
+        }
 
         return redirect('admin/materias');
     }
@@ -111,14 +115,17 @@ class MateriaController extends Controller
      */
     public function update($id, Request $request)
     {
-        
-        $materia = Materia::findOrFail($id);
-        $materia->update($request->except(array('professores','professores_escolhidos')));
-        $materia->professor()->detach($request->get('professores'));
-        $materia->professor()->attach($request->get('professores_escolhidos'));
-        Session::flash('success', 'Materia updated!');
-
-        return redirect('admin/materias');
+        try{
+			$materia = Materia::findOrFail($id);
+			$materia->update($request->except(array('professores','professores_escolhidos')));
+			$materia->professor()->detach($request->get('professores'));
+			$materia->professor()->attach($request->get('professores_escolhidos'));
+			Session::flash('success', 'Materia updated!');
+			return redirect('admin/materias');
+		} catch (\Exception $ex) {
+            Session::flash('danger', $ex->getMessage());   
+			return redirect('admin/materias/' . $id . '/edit');
+        }
     }
 
     /**
@@ -130,10 +137,13 @@ class MateriaController extends Controller
      */
     public function destroy($id)
     {
-        Materia::destroy($id);
+		try{
+			Materia::destroy($id);
 
-        Session::flash('success', 'Materia deleted!');
-
+			Session::flash('success', 'Materia deleted!');
+		} catch (\Exception $ex) {
+			Session::flash('danger', $ex->getMessage());   
+		}
         return redirect('admin/materias');
     }
 }

@@ -45,13 +45,15 @@ class ExemplarController extends Controller
      */
     public function store(Request $request)
     {
-        
-        $requestData = $request->all();
-        
-        Exemplar::create($requestData);
+        try{
+			$requestData = $request->all();
+			
+			Exemplar::create($requestData);
 
-        Session::flash('success', 'Exemplar added!');
-
+			Session::flash('success', 'Exemplar added!');
+		} catch (\Exception $ex) {
+            Session::flash('danger', $ex->getMessage());
+        }
         return redirect('admin/biblioteca/exemplares');
     }
 
@@ -95,15 +97,20 @@ class ExemplarController extends Controller
      */
     public function update($id, Request $request)
     {
-        //var_dump($request->all());exit;
-        $requestData = $request->all();
-        
-        $exemplare = Exemplar::findOrFail($id);
-        $exemplare->update($requestData);
+		try{
+			//var_dump($request->all());exit;
+			$requestData = $request->all();
+			
+			$exemplare = Exemplar::findOrFail($id);
+			$exemplare->update($requestData);
 
-        Session::flash('success', 'Exemplar updated!');
+			Session::flash('success', 'Exemplar updated!');
 
-        return redirect('admin/biblioteca/exemplares');
+			return redirect('admin/biblioteca/exemplares');
+		} catch (\Exception $ex) {
+            Session::flash('danger', $ex->getMessage());
+			return redirect('admin/biblioteca/exemplares/' . $id . '/edit');
+        }
     }
 
     /**
@@ -115,10 +122,13 @@ class ExemplarController extends Controller
      */
     public function destroy($id)
     {
-        Exemplar::destroy($id);
+		try{
+			Exemplar::destroy($id);
 
-        Session::flash('success', 'Exemplar deleted!');
-
+			Session::flash('success', 'Exemplar deleted!');
+		} catch (\Exception $ex) {
+			Session::flash('danger', $ex->getMessage());
+		}
         return redirect('admin/biblioteca/exemplares');
     }
 }
