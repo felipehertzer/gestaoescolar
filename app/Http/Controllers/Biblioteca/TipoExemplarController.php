@@ -42,12 +42,16 @@ class TipoExemplarController extends Controller
      */
     public function store(Request $request)
     {
-        
-        $requestData = $request->all();
-        
-        TipoExemplar::create($requestData);
+        try{
+			$requestData = $request->all();
+			
+			TipoExemplar::create($requestData);
 
-        Session::flash('success', 'TipoExemplar added!');
+			Session::flash('success', 'TipoExemplar added!');
+			
+		} catch (\Exception $ex) {
+            Session::flash('danger', $ex->getMessage());
+        }
 
         return redirect('admin/biblioteca/tipoexemplares');
     }
@@ -90,15 +94,19 @@ class TipoExemplarController extends Controller
      */
     public function update($id, Request $request)
     {
-        
-        $requestData = $request->all();
-        
-        $tipoexemplar = TipoExemplar::findOrFail($id);
-        $tipoexemplar->update($requestData);
+        try{
+			$requestData = $request->all();
+			
+			$tipoexemplar = TipoExemplar::findOrFail($id);
+			$tipoexemplar->update($requestData);
 
-        Session::flash('success', 'TipoExemplar updated!');
+			Session::flash('success', 'TipoExemplar updated!');
 
-        return redirect('admin/biblioteca/tipoexemplares');
+			return redirect('admin/biblioteca/tipoexemplares');
+		} catch (\Exception $ex) {
+            Session::flash('danger', $ex->getMessage());   
+			return redirect('admin/biblioteca/tipoexemplares/' . $id . '/edit');
+        }
     }
 
     /**
@@ -110,10 +118,13 @@ class TipoExemplarController extends Controller
      */
     public function destroy($id)
     {
-        TipoExemplar::destroy($id);
+		try{
+			TipoExemplar::destroy($id);
 
-        Session::flash('success', 'TipoExemplar deleted!');
-
+			Session::flash('success', 'TipoExemplar deleted!');
+		} catch (\Exception $ex) {
+            Session::flash('danger', $ex->getMessage());   
+		}
         return redirect('admin/biblioteca/tipoexemplares');
     }
 }
