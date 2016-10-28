@@ -61,7 +61,7 @@ class MatriculaController extends Controller
 			$requestData = $request->all();			
 			Matricula::create($requestData);
 			Session::flash('success', 'Matricula added!');
-		 } catch (\Exception $ex) {
+		} catch (\Exception $ex) {
             Session::flash('danger', $ex->getMessage());
         }
 		return redirect('admin/matriculas');
