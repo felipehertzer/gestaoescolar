@@ -49,14 +49,16 @@ class AdvertenciaController extends Controller
      */
     public function store(Request $request)
     {
+        try{
+			$requestData = $request->all();
         
-        $requestData = $request->all();
-        
-        Advertencia::create($requestData);
+			Advertencia::create($requestData);
 
-        Session::flash('success', 'Advertencia added!');
-
-        return redirect('admin/advertencias');
+			Session::flash('success', 'Advertencia added!');
+		} catch (\Exception $ex) {
+            Session::flash('danger', $ex->getMessage());
+        }
+		return redirect('admin/advertencias');
     }
 
     /**
@@ -99,15 +101,19 @@ class AdvertenciaController extends Controller
      */
     public function update($id, Request $request)
     {
-        
-        $requestData = $request->all();
-        
-        $advertencia = Advertencia::findOrFail($id);
-        $advertencia->update($requestData);
+        try{
+			$requestData = $request->all();
+			
+			$advertencia = Advertencia::findOrFail($id);
+			$advertencia->update($requestData);
 
-        Session::flash('success', 'Advertencia updated!');
+			Session::flash('success', 'Advertencia updated!');
 
-        return redirect('admin/advertencias');
+			return redirect('admin/advertencias');
+		} catch (\Exception $ex) {
+            Session::flash('danger', $ex->getMessage());   
+			return redirect('admin/advertencias/' . $id . '/edit');
+        }
     }
 
     /**
@@ -119,10 +125,12 @@ class AdvertenciaController extends Controller
      */
     public function destroy($id)
     {
-        Advertencia::destroy($id);
-
-        Session::flash('success', 'Advertencia deleted!');
-
-        return redirect('admin/advertencias');
+		try{
+			Advertencia::destroy($id);
+			Session::flash('success', 'Advertencia deleted!');
+		} catch (\Exception $ex) {
+            Session::flash('danger', $ex->getMessage());   
+        }
+		return redirect('admin/advertencias');
     }
 }
