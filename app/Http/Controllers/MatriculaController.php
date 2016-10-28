@@ -57,14 +57,14 @@ class MatriculaController extends Controller
      */
     public function store(Request $request)
     {
-        
-        $requestData = $request->all();
-        
-        Matricula::create($requestData);
-
-        Session::flash('success', 'Matricula added!');
-
-        return redirect('admin/matriculas');
+        try { 
+			$requestData = $request->all();			
+			Matricula::create($requestData);
+			Session::flash('success', 'Matricula added!');
+		 } catch (\Exception $ex) {
+            Session::flash('danger', $ex->getMessage());
+        }
+		return redirect('admin/matriculas');
     }
 
     /**
@@ -108,15 +108,18 @@ class MatriculaController extends Controller
      */
     public function update($id, Request $request)
     {
-        
-        $requestData = $request->all();
-        
-        $matricula = Matricula::findOrFail($id);
-        $matricula->update($requestData);
+        try {  
+			$requestData = $request->all();	
+			
+			$matricula = Matricula::findOrFail($id);
+			$matricula->update($requestData);
 
-        Session::flash('success', 'Matricula updated!');
-
-        return redirect('admin/matriculas');
+			Session::flash('success', 'Matricula updated!');
+			return redirect('admin/matriculas');
+		} catch (\Exception $ex) {
+            Session::flash('danger', $ex->getMessage());   
+			return redirect('admin/matriculas/' . $id . '/edit');
+        }
     }
 
     /**
@@ -128,10 +131,12 @@ class MatriculaController extends Controller
      */
     public function destroy($id)
     {
-        Matricula::destroy($id);
-
-        Session::flash('success', 'Matricula deleted!');
-
+		try {
+			Matricula::destroy($id);
+			Session::flash('success', 'Matricula deleted!');
+		} catch (\Exception $ex) {
+			Session::flash('danger', $ex->getMessage());
+		}
         return redirect('admin/matriculas');
     }
 }
