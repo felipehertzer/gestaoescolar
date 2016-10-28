@@ -40,11 +40,15 @@ class AutorController extends Controller
      */
     public function store(Request $request)
     {
-        $this->validate($request, ['nome' => 'required', ]);
+		try{
+			$this->validate($request, ['nome' => 'required', ]);
 
-        Autor::create($request->all());
+			Autor::create($request->all());
 
-        Session::flash('success', 'Autor added!');
+			Session::flash('success', 'Autor added!');
+		} catch (\Exception $ex) {
+            Session::flash('danger', $ex->getMessage());
+        }
 
         return redirect('admin/biblioteca/autores');
     }
@@ -86,14 +90,19 @@ class AutorController extends Controller
      */
     public function update($id, Request $request)
     {
-        $this->validate($request, ['nome' => 'required', ]);
+		try{
+			$this->validate($request, ['nome' => 'required', ]);
 
-        $autores = Autor::findOrFail($id);
-        $autores->update($request->all());
+			$autores = Autor::findOrFail($id);
+			$autores->update($request->all());
 
-        Session::flash('success', 'Autor updated!');
+			Session::flash('success', 'Autor updated!');
 
-        return redirect('admin/biblioteca/autores');
+			return redirect('admin/biblioteca/autores');
+		} catch (\Exception $ex) {
+            Session::flash('danger', $ex->getMessage());
+			return redirect('admin/biblioteca/autores/' . $id . '/edit');
+        }
     }
 
     /**
@@ -105,10 +114,13 @@ class AutorController extends Controller
      */
     public function destroy($id)
     {
-        Autor::destroy($id);
+		try{
+			Autor::destroy($id);
 
-        Session::flash('success', 'Autor deleted!');
-
+			Session::flash('success', 'Autor deleted!');
+		} catch (\Exception $ex) {
+            Session::flash('danger', $ex->getMessage());
+        }
         return redirect('admin/biblioteca/autores');
     }
 }
