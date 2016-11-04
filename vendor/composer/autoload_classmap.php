@@ -8,6 +8,7 @@ $baseDir = dirname($vendorDir);
 return array(
     'AddMatriculaMultas' => $baseDir . '/database/migrations/2016_10_24_145347_add_matricula_multas.php',
     'AddNewCollumn' => $baseDir . '/database/migrations/2016_10_22_233255_add_new_collumn.php',
+    'AddTipopessoaPessoas' => $baseDir . '/database/migrations/2016_10_27_161932_add_tipopessoa_pessoas.php',
     'CreateAdvertenciasTable' => $baseDir . '/database/migrations/2016_09_04_015431_create_advertencias_table.php',
     'CreateAlunosTable' => $baseDir . '/database/migrations/2016_09_04_012025_create_alunos_table.php',
     'CreateAutorsTable' => $baseDir . '/database/migrations/2016_08_19_174650_create_autors_table.php',
@@ -17,6 +18,7 @@ return array(
     'CreateFuncionariosTable' => $baseDir . '/database/migrations/2016_09_04_013332_create_funcionarios_table.php',
     'CreateFuncoesTable' => $baseDir . '/database/migrations/2016_08_23_175508_create_funcoes_table.php',
     'CreateListaesperaTable' => $baseDir . '/database/migrations/2016_09_04_015111_create_listaespera_table.php',
+    'CreateLivroHasAutoresTable' => $baseDir . '/database/migrations/2016_10_25_143835_create_livro_has_autores_table.php',
     'CreateLivrosTable' => $baseDir . '/database/migrations/2016_09_03_234348_create_livros_table.php',
     'CreateMateriaHasProfessorTable' => $baseDir . '/database/migrations/2016_09_05_204922_create_materia_has_professor_table.php',
     'CreateMateriaHasTurmaTable' => $baseDir . '/database/migrations/2016_09_08_140745_create_materia_has_turma_table.php',

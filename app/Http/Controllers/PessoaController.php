@@ -130,7 +130,7 @@ class PessoaController extends Controller
         
 			$pessoa = Pessoa::findOrFail($id);
 			$pessoa->update($request->except(array('funcao', 'pis', 'salario', 'empresa', 'observacoes')));
-			/*switch($request->get('tipopessoa')){
+			switch($request->get('tipopessoa')){
 				// alunos
 				case 3:
 					$pessoa->aluno()->update(['observacoes' => $request->get('observacoes')]);
@@ -147,7 +147,7 @@ class PessoaController extends Controller
 				default:
 					$pessoa->funcionario()->update(['pis' => $request->get('pis'), 'salario' => $request->get('salario'), 'id_funcao' => $request->get('funcao')]);
 					break;
-			}*/
+			}
 			Session::flash('success', 'Pessoa updated!');
 		} catch (\Exception $ex) {
 					Session::flash('danger', $ex->getMessage());
