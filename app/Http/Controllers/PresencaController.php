@@ -77,7 +77,7 @@ class PresencaController extends Controller
 
             Session::flash('success', 'Presenca added!');
         } else {
-
+            Session::flash('danger', 'Já existe uma lista de presença nessa data!');
         }
         return redirect('admin/presencas/'.$request->input('identificador'));
     }
