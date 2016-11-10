@@ -29,12 +29,12 @@
                     {{-- */$x++;/* --}}
                     <tr>
                         <td>{{ $x }}</td>
-                        <td>{{ $item->pessoa->nome }}</td>
-                        <td>{{ $item->matricula[0]->id }}</td>
+                        <td>{{ $item->nome }}</td>
+                        <td>{{ $item->id }}</td>
                         <td>
                             <div class="checkbox">
-                                <label>{!! Form::radio('presenca['.$item->matricula[0]->id.']', '1', true) !!} Sim</label>
-                                <label>{!! Form::radio('presenca['.$item->matricula[0]->id.']', '0') !!} Não</label>
+                                <label>{!! Form::radio('presenca['.$item->id.']', '1', true) !!} Sim</label>
+                                <label>{!! Form::radio('presenca['.$item->id.']', '0') !!} Não</label>
                             </div>
                             {!! $errors->first('presenca', '<p class="help-block">:message</p>') !!}
                         </td>

@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Nota;
+use Illuminate\Support\Facades\DB;
 use Requests;
 use Response;
 use Session;
@@ -41,11 +43,19 @@ class AvaliacaoController extends Controller
      */
     public function create()
     {
+        $value = 1;
+
         $materia = MateriaHasProfessor::with('materia')->where('id_professor', 1)->get();
-        $materias = $materia->pluck('materia.nome','id');
-        
-        $turma = MateriaHasTurma::with('turma')->where('id_materia_professor', key(head($materias)))->get();
-        $turmas = $turma->pluck('turma.numero_turma', 'turma.id');
+        $materias = $materia->pluck('materia.nome','materia.id');
+
+        $turmas = DB::table('materia_has_professor')
+            ->select('turmas.id', 'turmas.numero_turma')
+            ->join('materia_has_turma', 'materia_has_turma.id_materia_professor', '=', 'materia_has_professor.id')
+            ->join('materias', 'materias.id', '=', 'materia_has_professor.id_materia')
+            ->join('turmas', 'turmas.id', '=', 'materia_has_turma.id_turma')
+            ->where('materia_has_professor.id_professor', '=', $value)
+            ->where('materia_has_professor.id_materia', '=', key(head($materias)))
+            ->pluck( 'turmas.numero_turma', 'turmas.id');
 
         return view('admin.avaliacoes.create', compact('materias', 'turmas'));
     }
@@ -127,6 +137,8 @@ class AvaliacaoController extends Controller
      */
     public function destroy($id)
     {
+        Nota::where('id_avaliacao', '=', $id)->delete();
+
         Avaliacao::destroy($id);
 
         Session::flash('success', 'Avaliacao deleted!');
@@ -143,8 +155,16 @@ class AvaliacaoController extends Controller
     public function getTurmas(Request $request)
     {
         if($request->ajax() && $request->has('id_materia')) {
-            $materia = MateriaHasTurma::with('turma')->where('id_materia_professor', $request->only('id_materia'))->get();
-            $materias = $materia->pluck('turma.id', 'turma.numero_turma');
+            $value = 1;
+            $materias = DB::table('materia_has_professor')
+                ->select('turmas.id', 'turmas.numero_turma')
+                ->join('materia_has_turma', 'materia_has_turma.id_materia_professor', '=', 'materia_has_professor.id')
+                ->join('materias', 'materias.id', '=', 'materia_has_professor.id_materia')
+                ->join('turmas', 'turmas.id', '=', 'materia_has_turma.id_turma')
+                ->where('materia_has_professor.id_professor', '=', $value)
+                ->where('materia_has_professor.id_materia', '=', $request->only('id_materia'))
+                ->pluck('turmas.id', 'turmas.numero_turma');
+
             return Response::json(array("success" => "true", "materias" => $materias));
         } else {
             return Response::json(array("success" => "false", 'mensagem' => 'Houve um erro ao buscar as turmas'));

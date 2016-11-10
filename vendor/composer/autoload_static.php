@@ -344,6 +344,7 @@ class ComposerStaticInit24d4d8eaad8282e4e05367bb079f92e3
         'EditColumnIdMatriculaReservas' => __DIR__ . '/../..' . '/database/migrations/2016_09_11_035505_edit_column_id_matricula_reservas.php',
         'EditColumnIdTipomultaMultas' => __DIR__ . '/../..' . '/database/migrations/2016_09_11_024054_edit_column_id_tipomulta_multas.php',
         'EditColumnStatusExemplares' => __DIR__ . '/../..' . '/database/migrations/2016_09_10_231345_edit_column_status_exemplares.php',
+        'EditPresencas' => __DIR__ . '/../..' . '/database/migrations/2016_11_10_145531_edit_presencas.php',
         'File_Iterator' => __DIR__ . '/..' . '/phpunit/php-file-iterator/src/Iterator.php',
         'File_Iterator_Facade' => __DIR__ . '/..' . '/phpunit/php-file-iterator/src/Facade.php',
         'File_Iterator_Factory' => __DIR__ . '/..' . '/phpunit/php-file-iterator/src/Factory.php',

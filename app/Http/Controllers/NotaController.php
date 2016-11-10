@@ -26,10 +26,15 @@ class NotaController extends Controller
     public function index()
     {
         $value = 1;
-        $notas = MateriaHasTurma::with('materia_has_professor', 'materia_has_professor.materia', 'turma')->whereHas('materia_has_professor', function($q) use($value) {
-            $q->where('id_professor', '=', $value);
-        })->paginate(25);
-
+        $notas = DB::table('materia_has_professor')
+            ->select('materia_has_turma.id', 'materias.nome', 'turmas.ano', 'turmas.numero_turma')
+            ->join('materia_has_turma', 'materia_has_turma.id_materia_professor', '=', 'materia_has_professor.id')
+            ->join('materias', 'materias.id', '=', 'materia_has_professor.id_materia')
+            ->join('turmas', 'turmas.id', '=', 'materia_has_turma.id_turma')
+            ->where('materia_has_professor.id_professor', '=', $value)
+            //->toSql();
+            ->paginate(15);
+        //dd($presencas);
         return view('admin.notas.index', compact('notas'));
     }
 
@@ -71,14 +76,17 @@ class NotaController extends Controller
      */
     public function show($id)
     {
-        $avaliacoes = DB::table('avaliacoes')
-            ->select('avaliacoes.nome', 'peso', 'trimestre', 'tipo', 'avaliacoes.id')
-            ->join('materia_has_professor', function($join) {
+        $avaliacoes = DB::table('materia_has_turma')
+            //->select('avaliacoes.nome', 'peso', 'trimestre', 'tipo', 'avaliacoes.id')
+            ->join('materia_has_professor', 'materia_has_turma.id_materia_professor', '=', 'materia_has_professor.id')
+            ->join('avaliacoes', function($join) {
                 $join->on('materia_has_professor.id_materia', '=', 'avaliacoes.id_materia');
                 $join->on('materia_has_professor.id_professor','=', 'avaliacoes.id_professor');
+                $join->on('materia_has_turma.id_turma','=', 'avaliacoes.id_turma');
             })
-            ->join('materias', 'materias.id', '=', 'avaliacoes.id_materia')
-            ->where('avaliacoes.id_materia', '=', $id) // id_professor = session id_professor
+            //->join('materias', 'materias.id', '=', 'avaliacoes.id_materia')
+            ->where('materia_has_turma.id', '=', $id)
+            //->toSql();
             ->paginate(15);
         //dd($avaliacoes);
         return view('admin.notas.show', compact('avaliacoes'));
@@ -98,7 +106,7 @@ class NotaController extends Controller
             ->join('matriculas', 'matriculas.id_turma', '=', 'avaliacoes.id_turma')
             ->join('alunos', 'alunos.id', '=', 'matriculas.id_aluno')
             ->join('pessoas', 'pessoas.id', '=', 'alunos.id_pessoas')
-            ->join('notas', function($join){
+            ->leftjoin('notas', function($join){
                 $join->on('notas.id_avaliacao', '=', 'avaliacoes.id');
                 $join->on('notas.id_matricula','=', 'matriculas.id_aluno');
             })

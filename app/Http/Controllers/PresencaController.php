@@ -27,10 +27,17 @@ class PresencaController extends Controller
      */
     public function index()
     {
+
         $value = 1;
-        $presencas = MateriaHasTurma::with('materia_has_professor', 'materia_has_professor.materia', 'turma')->whereHas('materia_has_professor', function($q) use($value) {
-            $q->where('id_professor', '=', $value);
-        })->paginate(25);
+        $presencas = DB::table('materia_has_professor')
+            ->select('materia_has_turma.id', 'materias.nome', 'turmas.ano', 'turmas.numero_turma')
+            ->join('materia_has_turma', 'materia_has_turma.id_materia_professor', '=', 'materia_has_professor.id')
+            ->join('materias', 'materias.id', '=', 'materia_has_professor.id_materia')
+            ->join('turmas', 'turmas.id', '=', 'materia_has_turma.id_turma')
+            ->where('materia_has_professor.id_professor', '=', $value)
+            //->toSql();
+            ->paginate(15);
+        //dd($presencas);
         return view('admin.presencas.index', compact('presencas'));
     }
     /**
@@ -40,9 +47,17 @@ class PresencaController extends Controller
      */
     public function create($id)
     {
-        $presenca = Aluno::with('pessoa','matricula', 'matricula.turma', 'matricula.turma.materia_has_turma')->whereHas('matricula.turma.materia_has_turma', function($q) use($id) {
-            $q->where('id_materia_professor', '=', $id);
-        })->get();
+        $presenca = DB::table('pessoas')
+            ->select('pessoas.nome', 'matriculas.id')
+            ->join('alunos', 'alunos.id_pessoas', '=', 'pessoas.id')
+            ->join('matriculas', 'matriculas.id_aluno', '=', 'alunos.id')
+            ->join('turmas', 'turmas.id', '=', 'matriculas.id_turma')
+            ->join('materia_has_turma', 'turmas.id', '=', 'materia_has_turma.id_turma')
+            ->where('materia_has_turma.id', '=', $id)
+            //->toSql();
+            ->get();
+        //dd($presencas);
+
         return view('admin.presencas.create', compact('presenca', 'id'));
     }
 
@@ -53,13 +68,18 @@ class PresencaController extends Controller
      */
     public function store(Request $request)
     {
-        $pre = Presenca::create(['data' => $request->input('data'), 'id_materia_professor' => $request->input('identificador')]);
-        foreach($request->only('presenca')['presenca'] as $matricula => $presenca){
-            PresencaHasMatricula::create(['id_presenca' => $pre->id, 'presenca' => $presenca == "1" ? "presente" : "falta", 'id_matricula' => $matricula]);
-        }
+        $jaexiste = Presenca::where('data', '=', $request->input('data'))->where('id_materia_turma', '=', $request->input('identificador'))->count();
+        if($jaexiste == 0) {
+            $pre = Presenca::create(['data' => $request->input('data'), 'id_materia_turma' => $request->input('identificador')]);
+            foreach ($request->only('presenca')['presenca'] as $matricula => $presenca) {
+                PresencaHasMatricula::create(['id_presenca' => $pre->id, 'presenca' => $presenca == "1" ? "presente" : "falta", 'id_matricula' => $matricula]);
+            }
 
-        Session::flash('success', 'Presenca added!');
-        return redirect('admin/presencas');
+            Session::flash('success', 'Presenca added!');
+        } else {
+
+        }
+        return redirect('admin/presencas/'.$request->input('identificador'));
     }
 
     /**
@@ -74,7 +94,7 @@ class PresencaController extends Controller
         $presencas = DB::table('presencas')
                 ->selectRaw('presencas.*, (SELECT SUM(if(presenca = "presente", 1, 0)) FROM presenca_has_matricula WHERE presenca_has_matricula.id_presenca = presencas.id) as presentes, (SELECT SUM(if(presenca = "falta", 1, 0)) FROM presenca_has_matricula WHERE presenca_has_matricula.id_presenca = presencas.id) as faltantes')
                 ->join('presenca_has_matricula', 'presencas.id', '=', 'presenca_has_matricula.id_presenca')
-                ->where('id_materia_professor', '=', $id)
+                ->where('id_materia_turma', '=', $id)
                 ->paginate(15);
         return view('admin.presencas.show', compact('presencas', 'id'));
     }
@@ -94,7 +114,7 @@ class PresencaController extends Controller
                 ->join('matriculas', 'alunos.id', '=', 'matriculas.id_aluno')
                 ->join('turmas', 'matriculas.id_turma', '=', 'turmas.id')
                 ->join('materia_has_turma', 'materia_has_turma.id_turma', '=', 'turmas.id')
-                ->join('presencas', 'materia_has_turma.id_materia_professor', '=', 'presencas.id_materia_professor')
+                ->join('presencas', 'materia_has_turma.id', '=', 'presencas.id_materia_turma')
                 ->join('presenca_has_matricula', function($join) {
                     $join->on('presenca_has_matricula.id_presenca', '=', 'presencas.id');
                     $join->on('presenca_has_matricula.id_matricula','=', 'matriculas.id');

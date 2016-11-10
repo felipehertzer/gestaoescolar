@@ -8,7 +8,11 @@
         <table class="table table-bordered table-striped table-hover">
             <thead>
                 <tr>
-                    <th>S.No</th><th> Nota </th><th> Turma </th><th>Actions</th>
+                    <th>S.No</th>
+                    <th> Nota </th>
+                    <th> Turma </th>
+                    <th> Ano </th>
+                    <th>Actions</th>
                 </tr>
             </thead>
             <tbody>
@@ -17,8 +21,9 @@
                 {{-- */$x++;/* --}}
                 <tr>
                     <td>{{ $x }}</td>
-                    <td>{{ $item->materia_has_professor->materia->nome }}</td>
-                    <td>{{ $item->turma->numero_turma }}</td>
+                    <td>{{ $item->nome }}</td>
+                    <td>{{ $item->numero_turma }}</td>
+                    <td>{{ $item->ano }}</td>
                     <td>
                         <a href="{{ url('/admin/notas/' . $item->id ) }}" class="btn btn-primary btn-xs" title="Cadastrar nota"><span class="fa fa-bullhorn" aria-hidden="true"/></a>
                     </td>

@@ -21,9 +21,9 @@
                 {{-- */$x++;/* --}}
                 <tr>
                     <td>{{ $x }}</td>
-                    <td>{{ $item->materia_has_professor->materia->nome }}</td>
-                    <td>{{ $item->turma->numero_turma }}</td>
-                    <td>{{ $item->turma->ano }}</td>
+                    <td>{{ $item->nome }}</td>
+                    <td>{{ $item->numero_turma }}</td>
+                    <td>{{ $item->ano }}</td>
                     <td>
                         <a href="{{ url('/admin/presencas/' . $item->id ) }}" class="btn btn-primary btn-xs" title="Fazer presenca"><span class="fa fa-bullhorn" aria-hidden="true"/></a>
                     </td>

@@ -65,6 +65,7 @@ $( document ).ready(function() {
                 } else {
                     $('#id_turma').append('<option value="">Nenhuma turma encontrada</option>');
                 }
+                $('.selectpicker').selectpicker('refresh');
             },
             error: function(jqXHR, textStatus, errorThrown) {
                 console.log(textStatus, errorThrown);
