@@ -62,21 +62,18 @@ class MateriaController extends Controller
     {
 		try{
 
-		 $messages = [
-                    'nome.required'     => 'Informe o nome!',
-                    'professores_escolhidos.required'    => 'Informe o(s) professor(es)!',
-                ];
-		$validator       = Validator::make($request->all(), [
-			'nome'       => 'required',
-			'professores_escolhidos'      => 'required'
-		],$messages);
+			 $messages = [
+						'nome.required'     => 'Informe o nome!',
+						'professores_escolhidos.required'    => 'Informe o(s) professor(es)!',
+					];
+			$validator = Validator::make($request->all(), ['nome' => 'required', 'professores_escolhidos' => 'required'],$messages);
 
 
-        if ($validator->fails()) {
-            return redirect('admin/materias/create')
-                        ->withErrors($validator)
-                        ->withInput();
-        }
+			if ($validator->fails()) {
+				return redirect('admin/materias/create')
+							->withErrors($validator)
+							->withInput();
+			}
 			
 			$m = Materia::create($request->except(array('professores','professores_escolhidos')));
 			$m->professor()->attach($request->get('professores_escolhidos'));
@@ -139,13 +136,10 @@ class MateriaController extends Controller
     {
         try{
 			$messages = [
-						'nome.required'     => 'Informe o nome!',
-						'professores_escolhidos.required'    => 'Informe o(s) professor(es)!',
+						'nome.required' => 'Informe o nome!',
+						'professores_escolhidos.required' => 'Informe o(s) professor(es)!',
 					];
-			$validator       = Validator::make($request->all(), [
-					'nome'       => 'required',
-					'professores_escolhidos'      => 'required'
-			],$messages);
+			$validator = Validator::make($request->all(), ['nome' => 'required', 'professores_escolhidos' => 'required'],$messages);
 
 
 			if ($validator->fails()) {
