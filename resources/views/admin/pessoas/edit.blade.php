@@ -2,7 +2,6 @@
 
 @section('content')
 <div class="container">
-
     <h1>Edit pessoa {{ $pessoa->id }}</h1>
 
     {!! Form::model($pessoa, [
@@ -98,23 +97,24 @@
                 <div class="form-group {{ $errors->has('pis') ? 'has-error' : ''}}">
                     {!! Form::label('pis', 'PIS', ['class' => 'col-sm-3 control-label']) !!}
                     <div class="col-sm-6">
-                        {!! Form::text('pis', null, ['class' => 'form-control']) !!}
+                        {!! Form::text('pis', ((!empty($funcionario))?$funcionario[0]->pis:((!empty($professor))?$professor[0]->pis:'')), ['class' => 'form-control']) !!}
                         {!! $errors->first('pis', '<p class="help-block">:message</p>') !!}
                     </div>
                 </div>
                 <div class="form-group {{ $errors->has('salario') ? 'has-error' : ''}}">
                     {!! Form::label('salario', 'Salario', ['class' => 'col-sm-3 control-label']) !!}
                     <div class="col-sm-6">
-                        {!! Form::text('salario', null, ['class' => 'form-control']) !!}
+                        {!! Form::text('salario', ((!empty($funcionario))?$funcionario[0]->salario:((!empty($professor))?$professor[0]->salario:'')), ['class' => 'form-control']) !!}
                         {!! $errors->first('salario', '<p class="help-block">:message</p>') !!}
                     </div>
                 </div>
             </div>
+			
             <div id="responsavel" style="display:none;">
                 <div class="form-group {{ $errors->has('empresa') ? 'has-error' : ''}}">
                     {!! Form::label('empresa', 'Empresa', ['class' => 'col-sm-3 control-label']) !!}
                     <div class="col-sm-6">
-                        {!! Form::text('empresa', null, ['class' => 'form-control']) !!}
+                        {!! Form::text('empresa', (!empty($responsavel))?$responsavel[0]->empresa:'', ['class' => 'form-control']) !!}
                         {!! $errors->first('empresa', '<p class="help-block">:message</p>') !!}
                     </div>
                 </div>
@@ -123,13 +123,14 @@
                 <div class="form-group {{ $errors->has('observacoes') ? 'has-error' : ''}}">
                     {!! Form::label('observacoes', 'Observacoes', ['class' => 'col-sm-3 control-label']) !!}
                     <div class="col-sm-6">
-                        {!! Form::textarea('observacoes', $pessoa->aluno->observacoes, ['class' => 'form-control']) !!}
+                        {!! Form::textarea('observacoes', (!empty($aluno))?$aluno[0]->observacoes:'', ['class' => 'form-control']) !!}
                         {!! $errors->first('observacoes', '<p class="help-block">:message</p>') !!}
                     </div>
                 </div>
             </div>
 			
-			<?php //dd($pessoa->aluno); ?>
+			
+	
 
 
     <div class="form-group">
@@ -138,6 +139,8 @@
         </div>
     </div>
     {!! Form::close() !!}
+	
+	
 
     @if ($errors->any())
         <ul class="alert alert-danger">
@@ -146,6 +149,8 @@
             @endforeach
         </ul>
     @endif
+	
+	
 
 </div>
 @endsection

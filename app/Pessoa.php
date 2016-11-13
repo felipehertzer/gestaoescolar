@@ -28,7 +28,7 @@ class Pessoa extends Authenticatable
      * @var array
      */
     protected $fillable = [
-        'nome', 'email', 'dataNascimento', 'cpf', 'password', 'telefoneFixo', 'telefoneCelular', 'status', 'sexo', 'endereco',
+        'nome', 'email', 'dataNascimento', 'cpf', 'password', 'telefoneFixo', 'telefoneCelular', 'status', 'sexo', 'endereco', 'tipopessoa'
     ];
 
     /**
