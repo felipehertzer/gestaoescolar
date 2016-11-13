@@ -9,6 +9,7 @@ use App\Serie;
 use Illuminate\Http\Request;
 use Carbon\Carbon;
 use Session;
+use Validator;
 
 class SerieController extends Controller
 {
@@ -45,10 +46,22 @@ class SerieController extends Controller
      */
     public function store(Request $request)
     {
+		try{
+			$messages = ['nome.required' => 'Informe o nome!'];
+			$validator = Validator::make($request->all(), ['nome' => 'required'],$messages);
+			if ($validator->fails()) {
+				return redirect('admin/series/create')
+							->withErrors($validator)
+							->withInput();
+			}
         
-        Serie::create($request->all());
+			Serie::create($request->all());
 
-        Session::flash('success', 'Serie added!');
+			Session::flash('success', 'Serie added!');
+
+			} catch (\Exception $ex) {
+				Session::flash('danger', $ex->getMessage());   
+			}
 
         return redirect('admin/series');
     }
@@ -90,6 +103,15 @@ class SerieController extends Controller
      */
     public function update($id, Request $request)
     {
+
+		try{
+			$messages = ['nome.required' => 'Informe o nome!'];
+			$validator = Validator::make($request->all(), ['nome' => 'required'],$messages);
+			if ($validator->fails()) {
+				return redirect('admin/series/' . $id . '/edit')
+							->withErrors($validator)
+							->withInput();
+			}
         
         $series = Serie::findOrFail($id);
         $series->update($request->all());
@@ -97,6 +119,11 @@ class SerieController extends Controller
         Session::flash('success', 'Serie updated!');
 
         return redirect('admin/series');
+
+		} catch (\Exception $ex) {
+            Session::flash('danger', $ex->getMessage());   
+			return redirect('admin/series/' . $id . '/edit');
+        }
     }
 
     /**
