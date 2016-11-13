@@ -101,8 +101,11 @@ class MateriaController extends Controller
                 ->get()
         );
         $professores = $collection->pluck('nome', 'id');
-        $professores_escolhidos = array();
-        //dd($professores_escolhidos);
+		$professores_escolhidos = \App\MateriaHasProfessor::select("professores.id", "pessoas.nome")
+                ->join('professores', 'professores.id', '=', 'materia_has_professor.id_professor')
+				->join('pessoas', 'pessoas.id', '=', 'professores.id_pessoas')
+                ->where('materia_has_professor.id_materia', $id)
+                ->lists('pessoas.nome', 'professores.id');
         return view('admin.materias.edit', compact('materia', 'professores', 'professores_escolhidos'));
     }
 
@@ -117,6 +120,10 @@ class MateriaController extends Controller
     {
         try{
 			$materia = Materia::findOrFail($id);
+			$materias = (new \App\MateriaHasProfessor)->where('id_materia', '=', $id)->lists('id');
+			if($materias->first()){
+				DB::table('materia_has_professor')->whereIn('id', $materias)->delete(); 
+			}
 			$materia->update($request->except(array('professores','professores_escolhidos')));
 			$materia->professor()->detach($request->get('professores'));
 			$materia->professor()->attach($request->get('professores_escolhidos'));
