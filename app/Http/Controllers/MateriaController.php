@@ -12,6 +12,7 @@ use Illuminate\Http\Request;
 use Carbon\Carbon;
 use Illuminate\Support\Facades\DB;
 use Session;
+use Validator;
 
 class MateriaController extends Controller
 {
@@ -39,6 +40,7 @@ class MateriaController extends Controller
      */
     public function create()
     {
+
 		
 		$collection = collect(
 			DB::table('pessoas')
@@ -59,6 +61,23 @@ class MateriaController extends Controller
     public function store(Request $request)
     {
 		try{
+
+		 $messages = [
+                    'nome.required'     => 'Informe o nome!',
+                    'professores_escolhidos.required'    => 'Informe o(s) professor(es)!',
+                ];
+		$validator       = Validator::make($request->all(), [
+			'nome'       => 'required',
+			'professores_escolhidos'      => 'required'
+		],$messages);
+
+
+        if ($validator->fails()) {
+            return redirect('admin/materias/create')
+                        ->withErrors($validator)
+                        ->withInput();
+        }
+			
 			$m = Materia::create($request->except(array('professores','professores_escolhidos')));
 			$m->professor()->attach($request->get('professores_escolhidos'));
 			Session::flash('success', 'Materia added!');
