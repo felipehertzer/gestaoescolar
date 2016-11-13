@@ -10,6 +10,7 @@
                 <tr>
                     <th>S.No</th>
                     <th> Nome </th>
+					<th> Tipo </th>
                     <th> Telefone </th>
                     <th> Status </th>
                     <th>Actions</th>
@@ -21,7 +22,7 @@
                 {{-- */$x++;/* --}}
                 <tr>
                     <td>{{ $x }}</td>
-                    <td>{{ $item->nome }}</td><td>{{ $item->telefoneFixo }}</td><td>{{ $item->status }}</td>
+                    <td>{{ $item->nome }}</td><td>{{ $item->getNomeTipoPessoa($item->tipopessoa) }}</td><td>{{ $item->telefoneFixo }}</td><td>{{ $item->status }}</td>
                     <td>
                         <a href="{{ url('/admin/pessoas/' . $item->id) }}" class="btn btn-success btn-xs" title="View pessoa"><span class="glyphicon glyphicon-eye-open" aria-hidden="true"/></a>
                         <a href="{{ url('/admin/pessoas/' . $item->id . '/edit') }}" class="btn btn-primary btn-xs" title="Edit pessoa"><span class="glyphicon glyphicon-pencil" aria-hidden="true"/></a>

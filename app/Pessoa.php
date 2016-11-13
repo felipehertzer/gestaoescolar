@@ -8,6 +8,10 @@ use Illuminate\Foundation\Auth\User as Authenticatable;
 class Pessoa extends Authenticatable
 {
     use EnumTrait;
+	const PESSOA_ALUNO = '3';
+    const PESSOA_PROFESSOR = '1';
+	const PESSOA_FUNCIONARIO = '0';
+	const PESSOA_RESPONSAVEL = '2';
     /**
      * The database table used by the model.
      *
@@ -63,5 +67,18 @@ class Pessoa extends Authenticatable
     public function funcao()
     {
         return $this->belongsTo(Funcao::class);
+    }
+	
+	public static function getTipoPessoa() {
+        return array(
+            self::PESSOA_ALUNO => 'Aluno',
+            self::PESSOA_PROFESSOR => 'Professor',
+            self::PESSOA_FUNCIONARIO => 'Funcionário',
+            self::PESSOA_RESPONSAVEL => 'Responsável'
+        );
+    }
+	
+	public static function getNomeTipoPessoa($tipopessoa) {
+        return self::getTipoPessoa()[$tipopessoa];
     }
 }
