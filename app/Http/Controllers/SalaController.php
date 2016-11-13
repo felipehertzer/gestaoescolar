@@ -9,6 +9,7 @@ use App\Sala;
 use Illuminate\Http\Request;
 use Carbon\Carbon;
 use Session;
+use Validator;
 
 class SalaController extends Controller
 {
@@ -45,12 +46,31 @@ class SalaController extends Controller
      */
     public function store(Request $request)
     {
+		try{
+			$messages = [
+						'numero.required' => 'Informe o número!',
+						'capacidade.required' => 'Informe a capacidade!',
+					];
+			$validator = Validator::make($request->all(), ['numero' => 'required', 'capacidade' => 'required'],$messages);
+
+
+			if ($validator->fails()) {
+				return redirect('admin/salas/create')
+							->withErrors($validator)
+							->withInput();
+			}
         
         Sala::create($request->all());
 
         Session::flash('success', 'Sala added!');
+		
+		} catch (\Exception $ex) {
+            Session::flash('danger', $ex->getMessage());   
+        }
 
-        return redirect('admin/salas');
+	return redirect('admin/salas');
+
+        
     }
 
     /**
@@ -90,13 +110,32 @@ class SalaController extends Controller
      */
     public function update($id, Request $request)
     {
+	try{
+		$messages = [
+						'numero.required' => 'Informe o número!',
+						'capacidade.required' => 'Informe a capacidade!',
+					];
+		$validator = Validator::make($request->all(), ['numero' => 'required', 'capacidade' => 'required'],$messages);
+
+
+		if ($validator->fails()) {
+				return redirect('admin/salas/'.$id.'/edit')
+							->withErrors($validator)
+							->withInput();
+		}
+	
         
         $sala = Sala::findOrFail($id);
         $sala->update($request->all());
 
         Session::flash('success', 'Sala updated!');
+		return redirect('admin/salas');
+		} catch (\Exception $ex) {
+            Session::flash('danger', $ex->getMessage());   
+			return redirect('admin/salas/' . $id . '/edit');
+        }
 
-        return redirect('admin/salas');
+        
     }
 
     /**
