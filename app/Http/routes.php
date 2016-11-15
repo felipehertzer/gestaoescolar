@@ -56,7 +56,7 @@ Route::get('admin/presencas/{id}/create', 'PresencaController@create');
 
 Route::resource('admin/matriculas', 'MatriculaController');
 
-Route::resource('admin/emprestarmateriais', 'EmprestaMateriaisController');
+Route::resource('admin/emprestamateriais', 'EmprestaMateriaisController');
 
 Route::resource('admin/biblioteca/autores', 'Biblioteca\\AutorController');
 
@@ -83,3 +83,5 @@ Route::get('admin/biblioteca/retiradas/{id}/devolve_exemplares', 'Biblioteca\\Re
 Route::post('admin/biblioteca/retiradas/{id}/devolve_exemplares', 'Biblioteca\\RetiradaController@devolve_exemplares');
 
 Route::get('admin/biblioteca/retiradas/{id}/renovar', 'Biblioteca\\RetiradaController@renovar');
+
+Route::get('admin/emprestamateriais/{id}/devolve', 'EmprestaMateriaisController@devolve');

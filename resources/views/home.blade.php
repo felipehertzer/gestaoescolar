@@ -15,7 +15,7 @@
                             <a href="{{ url('/admin/matriculas') }}" class="list-group-item"><i class="fa fa-user"></i> Realizar Matricula</a>
                             <a href="{{ url('/admin/biblioteca/retiradas') }}" class="list-group-item"><i class="fa fa-btn fa-reply"></i>Retirada</a>
                             <a href="{{ url('/admin/biblioteca/reservas') }}" class="list-group-item"><i class="fa fa-clock-o"></i> Reserva</a>
-                            <a href="{{ url('/admin/emprestarmateriais') }}" class="list-group-item"><i class="fa fa-share-square-o"></i> Emprestar Material</a>
+                            <a href="{{ url('/admin/emprestamateriais') }}" class="list-group-item"><i class="fa fa-share-square-o"></i> Emprestar Material</a>
                         </div>
                     </div>
                 </div>

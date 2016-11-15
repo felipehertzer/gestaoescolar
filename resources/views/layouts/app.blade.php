@@ -93,7 +93,7 @@
                                 <li><a href="{{ url('/admin/series') }}"><i class="fa fa-btn fa-star"></i>Série</a></li>
                                 <li><a href="{{ url('/admin/funcoes') }}"><i class="fa fa-btn fa-cogs"></i>Funções</a></li>
                                 <li><a href="{{ url('/admin/tipomateriais') }}"><i class="fa fa-btn fa-archive"></i>Tipo de Material</a></li>
-                                <li><a href="{{ url('/admin/emprestarmateriais') }}"><i class="fa fa-share-square-o"></i> Emprestar Material</a></li>
+                                <li><a href="{{ url('/admin/emprestamateriais') }}"><i class="fa fa-share-square-o"></i> Emprestar Material</a></li>
                                 <li><a href="{{ url('/admin/feriados') }}"><i class="fa fa-btn fa-sun-o"></i>Feriados</a></li>
                             </ul>
                         </li>
