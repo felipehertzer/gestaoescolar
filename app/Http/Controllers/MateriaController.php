@@ -165,6 +165,10 @@ class MateriaController extends Controller
     public function destroy($id)
     {
 		try{
+			$materias = (new \App\MateriaHasProfessor)->where('id_materia', '=', $id)->lists('id');
+			if($materias->first()){
+				DB::table('materia_has_professor')->whereIn('id', $materias)->delete(); 
+			}
 			Materia::destroy($id);
 
 			Session::flash('success', 'Materia deleted!');
