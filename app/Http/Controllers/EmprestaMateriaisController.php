@@ -22,7 +22,21 @@ class EmprestaMateriaisController extends Controller
      */
     public function index()
     {
-		$emprestamateriais = EmprestaMaterial::where('status', '=', EmprestaMaterial::STATUS_RETIRADO)->paginate(25);
+		//$emprestamateriais['emprestar'] = EmprestaMaterial::where('status', '=', EmprestaMaterial::STATUS_RETIRADO)->paginate(25);
+		$emprestamateriais['materiais'] = \App\Material::select("materiais.id", 'materiais.nome')
+                ->where('materiais.status', \App\Material::STATUS_DEVOLVIDO)
+                ->paginate(25);
+				
+		$emprestamateriais = \App\EmprestaMaterial::select("emprestamateriais.id"
+                        , DB::raw("CONCAT('T:', turmas.numero_turma,' - D:', materias.nome) as full_name"),  DB::raw("CONCAT('',materiais.nome) as material"))
+                ->join('materia_has_turma', 'materia_has_turma.id', '=', 'emprestamateriais.materia_turma_id')
+                ->join('materia_has_professor', 'materia_has_professor.id', '=', 'materia_has_turma.id_materia_professor')
+                ->join('materias', 'materias.id', '=', 'materia_has_professor.id_materia')
+                ->join('turmas', 'turmas.id', '=', 'materia_has_turma.id_turma')
+                ->join('materiais', 'materiais.id', '=', 'emprestamateriais.material_id')
+				->where('emprestamateriais.status', '=', EmprestaMaterial::STATUS_RETIRADO)
+                ->paginate(25);
+		
         return view('admin.emprestamateriais.index', compact('emprestamateriais'));
     }
 

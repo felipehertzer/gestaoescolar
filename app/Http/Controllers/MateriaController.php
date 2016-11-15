@@ -61,13 +61,8 @@ class MateriaController extends Controller
     public function store(Request $request)
     {
 		try{
-
-			 $messages = [
-						'nome.required'     => 'Informe o nome!',
-						'professores_escolhidos.required'    => 'Informe o(s) professor(es)!',
-					];
+			$messages = [ 'nome.required' => 'Informe o nome!', 'professores_escolhidos.required'  => 'Informe o(s) professor(es)!',];
 			$validator = Validator::make($request->all(), ['nome' => 'required', 'professores_escolhidos' => 'required'],$messages);
-
 
 			if ($validator->fails()) {
 				return redirect('admin/materias/create')
@@ -135,18 +130,15 @@ class MateriaController extends Controller
     public function update($id, Request $request)
     {
         try{
-			$messages = [
-						'nome.required' => 'Informe o nome!',
-						'professores_escolhidos.required' => 'Informe o(s) professor(es)!',
-					];
+			$messages = ['nome.required' => 'Informe o nome!', 'professores_escolhidos.required' => 'Informe o(s) professor(es)!',];
 			$validator = Validator::make($request->all(), ['nome' => 'required', 'professores_escolhidos' => 'required'],$messages);
-
 
 			if ($validator->fails()) {
 				return redirect('admin/materias/'.$id.'/edit')
 							->withErrors($validator)
 							->withInput();
 			}
+			
 			$materia = Materia::findOrFail($id);
 			$materias = (new \App\MateriaHasProfessor)->where('id_materia', '=', $id)->lists('id');
 			if($materias->first()){
