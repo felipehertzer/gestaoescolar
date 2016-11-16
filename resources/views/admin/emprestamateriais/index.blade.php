@@ -8,13 +8,13 @@
         <table class="table table-bordered table-striped table-hover">
             <thead>
                 <tr>
-                    <th>S.No</th><th>Turma - Disciplina</th><th>Material</th><th>Actions</th>
+                    <th>S.No</th><th>Turma - Disciplina</th><th>Material</th><th>Data</th><th>Actions</th>
                 </tr>
             </thead>
             <tbody>
             @foreach($emprestamateriais as $item)
                 <tr>
-                   <td>{{ $item->id }}</td><td>{{ $item->full_name }}</td><td>{{ $item->material }}</td>
+                   <td>{{ $item->id }}</td><td>{{ $item->full_name }}</td><td>{{ $item->material }}</td><td>{{ $item->data}}</td>
                     
                     <td>
                         <a href="{{ url('/admin/emprestamateriais/' . $item->id) }}" class="btn btn-success btn-xs" title="View admin.emprestamateriais"><span class="glyphicon glyphicon-eye-open" aria-hidden="true"/></a>
