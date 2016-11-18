@@ -10,6 +10,7 @@ use App\Matricula;
 use App\Turma;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use League\Flysystem\Exception;
 use Session;
 
 class MatriculaController extends Controller

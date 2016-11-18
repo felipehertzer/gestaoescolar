@@ -31,8 +31,12 @@ class Matricula extends Model
         return $this->belongsTo(Aluno::class, 'id_aluno');
     }
 
-    public function turma() {
+    /*public function turma() {
         return $this->hasMany(Turma::class, 'id', 'id_turma');
+    }*/
+
+    public function turma() {
+        return $this->belongsTo(Turma::class, 'id');
     }
 
     public function presenca() {

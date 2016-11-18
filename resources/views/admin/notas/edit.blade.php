@@ -22,7 +22,7 @@
             </tr>
             </thead>
             <tbody>
-            {{-- */$x=0;/* --}}
+            {{-- */$x=$notas=0;/* --}}
             @foreach($alunos as $item)
                 {{-- */$x++;/* --}}
                 <tr>
@@ -32,9 +32,14 @@
                     <td style="width:120px;">
                         {!! Form::text('notas['.$item->id.']', number_format($item->nota, 2), ['class' => 'form-control']) !!}
                         {!! $errors->first('notas', '<p class="help-block">:message</p>') !!}
+                        {{-- */$notas += $item->nota/* --}}
                     </td>
                 </tr>
             @endforeach
+            <tr>
+                <td colspan="3" align="right">Média geral:</td>
+                <td colspan="1">{{ number_format($notas / $x, 2) }}</td>
+            </tr>
             </tbody>
         </table>
 

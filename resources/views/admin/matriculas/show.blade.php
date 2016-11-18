@@ -24,7 +24,9 @@
                 <tr>
                     <th>ID</th><td>{{ $matricula->id }}</td>
                 </tr>
-                <tr><th> Observacoes </th><td> {{ $matricula->observacoes }} </td></tr><tr><th> Id Aluno </th><td> {{ $matricula->id_aluno }} </td></tr><tr><th> Id Turma </th><td> {{ $matricula->id_turma }} </td></tr>
+                <tr><th> Aluno </th><td> {{ $matricula->aluno->pessoa->nome }} </td></tr>
+                <tr><th> Turma </th><td> {{ $matricula->turma->numero_turma }} </td></tr>
+                <tr><th> Observacoes </th><td> {{ $matricula->observacoes }} </td></tr>
             </tbody>
         </table>
     </div>
