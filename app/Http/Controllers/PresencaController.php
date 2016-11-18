@@ -93,7 +93,7 @@ class PresencaController extends Controller
     {
         $presencas = DB::table('presencas')
                 ->selectRaw('presencas.*, (SELECT SUM(if(presenca = "presente", 1, 0)) FROM presenca_has_matricula WHERE presenca_has_matricula.id_presenca = presencas.id) as presentes, (SELECT SUM(if(presenca = "falta", 1, 0)) FROM presenca_has_matricula WHERE presenca_has_matricula.id_presenca = presencas.id) as faltantes')
-                ->join('presenca_has_matricula', 'presencas.id', '=', 'presenca_has_matricula.id_presenca')
+                //->join('presenca_has_matricula', 'presencas.id', '=', 'presenca_has_matricula.id_presenca')
                 ->where('id_materia_turma', '=', $id)
                 ->paginate(15);
         return view('admin.presencas.show', compact('presencas', 'id'));

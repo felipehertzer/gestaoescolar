@@ -21,6 +21,7 @@
                     <td>
                         <a href="{{ url('/admin/avaliacoes/' . $item->id) }}" class="btn btn-success btn-xs" title="View avaliaco"><span class="glyphicon glyphicon-eye-open" aria-hidden="true"/></a>
                         <a href="{{ url('/admin/avaliacoes/' . $item->id . '/edit') }}" class="btn btn-primary btn-xs" title="Edit avaliaco"><span class="glyphicon glyphicon-pencil" aria-hidden="true"/></a>
+                        <a href="{{ url('/admin/notas/' . $item->id . '/edit') }}" class="btn btn-primary btn-xs" title="Notas"><span class="fa fa-btn fa-sort-numeric-desc" aria-hidden="true"/></a>
                         {!! Form::open([
                             'method'=>'DELETE',
                             'url' => ['/admin/avaliacoes', $item->id],

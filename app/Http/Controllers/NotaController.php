@@ -108,7 +108,7 @@ class NotaController extends Controller
             ->join('pessoas', 'pessoas.id', '=', 'alunos.id_pessoas')
             ->leftjoin('notas', function($join){
                 $join->on('notas.id_avaliacao', '=', 'avaliacoes.id');
-                $join->on('notas.id_matricula','=', 'matriculas.id_aluno');
+                $join->on('notas.id_matricula','=', 'matriculas.id');
             })
             ->where('avaliacoes.id', '=', $id)
             ->get();
