@@ -4,8 +4,8 @@ namespace App;
 
 use Illuminate\Database\Eloquent\Model;
 
-class Reserva extends Model
-{
+class Reserva extends Model {
+
     /**
      * The database table used by the model.
      *
@@ -14,12 +14,12 @@ class Reserva extends Model
     protected $table = 'reservas';
 
     /**
-    * The database primary key value.
-    *
-    * @var string
-    */
+     * The database primary key value.
+     *
+     * @var string
+     */
     protected $primaryKey = 'id';
-    
+
     /**
      * The attributes that should be mutated to dates.
      * 
@@ -37,5 +37,13 @@ class Reserva extends Model
     public function matricula() {
         return $this->belongsTo(Matricula::class);
     }
-    
+
+    public function exemplares() {
+        return $this->belongsToMany(Exemplar::class, 'reserva_has_exemplares', 'reserva_id', 'exemplar_id');
+    }
+
+    public function getExemplaresIdsAttribute() {
+        return $this->exemplares->lists('NomeCompletoExemplar', 'id');
+    }
+
 }

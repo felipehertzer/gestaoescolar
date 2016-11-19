@@ -36,6 +36,13 @@
             </tbody>
         </table>
     </div>
+    
+    <div class="autores">
+        <h2>Exemplares Reservados</h2>
+        @foreach($reserva->exemplares as $exemplar)
+            <span> L: {{ $exemplar->livro->nome }} - Ex: {{ $exemplar->id }}</span> <br />
+        @endforeach
+    </div>
 
 </div>
 @endsection

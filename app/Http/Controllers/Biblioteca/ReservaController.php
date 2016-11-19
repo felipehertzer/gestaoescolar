@@ -8,6 +8,7 @@ use Illuminate\Support\Facades\DB;
 use App\Reserva;
 use Illuminate\Http\Request;
 use Session;
+use Carbon\Carbon;
 
 class ReservaController extends Controller {
 
@@ -39,7 +40,7 @@ class ReservaController extends Controller {
                 ->join('livros', 'livros.id', '=', 'exemplares.livro_id')
                 ->where('exemplares.status', \App\Exemplar::STATUS_DISPONIVEL)
                 ->lists('full_name', 'exemplares.id');
-        
+
         return view('admin/biblioteca.reservas.create', compact('matriculas', 'exemplares'));
     }
 
@@ -51,13 +52,17 @@ class ReservaController extends Controller {
      * @return \Illuminate\Http\RedirectResponse|\Illuminate\Routing\Redirector
      */
     public function store(Request $request) {
-		try{
-			$requestData = $request->all();
+        try {
+            $dados = $request->all();            
+            $dataAtual = Carbon::parse(date('Y-m-d'));
+            $dados['data_reserva'] = date('Y-m-d');
+            $dados['data_agenda'] = $dataAtual->addDays(7);
+            
+            $reserva = Reserva::create($dados);
+            $reserva->exemplares()->sync($dados['exemplares_escolhidos'], false);
 
-			Reserva::create($requestData);
-
-			Session::flash('success', 'Reserva added!');
-		} catch (\Exception $ex) {
+            Session::flash('success', 'Reserva added!');
+        } catch (\Exception $ex) {
             Session::flash('danger', $ex->getMessage());
         }
         return redirect('admin/biblioteca/reservas');
@@ -84,18 +89,22 @@ class ReservaController extends Controller {
      * @return \Illuminate\View\View
      */
     public function edit($id) {
-        $reserva = Reserva::findOrFail($id);
-        $collection = collect(
-                DB::table('matriculas')
-                        ->select('matriculas.id', 'pessoas.nome')
-                        ->join('alunos', 'alunos.id', '=', 'matriculas.id_aluno')
-                        ->join('pessoas', 'pessoas.id', '=', 'alunos.id_pessoas')
-                        ->get()
-        );
         
-        $matriculas = $collection->pluck('nome', 'id');
+        $reserva = Reserva::findOrFail($id);
+        $matriculas = \App\Matricula::select('matriculas.id', 'pessoas.nome')
+                ->join('alunos', 'alunos.id', '=', 'matriculas.id_aluno')
+                ->join('pessoas', 'pessoas.id', '=', 'alunos.id_pessoas')
+                ->lists('pessoas.nome', 'matriculas.id');
 
-        return view('admin/biblioteca.reservas.edit', compact('reserva', 'matriculas'));
+        $exemplares = \App\Exemplar::select("exemplares.id"
+                        , DB::raw("CONCAT('L:', livros.nome,' - Ex:', exemplares.id) as full_name"))
+                ->join('livros', 'livros.id', '=', 'exemplares.livro_id')
+                //->where('exemplares.status', \App\Exemplar::STATUS_DISPONIVEL)
+                ->lists('full_name', 'exemplares.id');
+        
+        $exemplares_escolhidos = $reserva->getExemplaresIdsAttribute();
+
+        return view('admin/biblioteca.reservas.edit', compact('reserva', 'matriculas', 'exemplares', 'exemplares_escolhidos'));
     }
 
     /**
@@ -107,18 +116,18 @@ class ReservaController extends Controller {
      * @return \Illuminate\Http\RedirectResponse|\Illuminate\Routing\Redirector
      */
     public function update($id, Request $request) {
-		try{
-			$requestData = $request->all();
+        try {
+            $requestData = $request->all();
 
-			$reserva = Reserva::findOrFail($id);
-			$reserva->update($requestData);
+            $reserva = Reserva::findOrFail($id);
+            $reserva->update($requestData);
 
-			Session::flash('success', 'Reserva updated!');
+            Session::flash('success', 'Reserva updated!');
 
-			return redirect('admin/biblioteca/reservas');
-		} catch (\Exception $ex) {
-            Session::flash('danger', $ex->getMessage());   
-			return redirect('admin/biblioteca/reservas/' . $id . '/edit');
+            return redirect('admin/biblioteca/reservas');
+        } catch (\Exception $ex) {
+            Session::flash('danger', $ex->getMessage());
+            return redirect('admin/biblioteca/reservas/' . $id . '/edit');
         }
     }
 
@@ -130,13 +139,13 @@ class ReservaController extends Controller {
      * @return \Illuminate\Http\RedirectResponse|\Illuminate\Routing\Redirector
      */
     public function destroy($id) {
-		try{
-			Reserva::destroy($id);
+        try {
+            Reserva::destroy($id);
 
-			Session::flash('success', 'Reserva deleted!');
-		} catch (\Exception $ex) {
-			Session::flash('danger', $ex->getMessage());
-		}
+            Session::flash('success', 'Reserva deleted!');
+        } catch (\Exception $ex) {
+            Session::flash('danger', $ex->getMessage());
+        }
         return redirect('admin/biblioteca/reservas');
     }
 

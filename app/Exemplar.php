@@ -8,6 +8,7 @@ class Exemplar extends Model
 {
     const STATUS_EMPRESTADO = 'emprestado';
     const STATUS_DISPONIVEL = 'disponivel';
+    const STATUS_DISPONIVEL = 'reservado';
     /**
      * The database table used by the model.
      *
@@ -66,6 +67,10 @@ class Exemplar extends Model
     
     public static function getNomeStatus($status) {
         return self::getStatus()[$status];
+    }
+
+    public function getNomeCompletoExemplarAttribute() {
+        return 'L:' . $this->livro->nome . ' - Ex:' . $this->id;
     }
 
     
