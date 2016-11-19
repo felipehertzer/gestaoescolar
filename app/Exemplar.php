@@ -8,7 +8,7 @@ class Exemplar extends Model
 {
     const STATUS_EMPRESTADO = 'emprestado';
     const STATUS_DISPONIVEL = 'disponivel';
-    const STATUS_DISPONIVEL = 'reservado';
+    const STATUS_RESERVADO = 'reservado';
     /**
      * The database table used by the model.
      *
