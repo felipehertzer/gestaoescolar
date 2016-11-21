@@ -150,12 +150,11 @@ class ReservaController extends Controller {
             Reserva::retirouExemplares($reserva_id);
             DB::commit();
             Session::flash('success', 'Exemplares retirados com sucesso!');
-            
         } catch (\Exception $ex) {
             DB::rollback();
             Session::flash('danger', $ex->getMessage());
         }
-        
+
         return redirect('admin/biblioteca/reservas');
     }
 
@@ -167,11 +166,17 @@ class ReservaController extends Controller {
      * @return \Illuminate\Http\RedirectResponse|\Illuminate\Routing\Redirector
      */
     public function destroy($id) {
+        DB::beginTransaction();
         try {
+            $reserva = Reserva::findOrFail($id);
+            (new \App\Exemplar)->setExemplaresParaNaoReservado($reserva->exemplares->lists('id')->toArray());
+
             Reserva::destroy($id);
 
+            DB::commit();
             Session::flash('success', 'Reserva deleted!');
         } catch (\Exception $ex) {
+            DB::rollback();
             Session::flash('danger', $ex->getMessage());
         }
         return redirect('admin/biblioteca/reservas');
