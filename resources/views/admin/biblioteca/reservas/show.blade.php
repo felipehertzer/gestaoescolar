@@ -31,7 +31,10 @@
                     <th> Data Agenda </th><td> {{ $reserva->data_agenda->format('d/m/Y') }} </td>
                 </tr>
                 <tr>
-                    <th> Matricula Id </th><td> {{ $reserva->matricula_id }} </td>
+                    <th> Aluno </th><td> {{ $reserva->matricula->aluno->pessoa->nome }} </td>
+                </tr>
+                <tr>
+                    <th> Status </th><td> {{ $reserva->status }} </td>
                 </tr>
             </tbody>
         </table>

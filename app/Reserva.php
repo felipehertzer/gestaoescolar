@@ -6,6 +6,9 @@ use Illuminate\Database\Eloquent\Model;
 
 class Reserva extends Model {
 
+    const STATUS_RESERVADO = 'reservado';
+    const STATUS_RETIRADO = 'retirado';
+
     /**
      * The database table used by the model.
      *
@@ -32,7 +35,7 @@ class Reserva extends Model {
      *
      * @var array
      */
-    protected $fillable = ['data_reserva', 'data_agenda', 'matricula_id'];
+    protected $fillable = ['data_reserva', 'data_agenda', 'matricula_id', 'status'];
 
     public function matricula() {
         return $this->belongsTo(Matricula::class);
@@ -44,6 +47,21 @@ class Reserva extends Model {
 
     public function getExemplaresIdsAttribute() {
         return $this->exemplares->lists('NomeCompletoExemplar', 'id');
+    }
+
+    public static function retirouExemplares($reserva_id) {
+        $reserva = self::findOrFail($reserva_id);
+        self::validacoesParaRetirarExemplares($reserva);
+        Retirada::geraNovoRegistro($reserva->exemplares, $reserva->matricula_id);
+        $reserva->update(['status' => self::STATUS_RETIRADO]);
+    }
+    
+    public static function validacoesParaRetirarExemplares($reserva) {
+        foreach ($reserva->exemplares as $exemplar) {
+            if($exemplar->status == Exemplar::STATUS_EMPRESTADO) {
+                throw new \Exception('O exemplar L:' . $exemplar->livro->nome . ' - Ex:' . $exemplar->id . ' está emprestado!');
+            }
+        }
     }
 
 }

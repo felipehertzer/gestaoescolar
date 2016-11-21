@@ -8,7 +8,12 @@
         <table class="table table-bordered table-striped table-hover">
             <thead>
                 <tr>
-                    <th>S.No</th><th> Data Reserva </th><th> Data Agenda </th><th> Aluno </th><th>Actions</th>
+                    <th>S.No</th>
+                    <th> Data Reserva </th>
+                    <th> Data Agenda </th>
+                    <th> Aluno </th>
+                    <th> Status </th>
+                    <th>Actions</th>
                 </tr>
             </thead>
             <tbody>
@@ -20,9 +25,11 @@
                     <td>{{ $item->data_reserva->format('d/m/Y') }}</td>
                     <td>{{ $item->data_agenda->format('d/m/Y') }}</td>
                     <td>{{ $item->matricula->aluno->pessoa->nome }}</td>
+                    <td>{{ $item->status }}</td>
                     <td>
                         <a href="{{ url('/admin/biblioteca/reservas/' . $item->id) }}" class="btn btn-success btn-xs" title="View reserva"><span class="glyphicon glyphicon-eye-open" aria-hidden="true"/></a>
                         <a href="{{ url('/admin/biblioteca/reservas/' . $item->id . '/edit') }}" class="btn btn-primary btn-xs" title="Edit reserva"><span class="glyphicon glyphicon-pencil" aria-hidden="true"/></a>
+                        <a href="{{ url('/admin/biblioteca/reservas/' . $item->id . '/retirou_exemplares') }}" class="btn btn-primary btn-xs" title="Retirar Exemplares"><span class="glyphicon glyphicon-share-alt" aria-hidden="true"/></a>
                         {!! Form::open([
                             'method'=>'DELETE',
                             'url' => ['/admin/biblioteca/reservas', $item->id],

@@ -40,6 +40,7 @@ class RetiradaController extends Controller {
                         , DB::raw("CONCAT('L:', livros.nome,' - Ex:', exemplares.id) as full_name"))
                 ->join('livros', 'livros.id', '=', 'exemplares.livro_id')
                 ->where('exemplares.status', \App\Exemplar::STATUS_DISPONIVEL)
+                ->where('exemplares.reservado', '=', 0)
                 ->lists('full_name', 'exemplares.id');
 
         return view('admin/biblioteca.retiradas.create', compact('matriculas', 'exemplares'));
