@@ -4,7 +4,6 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests;
 use App\Http\Controllers\Controller;
-
 use App\Materia;
 use App\Pessoa;
 use App\Professor;
@@ -14,20 +13,14 @@ use Illuminate\Support\Facades\DB;
 use Session;
 use Validator;
 
-class MateriaController extends Controller
-{
-    public function __construct()
-    {
-        $this->middleware('auth');
-    }
+class MateriaController extends Controller {
+
     /**
      * Display a listing of the resource.
      *
      * @return \Illuminate\View\View
      */
-
-    public function index()
-    {
+    public function index() {
         $materias = Materia::paginate(15);
 
         return view('admin.materias.index', compact('materias'));
@@ -38,18 +31,17 @@ class MateriaController extends Controller
      *
      * @return \Illuminate\View\View
      */
-    public function create()
-    {
+    public function create() {
 
-		
-		$collection = collect(
-			DB::table('pessoas')
-				->select('professores.id', 'pessoas.nome')
-				->join('professores', 'pessoas.id', '=', 'professores.id_pessoas')
-				->get()
-		);
-		$professores = $collection->pluck('nome', 'id');
-		
+
+        $collection = collect(
+                DB::table('pessoas')
+                        ->select('professores.id', 'pessoas.nome')
+                        ->join('professores', 'pessoas.id', '=', 'professores.id_pessoas')
+                        ->get()
+        );
+        $professores = $collection->pluck('nome', 'id');
+
         return view('admin.materias.create', compact('professores'));
     }
 
@@ -58,22 +50,21 @@ class MateriaController extends Controller
      *
      * @return \Illuminate\View\View
      */
-    public function store(Request $request)
-    {
-		try{
-			$messages = [ 'nome.required' => 'Informe o nome!', 'professores_escolhidos.required'  => 'Informe o(s) professor(es)!',];
-			$validator = Validator::make($request->all(), ['nome' => 'required', 'professores_escolhidos' => 'required'],$messages);
+    public function store(Request $request) {
+        try {
+            $messages = [ 'nome.required' => 'Informe o nome!', 'professores_escolhidos.required' => 'Informe o(s) professor(es)!',];
+            $validator = Validator::make($request->all(), ['nome' => 'required', 'professores_escolhidos' => 'required'], $messages);
 
-			if ($validator->fails()) {
-				return redirect('admin/materias/create')
-							->withErrors($validator)
-							->withInput();
-			}
-			
-			$m = Materia::create($request->except(array('professores','professores_escolhidos')));
-			$m->professor()->attach($request->get('professores_escolhidos'));
+            if ($validator->fails()) {
+                return redirect('admin/materias/create')
+                                ->withErrors($validator)
+                                ->withInput();
+            }
+
+            $m = Materia::create($request->except(array('professores', 'professores_escolhidos')));
+            $m->professor()->attach($request->get('professores_escolhidos'));
 			Session::flash('success', 'Materia adicionada!');
-		} catch (\Exception $ex) {
+        } catch (\Exception $ex) {
             Session::flash('danger', $ex->getMessage());
         }
 
@@ -87,8 +78,7 @@ class MateriaController extends Controller
      *
      * @return \Illuminate\View\View
      */
-    public function show($id)
-    {
+    public function show($id) {
         $materia = Materia::findOrFail($id);
 
         return view('admin.materias.show', compact('materia'));
@@ -101,20 +91,19 @@ class MateriaController extends Controller
      *
      * @return \Illuminate\View\View
      */
-    public function edit($id)
-    {
+    public function edit($id) {
         $materia = Materia::findOrFail($id);
 
         $collection = collect(
-            DB::table('pessoas')
-                ->select('professores.id', 'pessoas.nome')
-                ->join('professores', 'pessoas.id', '=', 'professores.id_pessoas')
-                ->get()
+                DB::table('pessoas')
+                        ->select('professores.id', 'pessoas.nome')
+                        ->join('professores', 'pessoas.id', '=', 'professores.id_pessoas')
+                        ->get()
         );
         $professores = $collection->pluck('nome', 'id');
-		$professores_escolhidos = \App\MateriaHasProfessor::select("professores.id", "pessoas.nome")
+        $professores_escolhidos = \App\MateriaHasProfessor::select("professores.id", "pessoas.nome")
                 ->join('professores', 'professores.id', '=', 'materia_has_professor.id_professor')
-				->join('pessoas', 'pessoas.id', '=', 'professores.id_pessoas')
+                ->join('pessoas', 'pessoas.id', '=', 'professores.id_pessoas')
                 ->where('materia_has_professor.id_materia', $id)
                 ->lists('pessoas.nome', 'professores.id');
         return view('admin.materias.edit', compact('materia', 'professores', 'professores_escolhidos'));
@@ -127,31 +116,30 @@ class MateriaController extends Controller
      *
      * @return \Illuminate\View\View
      */
-    public function update($id, Request $request)
-    {
-        try{
-			$messages = ['nome.required' => 'Informe o nome!', 'professores_escolhidos.required' => 'Informe o(s) professor(es)!',];
-			$validator = Validator::make($request->all(), ['nome' => 'required', 'professores_escolhidos' => 'required'],$messages);
+    public function update($id, Request $request) {
+        try {
+            $messages = ['nome.required' => 'Informe o nome!', 'professores_escolhidos.required' => 'Informe o(s) professor(es)!',];
+            $validator = Validator::make($request->all(), ['nome' => 'required', 'professores_escolhidos' => 'required'], $messages);
 
-			if ($validator->fails()) {
-				return redirect('admin/materias/'.$id.'/edit')
-							->withErrors($validator)
-							->withInput();
-			}
-			
-			$materia = Materia::findOrFail($id);
-			$materias = (new \App\MateriaHasProfessor)->where('id_materia', '=', $id)->lists('id');
-			if($materias->first()){
-				DB::table('materia_has_professor')->whereIn('id', $materias)->delete(); 
-			}
-			$materia->update($request->except(array('professores','professores_escolhidos')));
-			$materia->professor()->detach($request->get('professores'));
-			$materia->professor()->attach($request->get('professores_escolhidos'));
+            if ($validator->fails()) {
+                return redirect('admin/materias/' . $id . '/edit')
+                                ->withErrors($validator)
+                                ->withInput();
+            }
+
+            $materia = Materia::findOrFail($id);
+            $materias = (new \App\MateriaHasProfessor)->where('id_materia', '=', $id)->lists('id');
+            if ($materias->first()) {
+                DB::table('materia_has_professor')->whereIn('id', $materias)->delete();
+            }
+            $materia->update($request->except(array('professores', 'professores_escolhidos')));
+            $materia->professor()->detach($request->get('professores'));
+            $materia->professor()->attach($request->get('professores_escolhidos'));
 			Session::flash('success', 'Materia atualizada!');
-			return redirect('admin/materias');
-		} catch (\Exception $ex) {
-            Session::flash('danger', $ex->getMessage());   
-			return redirect('admin/materias/' . $id . '/edit');
+            return redirect('admin/materias');
+        } catch (\Exception $ex) {
+            Session::flash('danger', $ex->getMessage());
+            return redirect('admin/materias/' . $id . '/edit');
         }
     }
 
@@ -162,19 +150,19 @@ class MateriaController extends Controller
      *
      * @return \Illuminate\View\View
      */
-    public function destroy($id)
-    {
-		try{
-			$materias = (new \App\MateriaHasProfessor)->where('id_materia', '=', $id)->lists('id');
-			if($materias->first()){
-				DB::table('materia_has_professor')->whereIn('id', $materias)->delete(); 
-			}
-			Materia::destroy($id);
+    public function destroy($id) {
+        try {
+            $materias = (new \App\MateriaHasProfessor)->where('id_materia', '=', $id)->lists('id');
+            if ($materias->first()) {
+                DB::table('materia_has_professor')->whereIn('id', $materias)->delete();
+            }
+            Materia::destroy($id);
 
 			Session::flash('success', 'Materia removida!');
-		} catch (\Exception $ex) {
-			Session::flash('danger', $ex->getMessage());   
-		}
+        } catch (\Exception $ex) {
+            Session::flash('danger', $ex->getMessage());
+        }
         return redirect('admin/materias');
     }
+
 }

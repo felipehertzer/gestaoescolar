@@ -4,26 +4,20 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests;
 use App\Http\Controllers\Controller;
-
 use App\Serie;
 use Illuminate\Http\Request;
 use Carbon\Carbon;
 use Session;
 use Validator;
 
-class SerieController extends Controller
-{
-    public function __construct()
-    {
-        $this->middleware('auth');
-    }
+class SerieController extends Controller {
+
     /**
      * Display a listing of the resource.
      *
      * @return void
      */
-    public function index()
-    {
+    public function index() {
         $series = Serie::paginate(15);
 
         return view('admin.series.index', compact('series'));
@@ -34,8 +28,7 @@ class SerieController extends Controller
      *
      * @return void
      */
-    public function create()
-    {
+    public function create() {
         return view('admin.series.create');
     }
 
@@ -44,24 +37,22 @@ class SerieController extends Controller
      *
      * @return void
      */
-    public function store(Request $request)
-    {
-		try{
-			$messages = ['nome.required' => 'Informe o nome!'];
-			$validator = Validator::make($request->all(), ['nome' => 'required'],$messages);
-			if ($validator->fails()) {
-				return redirect('admin/series/create')
-							->withErrors($validator)
-							->withInput();
-			}
-        
-			Serie::create($request->all());
+    public function store(Request $request) {
+        try {
+            $messages = ['nome.required' => 'Informe o nome!'];
+            $validator = Validator::make($request->all(), ['nome' => 'required'], $messages);
+            if ($validator->fails()) {
+                return redirect('admin/series/create')
+                                ->withErrors($validator)
+                                ->withInput();
+            }
 
-			Session::flash('success', 'Serie added!');
+            Serie::create($request->all());
 
-			} catch (\Exception $ex) {
-				Session::flash('danger', $ex->getMessage());   
-			}
+            Session::flash('success', 'Serie added!');
+        } catch (\Exception $ex) {
+            Session::flash('danger', $ex->getMessage());
+        }
 
         return redirect('admin/series');
     }
@@ -73,8 +64,7 @@ class SerieController extends Controller
      *
      * @return void
      */
-    public function show($id)
-    {
+    public function show($id) {
         $series = Serie::findOrFail($id);
 
         return view('admin.series.show', compact('series'));
@@ -87,8 +77,7 @@ class SerieController extends Controller
      *
      * @return void
      */
-    public function edit($id)
-    {
+    public function edit($id) {
         $series = Serie::findOrFail($id);
 
         return view('admin.series.edit', compact('series'));
@@ -101,28 +90,26 @@ class SerieController extends Controller
      *
      * @return void
      */
-    public function update($id, Request $request)
-    {
+    public function update($id, Request $request) {
 
-		try{
-			$messages = ['nome.required' => 'Informe o nome!'];
-			$validator = Validator::make($request->all(), ['nome' => 'required'],$messages);
-			if ($validator->fails()) {
-				return redirect('admin/series/' . $id . '/edit')
-							->withErrors($validator)
-							->withInput();
-			}
-        
-        $series = Serie::findOrFail($id);
-        $series->update($request->all());
+        try {
+            $messages = ['nome.required' => 'Informe o nome!'];
+            $validator = Validator::make($request->all(), ['nome' => 'required'], $messages);
+            if ($validator->fails()) {
+                return redirect('admin/series/' . $id . '/edit')
+                                ->withErrors($validator)
+                                ->withInput();
+            }
 
-        Session::flash('success', 'Serie updated!');
+            $series = Serie::findOrFail($id);
+            $series->update($request->all());
 
-        return redirect('admin/series');
+            Session::flash('success', 'Serie updated!');
 
-		} catch (\Exception $ex) {
-            Session::flash('danger', $ex->getMessage());   
-			return redirect('admin/series/' . $id . '/edit');
+            return redirect('admin/series');
+        } catch (\Exception $ex) {
+            Session::flash('danger', $ex->getMessage());
+            return redirect('admin/series/' . $id . '/edit');
         }
     }
 
@@ -133,12 +120,12 @@ class SerieController extends Controller
      *
      * @return void
      */
-    public function destroy($id)
-    {
+    public function destroy($id) {
         Serie::destroy($id);
 
         Session::flash('success', 'Serie deleted!');
 
         return redirect('admin/series');
     }
+
 }

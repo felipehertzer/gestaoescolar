@@ -7,8 +7,18 @@ use Illuminate\Routing\Controller as BaseController;
 use Illuminate\Foundation\Validation\ValidatesRequests;
 use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
 use Illuminate\Foundation\Auth\Access\AuthorizesResources;
+use App\Lib\Permissoes;
 
-class Controller extends BaseController
-{
-    use AuthorizesRequests, AuthorizesResources, DispatchesJobs, ValidatesRequests;
+class Controller extends BaseController {
+
+    use AuthorizesRequests,
+        AuthorizesResources,
+        DispatchesJobs,
+        ValidatesRequests;
+
+    public function __construct() {
+        $this->middleware('auth');
+        return Permissoes::exibePaginaPorTipoPessoa();
+    }
+
 }

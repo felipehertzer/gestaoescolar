@@ -4,25 +4,19 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests;
 use App\Http\Controllers\Controller;
-
 use App\Funcao;
 use Illuminate\Http\Request;
 use Carbon\Carbon;
 use Session;
 
-class FuncaoController extends Controller
-{
-    public function __construct()
-    {
-        $this->middleware('auth');
-    }
+class FuncaoController extends Controller {
+
     /**
      * Display a listing of the resource.
      *
      * @return void
      */
-    public function index()
-    {
+    public function index() {
         $funcoes = Funcao::paginate(15);
 
         return view('admin.funcoes.index', compact('funcoes'));
@@ -33,8 +27,7 @@ class FuncaoController extends Controller
      *
      * @return void
      */
-    public function create()
-    {
+    public function create() {
         return view('admin.funcoes.create');
     }
 
@@ -43,9 +36,8 @@ class FuncaoController extends Controller
      *
      * @return void
      */
-    public function store(Request $request)
-    {
-        
+    public function store(Request $request) {
+
         Funcao::create($request->all());
 
         Session::flash('success', 'Funcao added!');
@@ -60,8 +52,7 @@ class FuncaoController extends Controller
      *
      * @return void
      */
-    public function show($id)
-    {
+    public function show($id) {
         $funco = Funcao::findOrFail($id);
 
         return view('admin.funcoes.show', compact('funco'));
@@ -74,8 +65,7 @@ class FuncaoController extends Controller
      *
      * @return void
      */
-    public function edit($id)
-    {
+    public function edit($id) {
         $funco = Funcao::findOrFail($id);
 
         return view('admin.funcoes.edit', compact('funco'));
@@ -88,9 +78,8 @@ class FuncaoController extends Controller
      *
      * @return void
      */
-    public function update($id, Request $request)
-    {
-        
+    public function update($id, Request $request) {
+
         $funco = Funcao::findOrFail($id);
         $funco->update($request->all());
 
@@ -106,12 +95,12 @@ class FuncaoController extends Controller
      *
      * @return void
      */
-    public function destroy($id)
-    {
+    public function destroy($id) {
         Funcao::destroy($id);
 
         Session::flash('success', 'Funcao deleted!');
 
         return redirect('admin/funcoes');
     }
+
 }

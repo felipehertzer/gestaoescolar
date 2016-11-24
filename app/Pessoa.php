@@ -3,15 +3,17 @@
 namespace App;
 
 use Illuminate\Foundation\Auth\User as Authenticatable;
+use Illuminate\Support\Facades\Hash;
 
+class Pessoa extends Authenticatable {
 
-class Pessoa extends Authenticatable
-{
     use EnumTrait;
-	const PESSOA_ALUNO = '3';
+
+    const PESSOA_ALUNO = '3';
     const PESSOA_PROFESSOR = '1';
-	const PESSOA_FUNCIONARIO = '0';
-	const PESSOA_RESPONSAVEL = '2';
+    const PESSOA_FUNCIONARIO = '0';
+    const PESSOA_RESPONSAVEL = '2';
+
     /**
      * The database table used by the model.
      *
@@ -44,32 +46,31 @@ class Pessoa extends Authenticatable
         'password', 'remember_token',
     ];
 
-    public function professor()
-    {
+    public function setPasswordAttribute($pass) {
+        $this->attributes['password'] = Hash::make($pass);
+    }
+
+    public function professor() {
         return $this->hasOne(Professor::class, 'id_pessoas');
     }
 
-    public function funcionario()
-    {
+    public function funcionario() {
         return $this->hasOne(Funcionario::class, 'id_pessoas');
     }
 
-    public function aluno()
-    {
+    public function aluno() {
         return $this->hasOne(Aluno::class, 'id_pessoas');
     }
 
-    public function responsavel()
-    {
+    public function responsavel() {
         return $this->hasOne(Responsavel::class, 'id_pessoas');
     }
 
-    public function funcao()
-    {
+    public function funcao() {
         return $this->belongsTo(Funcao::class);
     }
-	
-	public static function getTipoPessoa() {
+
+    public static function getTipoPessoa() {
         return array(
             self::PESSOA_ALUNO => 'Aluno',
             self::PESSOA_PROFESSOR => 'Professor',
@@ -77,8 +78,9 @@ class Pessoa extends Authenticatable
             self::PESSOA_RESPONSAVEL => 'Responsável'
         );
     }
-	
-	public static function getNomeTipoPessoa($tipopessoa) {
+
+    public static function getNomeTipoPessoa($tipopessoa) {
         return self::getTipoPessoa()[$tipopessoa];
     }
+
 }

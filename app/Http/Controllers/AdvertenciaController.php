@@ -5,24 +5,18 @@ namespace App\Http\Controllers;
 use App\Aluno;
 use App\Http\Requests;
 use App\Http\Controllers\Controller;
-
 use App\Advertencia;
 use Illuminate\Http\Request;
 use Session;
 
-class AdvertenciaController extends Controller
-{
-    public function __construct()
-    {
-        $this->middleware('auth');
-    }
+class AdvertenciaController extends Controller {
+
     /**
      * Display a listing of the resource.
      *
      * @return \Illuminate\View\View
      */
-    public function index()
-    {
+    public function index() {
         $advertencias = Advertencia::paginate(25);
 
         return view('admin.advertencias.index', compact('advertencias'));
@@ -33,10 +27,9 @@ class AdvertenciaController extends Controller
      *
      * @return \Illuminate\View\View
      */
-    public function create()
-    {
+    public function create() {
         $aluno = Aluno::with('pessoa')->get();
-        $alunos = $aluno->pluck('pessoa.nome','id');
+        $alunos = $aluno->pluck('pessoa.nome', 'id');
         return view('admin.advertencias.create', compact('alunos'));
     }
 
@@ -47,18 +40,17 @@ class AdvertenciaController extends Controller
      *
      * @return \Illuminate\Http\RedirectResponse|\Illuminate\Routing\Redirector
      */
-    public function store(Request $request)
-    {
-        try{
-			$requestData = $request->all();
-        
-			Advertencia::create($requestData);
+    public function store(Request $request) {
+        try {
+            $requestData = $request->all();
+
+            Advertencia::create($requestData);
 
 			Session::flash('success', 'Advertencia adicionada!');
-		} catch (\Exception $ex) {
+        } catch (\Exception $ex) {
             Session::flash('danger', $ex->getMessage());
         }
-		return redirect('admin/advertencias');
+        return redirect('admin/advertencias');
     }
 
     /**
@@ -68,8 +60,7 @@ class AdvertenciaController extends Controller
      *
      * @return \Illuminate\View\View
      */
-    public function show($id)
-    {
+    public function show($id) {
         $advertencia = Advertencia::findOrFail($id);
 
         return view('admin.advertencias.show', compact('advertencia'));
@@ -82,11 +73,10 @@ class AdvertenciaController extends Controller
      *
      * @return \Illuminate\View\View
      */
-    public function edit($id)
-    {
+    public function edit($id) {
         $advertencia = Advertencia::findOrFail($id);
         $aluno = Aluno::with('pessoa')->get();
-        $alunos = $aluno->pluck('pessoa.nome','id');
+        $alunos = $aluno->pluck('pessoa.nome', 'id');
 
         return view('admin.advertencias.edit', compact('advertencia', 'alunos'));
     }
@@ -99,20 +89,19 @@ class AdvertenciaController extends Controller
      *
      * @return \Illuminate\Http\RedirectResponse|\Illuminate\Routing\Redirector
      */
-    public function update($id, Request $request)
-    {
-        try{
-			$requestData = $request->all();
-			
-			$advertencia = Advertencia::findOrFail($id);
-			$advertencia->update($requestData);
+    public function update($id, Request $request) {
+        try {
+            $requestData = $request->all();
+
+            $advertencia = Advertencia::findOrFail($id);
+            $advertencia->update($requestData);
 
 			Session::flash('success', 'Advertencia atualizada!');
 
-			return redirect('admin/advertencias');
-		} catch (\Exception $ex) {
-            Session::flash('danger', $ex->getMessage());   
-			return redirect('admin/advertencias/' . $id . '/edit');
+            return redirect('admin/advertencias');
+        } catch (\Exception $ex) {
+            Session::flash('danger', $ex->getMessage());
+            return redirect('admin/advertencias/' . $id . '/edit');
         }
     }
 
@@ -123,14 +112,14 @@ class AdvertenciaController extends Controller
      *
      * @return \Illuminate\Http\RedirectResponse|\Illuminate\Routing\Redirector
      */
-    public function destroy($id)
-    {
-		try{
-			Advertencia::destroy($id);
+    public function destroy($id) {
+        try {
+            Advertencia::destroy($id);
 			Session::flash('success', 'Advertencia removida!');
-		} catch (\Exception $ex) {
-            Session::flash('danger', $ex->getMessage());   
+        } catch (\Exception $ex) {
+            Session::flash('danger', $ex->getMessage());
         }
-		return redirect('admin/advertencias');
+        return redirect('admin/advertencias');
     }
+
 }

@@ -4,25 +4,19 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests;
 use App\Http\Controllers\Controller;
-
 use App\Material;
 use App\TipoMaterial;
 use Illuminate\Http\Request;
 use Session;
 
-class MaterialController extends Controller
-{
-    public function __construct()
-    {
-        $this->middleware('auth');
-    }
+class MaterialController extends Controller {
+
     /**
      * Display a listing of the resource.
      *
      * @return \Illuminate\View\View
      */
-    public function index()
-    {
+    public function index() {
         $materiais = Material::paginate(25);
 
         return view('admin.materiais.index', compact('materiais'));
@@ -33,9 +27,8 @@ class MaterialController extends Controller
      *
      * @return \Illuminate\View\View
      */
-    public function create()
-    {
-        $tipomaterial = TipoMaterial::pluck('nome','id');
+    public function create() {
+        $tipomaterial = TipoMaterial::pluck('nome', 'id');
 
         return view('admin.materiais.create', compact('tipomaterial'));
     }
@@ -47,11 +40,10 @@ class MaterialController extends Controller
      *
      * @return \Illuminate\Http\RedirectResponse|\Illuminate\Routing\Redirector
      */
-    public function store(Request $request)
-    {
-        
+    public function store(Request $request) {
+
         $requestData = $request->all();
-        
+
         Material::create($requestData);
 
         Session::flash('flash_message', 'Material added!');
@@ -66,8 +58,7 @@ class MaterialController extends Controller
      *
      * @return \Illuminate\View\View
      */
-    public function show($id)
-    {
+    public function show($id) {
         $materiai = Material::findOrFail($id);
 
         return view('admin.materiais.show', compact('materiai'));
@@ -80,10 +71,9 @@ class MaterialController extends Controller
      *
      * @return \Illuminate\View\View
      */
-    public function edit($id)
-    {
+    public function edit($id) {
         $materiai = Material::findOrFail($id);
-        $tipomaterial = TipoMaterial::pluck('nome','id');
+        $tipomaterial = TipoMaterial::pluck('nome', 'id');
 
         return view('admin.materiais.edit', compact('materiai', 'tipomaterial'));
     }
@@ -96,11 +86,10 @@ class MaterialController extends Controller
      *
      * @return \Illuminate\Http\RedirectResponse|\Illuminate\Routing\Redirector
      */
-    public function update($id, Request $request)
-    {
-        
+    public function update($id, Request $request) {
+
         $requestData = $request->all();
-        
+
         $materiai = Material::findOrFail($id);
         $materiai->update($requestData);
 
@@ -116,12 +105,12 @@ class MaterialController extends Controller
      *
      * @return \Illuminate\Http\RedirectResponse|\Illuminate\Routing\Redirector
      */
-    public function destroy($id)
-    {
+    public function destroy($id) {
         Material::destroy($id);
 
         Session::flash('flash_message', 'Material deleted!');
 
         return redirect('admin/materiais');
     }
+
 }

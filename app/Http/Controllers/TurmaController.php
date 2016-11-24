@@ -4,7 +4,6 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests;
 use App\Http\Controllers\Controller;
-
 use App\Materia;
 use App\MateriaHasProfessor;
 use App\MateriaHasTurma;
@@ -16,19 +15,14 @@ use Carbon\Carbon;
 use Session;
 use Illuminate\Support\Facades\DB;
 
-class TurmaController extends Controller
-{
-    public function __construct()
-    {
-        $this->middleware('auth');
-    }
+class TurmaController extends Controller {
+
     /**
      * Display a listing of the resource.
      *
      * @return \Illuminate\View\View
      */
-    public function index()
-    {
+    public function index() {
         $turmas = Turma::paginate(15);
         return view('admin.turmas.index', compact('turmas'));
     }
@@ -38,19 +32,18 @@ class TurmaController extends Controller
      *
      * @return \Illuminate\View\View
      */
-    public function create()
-    {
-        $salas = Sala::pluck('numero','id');
-        $series = Serie::pluck('nome','id');
+    public function create() {
+        $salas = Sala::pluck('numero', 'id');
+        $series = Serie::pluck('nome', 'id');
         //$materia = MateriaHasProfessor::with('professor', 'materia', 'professor.pessoa')->get();
-		//$materias = Materia::pluck("ProfessorMateria", "id");
-		$materias = \App\Materia::select("materia_has_professor.id"
+        //$materias = Materia::pluck("ProfessorMateria", "id");
+        $materias = \App\Materia::select("materia_has_professor.id"
                         , DB::raw("CONCAT('', materias.nome,' - ', pessoas.nome) as full_name"))
                 ->join('materia_has_professor', 'materia_has_professor.id_materia', '=', 'materias.id')
-				->join('professores', 'professores.id', '=', 'materia_has_professor.id_professor')
+                ->join('professores', 'professores.id', '=', 'materia_has_professor.id_professor')
                 ->join('pessoas', 'pessoas.id', '=', 'professores.id_pessoas')
-                 ->lists('full_name', 'materia_has_professor.id');
-        
+                ->lists('full_name', 'materia_has_professor.id');
+
         return view('admin.turmas.create', compact('salas', 'series', 'materias'));
     }
 
@@ -59,9 +52,8 @@ class TurmaController extends Controller
      *
      * @return \Illuminate\View\View
      */
-    public function store(Request $request)
-    {
-        
+    public function store(Request $request) {
+
         $t = Turma::create($request->except(array("materias", "materias_escolhidas")));
 
         $t->materia()->attach($request->get('materias_escolhidas'));
@@ -78,8 +70,7 @@ class TurmaController extends Controller
      *
      * @return \Illuminate\View\View
      */
-    public function show($id)
-    {
+    public function show($id) {
         $turma = Turma::findOrFail($id);
 
         return view('admin.turmas.show', compact('turma'));
@@ -92,30 +83,29 @@ class TurmaController extends Controller
      *
      * @return \Illuminate\View\View
      */
-    public function edit($id)
-    {
+    public function edit($id) {
         $turma = Turma::findOrFail($id);
-        $salas = Sala::pluck('numero','id');
-        $series = Serie::pluck('nome','id');
+        $salas = Sala::pluck('numero', 'id');
+        $series = Serie::pluck('nome', 'id');
         //$materia = MateriaHasProfessor::with('professor', 'materia', 'professor.pessoa')->get();
         //$materias = $materia->pluck("ProfessorMateria", "id");
         //$materias_escolhidas = $turma->getMateriasIdsAttribute();
-		
-		$materias = \App\Materia::select("materia_has_professor.id"
+
+        $materias = \App\Materia::select("materia_has_professor.id"
                         , DB::raw("CONCAT('', materias.nome,' - ', pessoas.nome) as full_name"))
                 ->join('materia_has_professor', 'materia_has_professor.id_materia', '=', 'materias.id')
-				->join('professores', 'professores.id', '=', 'materia_has_professor.id_professor')
-                ->join('pessoas', 'pessoas.id', '=', 'professores.id_pessoas')
-                 ->lists('full_name', 'materia_has_professor.id');
-		$materias_escolhidas = \App\MateriaHasTurma::select("materia_has_professor.id"
-                        , DB::raw("CONCAT('', materias.nome,' - ', pessoas.nome) as full_name"))
-				->join('materia_has_professor', 'materia_has_professor.id', '=', 'materia_has_turma.id_materia_professor')
-				->join('materias', 'materias.id', '=', 'materia_has_professor.id_materia')
                 ->join('professores', 'professores.id', '=', 'materia_has_professor.id_professor')
-				->join('pessoas', 'pessoas.id', '=', 'professores.id_pessoas')
+                ->join('pessoas', 'pessoas.id', '=', 'professores.id_pessoas')
+                ->lists('full_name', 'materia_has_professor.id');
+        $materias_escolhidas = \App\MateriaHasTurma::select("materia_has_professor.id"
+                        , DB::raw("CONCAT('', materias.nome,' - ', pessoas.nome) as full_name"))
+                ->join('materia_has_professor', 'materia_has_professor.id', '=', 'materia_has_turma.id_materia_professor')
+                ->join('materias', 'materias.id', '=', 'materia_has_professor.id_materia')
+                ->join('professores', 'professores.id', '=', 'materia_has_professor.id_professor')
+                ->join('pessoas', 'pessoas.id', '=', 'professores.id_pessoas')
                 ->where('materia_has_turma.id_turma', $id)
                 ->lists('full_name', 'materia_has_professor.id');
-				
+
         return view('admin.turmas.edit', compact('salas', 'series', 'turma', 'materias', 'materias_escolhidas'));
     }
 
@@ -126,15 +116,14 @@ class TurmaController extends Controller
      *
      * @return \Illuminate\View\View
      */
-    public function update($id, Request $request)
-    {
-        
+    public function update($id, Request $request) {
+
         $turma = Turma::findOrFail($id);
-		
-		$materias_turma = (new \App\MateriaHasTurma)->where('id_turma', '=', $id)->lists('id');
-		if($materias_turma->first()){
-			DB::table('materia_has_turma')->whereIn('id', $materias_turma)->delete(); 
-		}
+
+        $materias_turma = (new \App\MateriaHasTurma)->where('id_turma', '=', $id)->lists('id');
+        if ($materias_turma->first()) {
+            DB::table('materia_has_turma')->whereIn('id', $materias_turma)->delete();
+        }
 
         $turma->update($request->except(array('materias', 'materias_escolhidas')));
 
@@ -154,12 +143,12 @@ class TurmaController extends Controller
      *
      * @return \Illuminate\View\View
      */
-    public function destroy($id)
-    {
+    public function destroy($id) {
         Turma::destroy($id);
 
         Session::flash('success', 'Turma deleted!');
 
         return redirect('admin/turmas');
     }
+
 }

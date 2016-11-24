@@ -4,24 +4,18 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests;
 use App\Http\Controllers\Controller;
-
 use App\ListaEspera;
 use Illuminate\Http\Request;
 use Session;
 
-class ListaEsperaController extends Controller
-{
-    public function __construct()
-    {
-        $this->middleware('auth');
-    }
+class ListaEsperaController extends Controller {
+
     /**
      * Display a listing of the resource.
      *
      * @return \Illuminate\View\View
      */
-    public function index()
-    {
+    public function index() {
         $listaespera = ListaEspera::paginate(25);
 
         return view('admin.listaespera.index', compact('listaespera'));
@@ -32,8 +26,7 @@ class ListaEsperaController extends Controller
      *
      * @return \Illuminate\View\View
      */
-    public function create()
-    {
+    public function create() {
         return view('admin.listaespera.create');
     }
 
@@ -44,11 +37,10 @@ class ListaEsperaController extends Controller
      *
      * @return \Illuminate\Http\RedirectResponse|\Illuminate\Routing\Redirector
      */
-    public function store(Request $request)
-    {
-        
+    public function store(Request $request) {
+
         $requestData = $request->all();
-        
+
         ListaEspera::create($requestData);
 
         Session::flash('success', 'ListaEspera added!');
@@ -63,8 +55,7 @@ class ListaEsperaController extends Controller
      *
      * @return \Illuminate\View\View
      */
-    public function show($id)
-    {
+    public function show($id) {
         $listaespera = ListaEspera::findOrFail($id);
 
         return view('admin.listaespera.show', compact('listaespera'));
@@ -77,8 +68,7 @@ class ListaEsperaController extends Controller
      *
      * @return \Illuminate\View\View
      */
-    public function edit($id)
-    {
+    public function edit($id) {
         $listaespera = ListaEspera::findOrFail($id);
 
         return view('admin.listaespera.edit', compact('listaespera'));
@@ -92,11 +82,10 @@ class ListaEsperaController extends Controller
      *
      * @return \Illuminate\Http\RedirectResponse|\Illuminate\Routing\Redirector
      */
-    public function update($id, Request $request)
-    {
-        
+    public function update($id, Request $request) {
+
         $requestData = $request->all();
-        
+
         $listaespera = ListaEspera::findOrFail($id);
         $listaespera->update($requestData);
 
@@ -112,12 +101,12 @@ class ListaEsperaController extends Controller
      *
      * @return \Illuminate\Http\RedirectResponse|\Illuminate\Routing\Redirector
      */
-    public function destroy($id)
-    {
+    public function destroy($id) {
         ListaEspera::destroy($id);
 
         Session::flash('success', 'ListaEspera deleted!');
 
         return redirect('admin/listaespera');
     }
+
 }
