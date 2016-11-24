@@ -4,25 +4,19 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests;
 use App\Http\Controllers\Controller;
-
 use App\TipoMaterial;
 use Illuminate\Http\Request;
 use Carbon\Carbon;
 use Session;
 
-class TipoMateriaisController extends Controller
-{
-    public function __construct()
-    {
-        $this->middleware('auth');
-    }
+class TipoMateriaisController extends Controller {
+
     /**
      * Display a listing of the resource.
      *
      * @return void
      */
-    public function index()
-    {
+    public function index() {
         $tipomateriais = TipoMaterial::paginate(15);
 
         return view('admin/tipomateriais.index', compact('tipomateriais'));
@@ -33,8 +27,7 @@ class TipoMateriaisController extends Controller
      *
      * @return void
      */
-    public function create()
-    {
+    public function create() {
         return view('admin/tipomateriais.create');
     }
 
@@ -43,8 +36,7 @@ class TipoMateriaisController extends Controller
      *
      * @return void
      */
-    public function store(Request $request)
-    {
+    public function store(Request $request) {
 
         TipoMaterial::create($request->all());
 
@@ -60,8 +52,7 @@ class TipoMateriaisController extends Controller
      *
      * @return void
      */
-    public function show($id)
-    {
+    public function show($id) {
         $tipo_materiai = TipoMaterial::findOrFail($id);
 
         return view('admin/tipomateriais.show', compact('tipo_materiai'));
@@ -74,8 +65,7 @@ class TipoMateriaisController extends Controller
      *
      * @return void
      */
-    public function edit($id)
-    {
+    public function edit($id) {
         $tipo_materiai = TipoMaterial::findOrFail($id);
 
         return view('admin/tipomateriais.edit', compact('tipo_materiai'));
@@ -88,9 +78,8 @@ class TipoMateriaisController extends Controller
      *
      * @return void
      */
-    public function update($id, Request $request)
-    {
-        
+    public function update($id, Request $request) {
+
         $tipo_materiai = TipoMaterial::findOrFail($id);
         $tipo_materiai->update($request->all());
 
@@ -106,12 +95,12 @@ class TipoMateriaisController extends Controller
      *
      * @return void
      */
-    public function destroy($id)
-    {
+    public function destroy($id) {
         TipoMaterial::destroy($id);
 
         Session::flash('success', 'TipoMateriais deleted!');
 
         return redirect('admin/tipomateriais');
     }
+
 }

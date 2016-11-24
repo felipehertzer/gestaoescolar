@@ -51,77 +51,90 @@
                     <ul class="nav navbar-nav">
                         <li><a href="{{ url('/home') }}">Inicio</a></li>
                         @if (!Auth::guest())
-                        <li class="dropdown">
-                            <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
-                                Matricula <span class="caret"></span>
-                            </a>
+                            @if(App\Lib\Permissoes::podeExibirMenu('matriculas'))
+                            <li class="dropdown">
+                                <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+                                    Matricula <span class="caret"></span>
+                                </a>
 
-                            <ul class="dropdown-menu" role="menu">
-                                <li><a href="{{ url('/admin/matriculas') }}"><i class="fa fa-btn fa-user"></i>Nova</a></li>
-                                <li><a href="{{ url('/admin/listaespera') }}"><i class="fa fa-btn fa-list"></i>Lista de espera</a></li>
-                                <li><a href="{{ url('/admin/advertencias') }}"><i class="fa fa-btn fa-user-times"></i>Advertencias</a></li>
+                                <ul class="dropdown-menu" role="menu">
+                                    <li><a href="{{ url('/admin/matriculas') }}"><i class="fa fa-btn fa-user"></i>Nova</a></li>
+                                    <li><a href="{{ url('/admin/listaespera') }}"><i class="fa fa-btn fa-list"></i>Lista de espera</a></li>
+                                    <li><a href="{{ url('/admin/advertencias') }}"><i class="fa fa-btn fa-user-times"></i>Advertencias</a></li>
 
-                            </ul>
-                        </li>
-                        <li class="dropdown">
-                            <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
-                                Biblioteca <span class="caret"></span>
-                            </a>
+                                </ul>
+                            </li>
+                            @endif
 
-                            <ul class="dropdown-menu" role="menu">
-                                <li><a href="{{ url('/admin/biblioteca/retiradas') }}"><i class="fa fa-btn fa-reply"></i>Retiradas</a></li>
-                                <li><a href="{{ url('/admin/biblioteca/reservas') }}"><i class="fa fa-btn fa-clock-o"></i>Reservas</a></li>
-                                <li><a href="{{ url('/admin/biblioteca/autores') }}"><i class="fa fa-btn fa-user"></i>Autor</a></li>
-                                <li><a href="{{ url('/admin/biblioteca/livros') }}"><i class="fa fa-btn fa-book"></i>Livros</a></li>
-                                <li><a href="{{ url('/admin/biblioteca/multas') }}"><i class="fa fa-btn fa-calendar-times-o"></i>Multas</a></li>
-                                <li><a href="{{ url('/admin/biblioteca/tipomulta') }}"><i class="fa fa-btn fa-calendar-times-o"></i>Tipo de Multas</a></li>
-                                <li><a href="{{ url('/admin/biblioteca/tipoexemplares') }}"><i class="fa fa-btn fa-building"></i>Tipo de Exemplar</a></li>
-                                <li><a href="{{ url('/admin/biblioteca/exemplares') }}"><i class="fa fa-btn fa-cubes"></i>Exemplares</a></li>
-                            </ul>
-                        </li>
-                        <li class="dropdown">
-                            <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
-                                Cadastros <span class="caret"></span>
-                            </a>
+                            @if(App\Lib\Permissoes::podeExibirMenu('retiradas'))
+                            <li class="dropdown">
+                                <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+                                    Biblioteca <span class="caret"></span>
+                                </a>
 
-                            <ul class="dropdown-menu" role="menu">
-                                <li><a href="{{ url('/admin/pessoas') }}"><i class="fa fa-btn fa-user"></i>Pessoas</a></li>
-                                <li><a href="{{ url('/admin/materias') }}"><i class="fa fa-btn fa-folder"></i>Materias</a></li>
-                                <li><a href="{{ url('/admin/turmas') }}"><i class="fa fa-btn fa-users"></i>Turmas</a></li>
-                                <li><a href="{{ url('/admin/salas') }}"><i class="fa fa-btn fa-building"></i>Salas</a></li>
-                                <li><a href="{{ url('/admin/materiais') }}"><i class="fa fa-btn fa-archive"></i>Material</a></li>
-                                <li><a href="{{ url('/admin/series') }}"><i class="fa fa-btn fa-star"></i>Série</a></li>
-                                <li><a href="{{ url('/admin/funcoes') }}"><i class="fa fa-btn fa-cogs"></i>Funções</a></li>
-                                <li><a href="{{ url('/admin/tipomateriais') }}"><i class="fa fa-btn fa-archive"></i>Tipo de Material</a></li>
-                                <li><a href="{{ url('/admin/emprestamateriais') }}"><i class="fa fa-share-square-o"></i> Emprestar Material</a></li>
-                                <li><a href="{{ url('/admin/feriados') }}"><i class="fa fa-btn fa-sun-o"></i>Feriados</a></li>
-                            </ul>
-                        </li>
-                        <li class="dropdown">
-                            <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
-                                Avaliações <span class="caret"></span>
-                            </a>
+                                <ul class="dropdown-menu" role="menu">
+                                    <li><a href="{{ url('/admin/biblioteca/retiradas') }}"><i class="fa fa-btn fa-reply"></i>Retiradas</a></li>
+                                    <li><a href="{{ url('/admin/biblioteca/reservas') }}"><i class="fa fa-btn fa-clock-o"></i>Reservas</a></li>
+                                    <li><a href="{{ url('/admin/biblioteca/autores') }}"><i class="fa fa-btn fa-user"></i>Autor</a></li>
+                                    <li><a href="{{ url('/admin/biblioteca/livros') }}"><i class="fa fa-btn fa-book"></i>Livros</a></li>
+                                    <li><a href="{{ url('/admin/biblioteca/multas') }}"><i class="fa fa-btn fa-calendar-times-o"></i>Multas</a></li>
+                                    <li><a href="{{ url('/admin/biblioteca/tipomulta') }}"><i class="fa fa-btn fa-calendar-times-o"></i>Tipo de Multas</a></li>
+                                    <li><a href="{{ url('/admin/biblioteca/tipoexemplares') }}"><i class="fa fa-btn fa-building"></i>Tipo de Exemplar</a></li>
+                                    <li><a href="{{ url('/admin/biblioteca/exemplares') }}"><i class="fa fa-btn fa-cubes"></i>Exemplares</a></li>
+                                </ul>
+                            </li>
+                            @endif
 
-                            <ul class="dropdown-menu" role="menu">
-                                <li><a href="{{ url('/admin/avaliacoes') }}"><i class="fa fa-btn fa-graduation-cap"></i>Avaliações</a></li>
-                                <li><a href="{{ url('/admin/notas') }}"><i class="fa fa-btn fa-sort-numeric-desc"></i>Notas</a></li>
-                                <li><a href="{{ url('/admin/presencas') }}"><i class="fa fa-btn fa-calendar-check-o"></i>Presenças</a></li>
-                            </ul>
-                        </li>
+                            @if(App\Lib\Permissoes::podeExibirMenu('pessoas'))
+                            <li class="dropdown">
+                                <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+                                    Cadastros <span class="caret"></span>
+                                </a>
 
-                        <li class="dropdown">
-                            <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
-                                Relatórios <span class="caret"></span>
-                            </a>
+                                <ul class="dropdown-menu" role="menu">
+                                    <li><a href="{{ url('/admin/pessoas') }}"><i class="fa fa-btn fa-user"></i>Pessoas</a></li>
+                                    <li><a href="{{ url('/admin/materias') }}"><i class="fa fa-btn fa-folder"></i>Materias</a></li>
+                                    <li><a href="{{ url('/admin/turmas') }}"><i class="fa fa-btn fa-users"></i>Turmas</a></li>
+                                    <li><a href="{{ url('/admin/salas') }}"><i class="fa fa-btn fa-building"></i>Salas</a></li>
+                                    <li><a href="{{ url('/admin/materiais') }}"><i class="fa fa-btn fa-archive"></i>Material</a></li>
+                                    <li><a href="{{ url('/admin/series') }}"><i class="fa fa-btn fa-star"></i>Série</a></li>
+                                    <li><a href="{{ url('/admin/funcoes') }}"><i class="fa fa-btn fa-cogs"></i>Funções</a></li>
+                                    <li><a href="{{ url('/admin/tipomateriais') }}"><i class="fa fa-btn fa-archive"></i>Tipo de Material</a></li>
+                                    <li><a href="{{ url('/admin/emprestamateriais') }}"><i class="fa fa-share-square-o"></i> Emprestar Material</a></li>
+                                    <li><a href="{{ url('/admin/feriados') }}"><i class="fa fa-btn fa-sun-o"></i>Feriados</a></li>
+                                </ul>
+                            </li>
+                            @endif
 
-                            <ul class="dropdown-menu" role="menu">
-                                <li><a href="{{ url('/admin/relatorios/presencas') }}"><i class="fa fa-btn fa-calendar-check-o"></i>Presenças</a></li>
-                                <li><a href="{{ url('/admin/relatorios/matriculas') }}"><i class="fa fa-btn fa-user"></i>Matriculas</a></li>
-                                <li><a href="{{ url('/admin/relatorios/notas') }}"><i class="fa fa-btn fa-sort-numeric-desc"></i>Notas</a></li>
-                                <li><a href="{{ url('/admin/relatorios/livros_mais_retirados') }}"><i class="fa fa-btn fa-book"></i>Livros mais Retirados</a></li>
-                                <li><a href="{{ url('/admin/relatorios/alunos_mais_retiram_livros') }}"><i class="fa fa-btn fa-users"></i>Alunos que mais retiram Livros</a></li>
-                            </ul>
-                        </li>
+                            @if(App\Lib\Permissoes::podeExibirMenu('avaliacoes'))
+                            <li class="dropdown">
+                                <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+                                    Avaliações <span class="caret"></span>
+                                </a>
+
+                                <ul class="dropdown-menu" role="menu">
+                                    <li><a href="{{ url('/admin/avaliacoes') }}"><i class="fa fa-btn fa-graduation-cap"></i>Avaliações</a></li>
+                                    <li><a href="{{ url('/admin/notas') }}"><i class="fa fa-btn fa-sort-numeric-desc"></i>Notas</a></li>
+                                    <li><a href="{{ url('/admin/presencas') }}"><i class="fa fa-btn fa-calendar-check-o"></i>Presenças</a></li>
+                                </ul>
+                            </li>
+                            @endif
+
+                            @if(App\Lib\Permissoes::podeExibirMenu('livros_mais_retirados'))
+                            <li class="dropdown">
+                                <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+                                    Relatórios <span class="caret"></span>
+                                </a>
+
+                                <ul class="dropdown-menu" role="menu">
+                                    <li><a href="{{ url('/admin/relatorios/presencas') }}"><i class="fa fa-btn fa-calendar-check-o"></i>Presenças</a></li>
+                                    <li><a href="{{ url('/admin/relatorios/matriculas') }}"><i class="fa fa-btn fa-user"></i>Matriculas</a></li>
+                                    <li><a href="{{ url('/admin/relatorios/notas') }}"><i class="fa fa-btn fa-sort-numeric-desc"></i>Notas</a></li>
+                                    <li><a href="{{ url('/admin/relatorios/livros_mais_retirados') }}"><i class="fa fa-btn fa-book"></i>Livros mais Retirados</a></li>
+                                    <li><a href="{{ url('/admin/relatorios/alunos_mais_retiram_livros') }}"><i class="fa fa-btn fa-users"></i>Alunos que mais retiram Livros</a></li>
+                                </ul>
+                            </li>
+                            @endif
                         @endif
                     </ul>
 
