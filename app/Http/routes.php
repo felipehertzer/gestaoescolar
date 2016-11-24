@@ -87,3 +87,5 @@ Route::get('admin/biblioteca/retiradas/{id}/renovar', 'Biblioteca\\RetiradaContr
 Route::get('admin/emprestamateriais/{id}/devolve', 'EmprestaMateriaisController@devolve');
 
 Route::get('admin/biblioteca/reservas/{id}/retirou_exemplares', 'Biblioteca\\ReservaController@retirou_exemplares');
+
+Route::get('admin/relatorios/livros_mais_retirados', 'RelatorioController@livros_mais_retirados');
