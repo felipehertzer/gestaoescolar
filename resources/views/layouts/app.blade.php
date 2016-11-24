@@ -119,6 +119,7 @@
                                 <li><a href="{{ url('/admin/relatorios/matriculas') }}"><i class="fa fa-btn fa-user"></i>Matriculas</a></li>
                                 <li><a href="{{ url('/admin/relatorios/notas') }}"><i class="fa fa-btn fa-sort-numeric-desc"></i>Notas</a></li>
                                 <li><a href="{{ url('/admin/relatorios/livros_mais_retirados') }}"><i class="fa fa-btn fa-book"></i>Livros mais Retirados</a></li>
+                                <li><a href="{{ url('/admin/relatorios/alunos_mais_retiram_livros') }}"><i class="fa fa-btn fa-users"></i>Alunos que mais retiram Livros</a></li>
                             </ul>
                         </li>
                         @endif
