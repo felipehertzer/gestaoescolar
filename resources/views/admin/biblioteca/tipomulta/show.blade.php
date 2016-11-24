@@ -4,7 +4,7 @@
 <div class="container">
 
     <h1>tipomultum {{ $tipomultum->id }}
-        <a href="{{ url('admin/biblioteca/tipomulta/' . $tipomultum->id . '/edit') }}" class="btn btn-primary btn-xs" title="Edit tipomultum"><span class="glyphicon glyphicon-pencil" aria-hidden="true"/></a>
+        <a href="{{ url('admin/biblioteca/tipomulta/' . $tipomultum->id . '/edit') }}" class="btn btn-primary btn-xs" title="Editar tipomultum"><span class="glyphicon glyphicon-pencil" aria-hidden="true"/></a>
         {!! Form::open([
             'method'=>'DELETE',
             'url' => ['admin/biblioteca/tipomulta', $tipomultum->id],
@@ -13,8 +13,8 @@
             {!! Form::button('<span class="glyphicon glyphicon-trash" aria-hidden="true"/>', array(
                     'type' => 'submit',
                     'class' => 'btn btn-danger btn-xs',
-                    'title' => 'Delete tipomultum',
-                    'onclick'=>'return confirm("Confirm delete?")'
+                    'title' => 'Apagar tipomultum',
+                    'onclick'=>'return confirm("Deseja apagar?")'
             ));!!}
         {!! Form::close() !!}
     </h1>

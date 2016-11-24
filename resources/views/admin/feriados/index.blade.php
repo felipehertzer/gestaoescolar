@@ -3,12 +3,12 @@
 @section('content')
 <div class="container">
 
-    <h1>Feriados <a href="{{ url('/admin/feriados/create') }}" class="btn btn-primary btn-xs" title="Add New feriado"><span class="glyphicon glyphicon-plus" aria-hidden="true"/></a></h1>
+    <h1>Feriados <a href="{{ url('/admin/feriados/create') }}" class="btn btn-primary btn-xs" title="Adicionar feriado"><span class="glyphicon glyphicon-plus" aria-hidden="true"/></a></h1>
     <div class="table">
         <table class="table table-bordered table-striped table-hover">
             <thead>
                 <tr>
-                    <th>S.No</th><th> Dia </th><th> Mes </th><th> Ano </th><th>Actions</th>
+                    <th>S.No</th><th> Dia </th><th> Mes </th><th> Ano </th><th>Ações</th>
                 </tr>
             </thead>
             <tbody>
@@ -19,18 +19,18 @@
                     <td>{{ $x }}</td>
                     <td>{{ $item->dia }}</td><td>{{ $item->mes }}</td><td>{{ $item->ano }}</td>
                     <td>
-                        <a href="{{ url('/admin/feriados/' . $item->id) }}" class="btn btn-success btn-xs" title="View feriado"><span class="glyphicon glyphicon-eye-open" aria-hidden="true"/></a>
-                        <a href="{{ url('/admin/feriados/' . $item->id . '/edit') }}" class="btn btn-primary btn-xs" title="Edit feriado"><span class="glyphicon glyphicon-pencil" aria-hidden="true"/></a>
+                        <a href="{{ url('/admin/feriados/' . $item->id) }}" class="btn btn-success btn-xs" title="Ver feriado"><span class="glyphicon glyphicon-eye-open" aria-hidden="true"/></a>
+                        <a href="{{ url('/admin/feriados/' . $item->id . '/edit') }}" class="btn btn-primary btn-xs" title="Editar feriado"><span class="glyphicon glyphicon-pencil" aria-hidden="true"/></a>
                         {!! Form::open([
                             'method'=>'DELETE',
                             'url' => ['/admin/feriados', $item->id],
                             'style' => 'display:inline'
                         ]) !!}
-                            {!! Form::button('<span class="glyphicon glyphicon-trash" aria-hidden="true" title="Delete feriado" />', array(
+                            {!! Form::button('<span class="glyphicon glyphicon-trash" aria-hidden="true" title="Apagar feriado" />', array(
                                     'type' => 'submit',
                                     'class' => 'btn btn-danger btn-xs',
-                                    'title' => 'Delete feriado',
-                                    'onclick'=>'return confirm("Confirm delete?")'
+                                    'title' => 'Apagar feriado',
+                                    'onclick'=>'return confirm("Deseja apagar?")'
                             ));!!}
                         {!! Form::close() !!}
                     </td>

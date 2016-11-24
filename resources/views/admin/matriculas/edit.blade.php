@@ -3,7 +3,7 @@
 @section('content')
 <div class="container">
 
-    <h1>Edit matricula {{ $matricula->id }}</h1>
+    <h1>Editar matricula {{ $matricula->id }}</h1>
 
     {!! Form::model($matricula, [
         'method' => 'PATCH',
@@ -35,7 +35,7 @@
 
         <div class="form-group">
             <div class="col-sm-offset-3 col-sm-3">
-                {!! Form::submit('Update', ['class' => 'btn btn-primary form-control']) !!}
+                {!! Form::submit('Atualizar', ['class' => 'btn btn-primary form-control']) !!}
             </div>
         </div>
     {!! Form::close() !!}

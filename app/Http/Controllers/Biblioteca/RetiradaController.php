@@ -69,7 +69,7 @@ class RetiradaController extends Controller {
             $r->exemplares()->attach($retiradaTag);
 
             (new \App\Exemplar)->editaStatusParaEmprestado($exemplaresEscolhidos);
-            Session::flash('success', 'Retirada added!');            
+            Session::flash('success', 'Retirada adicionada!');            
         } catch (\Exception $ex) {
             Session::flash('danger', $ex->getMessage());
         }

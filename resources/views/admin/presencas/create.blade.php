@@ -3,7 +3,7 @@
 @section('content')
 <div class="container">
 
-    <h1>Create presenca </h1>
+    <h1>Salvar presenca </h1>
     {!! Form::open(['url' => '/admin/presencas', 'class' => 'form-horizontal']) !!}
         {!! Form::hidden('identificador', $id, ['class' => 'form-control']) !!}
                     <div class="form-group {{ $errors->has('data') ? 'has-error' : ''}}">
@@ -45,7 +45,7 @@
 
         <div class="form-group">
             <div class="col-sm-offset-3 col-sm-3">
-                {!! Form::submit('Create', ['class' => 'btn btn-primary form-control']) !!}
+                {!! Form::submit('Salvar', ['class' => 'btn btn-primary form-control']) !!}
             </div>
         </div>
     {!! Form::close() !!}

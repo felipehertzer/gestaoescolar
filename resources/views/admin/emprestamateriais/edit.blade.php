@@ -3,7 +3,7 @@
 @section('content')
 <div class="container">
 
-    <h1>Edit admin/emprestamateriais {{ $emprestamateriais->id }}</h1>
+    <h1>Editar admin/emprestamateriais {{ $emprestamateriais->id }}</h1>
 
     {!! Form::model($materiasemprestado, [
         'method' => 'PATCH',
@@ -16,7 +16,7 @@
 
         <div class="form-group">
             <div class="col-sm-offset-3 col-sm-3">
-                {!! Form::submit('Update', ['class' => 'btn btn-primary form-control']) !!}
+                {!! Form::submit('Atualizar', ['class' => 'btn btn-primary form-control']) !!}
             </div>
         </div>
     {!! Form::close() !!}

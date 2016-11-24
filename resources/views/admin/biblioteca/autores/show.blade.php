@@ -4,7 +4,7 @@
 <div class="container">
 
     <h1>autore {{ $autores->id }}
-        <a href="{{ url('admin/biblioteca/autores/' . $autores->id . '/edit') }}" class="btn btn-primary btn-xs" title="Edit autore"><span class="glyphicon glyphicon-pencil" aria-hidden="true"/></a>
+        <a href="{{ url('admin/biblioteca/autores/' . $autores->id . '/edit') }}" class="btn btn-primary btn-xs" title="Editar autore"><span class="glyphicon glyphicon-pencil" aria-hidden="true"/></a>
         {!! Form::open([
             'method'=>'DELETE',
             'url' => ['admin/biblioteca/autores', $autores->id],
@@ -13,8 +13,8 @@
             {!! Form::button('<span class="glyphicon glyphicon-trash" aria-hidden="true"/>', array(
                     'type' => 'submit',
                     'class' => 'btn btn-danger btn-xs',
-                    'title' => 'Delete autore',
-                    'onclick'=>'return confirm("Confirm delete?")'
+                    'title' => 'Apagar autore',
+                    'onclick'=>'return confirm("Deseja apagar?")'
             ));!!}
         {!! Form::close() !!}
     </h1>

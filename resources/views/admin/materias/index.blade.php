@@ -3,12 +3,12 @@
 @section('content')
 <div class="container">
 
-    <h1>Materias <a href="{{ url('/admin/materias/create') }}" class="btn btn-primary btn-xs" title="Add New materia"><span class="glyphicon glyphicon-plus" aria-hidden="true"/></a></h1>
+    <h1>Materias <a href="{{ url('/admin/materias/create') }}" class="btn btn-primary btn-xs" title="Adicionar materia"><span class="glyphicon glyphicon-plus" aria-hidden="true"/></a></h1>
     <div class="table">
         <table class="table table-bordered table-striped table-hover">
             <thead>
                 <tr>
-                    <th>S.No</th><th> Nome </th><th>Actions</th>
+                    <th>S.No</th><th> Nome </th><th>Ações</th>
                 </tr>
             </thead>
             <tbody>
@@ -19,18 +19,18 @@
                     <td>{{ $x }}</td>
                     <td>{{ $item->nome }}</td>
                     <td>
-                        <a href="{{ url('/admin/materias/' . $item->id) }}" class="btn btn-success btn-xs" title="View materia"><span class="glyphicon glyphicon-eye-open" aria-hidden="true"/></a>
-                        <a href="{{ url('/admin/materias/' . $item->id . '/edit') }}" class="btn btn-primary btn-xs" title="Edit materia"><span class="glyphicon glyphicon-pencil" aria-hidden="true"/></a>
+                        <a href="{{ url('/admin/materias/' . $item->id) }}" class="btn btn-success btn-xs" title="Ver materia"><span class="glyphicon glyphicon-eye-open" aria-hidden="true"/></a>
+                        <a href="{{ url('/admin/materias/' . $item->id . '/edit') }}" class="btn btn-primary btn-xs" title="Editar materia"><span class="glyphicon glyphicon-pencil" aria-hidden="true"/></a>
                         {!! Form::open([
                             'method'=>'DELETE',
                             'url' => ['/admin/materias', $item->id],
                             'style' => 'display:inline'
                         ]) !!}
-                            {!! Form::button('<span class="glyphicon glyphicon-trash" aria-hidden="true" title="Delete materia" />', array(
+                            {!! Form::button('<span class="glyphicon glyphicon-trash" aria-hidden="true" title="Apagar materia" />', array(
                                     'type' => 'submit',
                                     'class' => 'btn btn-danger btn-xs',
-                                    'title' => 'Delete materia',
-                                    'onclick'=>'return confirm("Confirm delete?")'
+                                    'title' => 'Apagar materia',
+                                    'onclick'=>'return confirm("Deseja apagar?")'
                             ));!!}
                         {!! Form::close() !!}
                     </td>

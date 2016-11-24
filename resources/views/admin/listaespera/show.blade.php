@@ -4,7 +4,7 @@
 <div class="container">
 
     <h1>listaespera {{ $listaespera->id }}
-        <a href="{{ url('admin/listaespera/' . $listaespera->id . '/edit') }}" class="btn btn-primary btn-xs" title="Edit listaespera"><span class="glyphicon glyphicon-pencil" aria-hidden="true"/></a>
+        <a href="{{ url('admin/listaespera/' . $listaespera->id . '/edit') }}" class="btn btn-primary btn-xs" title="Editar listaespera"><span class="glyphicon glyphicon-pencil" aria-hidden="true"/></a>
         {!! Form::open([
             'method'=>'DELETE',
             'url' => ['admin/listaespera', $listaespera->id],
@@ -13,8 +13,8 @@
             {!! Form::button('<span class="glyphicon glyphicon-trash" aria-hidden="true"/>', array(
                     'type' => 'submit',
                     'class' => 'btn btn-danger btn-xs',
-                    'title' => 'Delete listaespera',
-                    'onclick'=>'return confirm("Confirm delete?")'
+                    'title' => 'Apagar listaespera',
+                    'onclick'=>'return confirm("Deseja apagar?")'
             ))!!}
         {!! Form::close() !!}
     </h1>

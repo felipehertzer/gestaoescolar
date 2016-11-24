@@ -4,7 +4,7 @@
 <div class="container">
 
     <h1>feriado {{ $feriado->id }}
-        <a href="{{ url('admin/feriados/' . $feriado->id . '/edit') }}" class="btn btn-primary btn-xs" title="Edit feriado"><span class="glyphicon glyphicon-pencil" aria-hidden="true"/></a>
+        <a href="{{ url('admin/feriados/' . $feriado->id . '/edit') }}" class="btn btn-primary btn-xs" title="Editar feriado"><span class="glyphicon glyphicon-pencil" aria-hidden="true"/></a>
         {!! Form::open([
             'method'=>'DELETE',
             'url' => ['admin/feriados', $feriado->id],
@@ -13,8 +13,8 @@
             {!! Form::button('<span class="glyphicon glyphicon-trash" aria-hidden="true"/>', array(
                     'type' => 'submit',
                     'class' => 'btn btn-danger btn-xs',
-                    'title' => 'Delete feriado',
-                    'onclick'=>'return confirm("Confirm delete?")'
+                    'title' => 'Apagar feriado',
+                    'onclick'=>'return confirm("Deseja apagar?")'
             ));!!}
         {!! Form::close() !!}
     </h1>

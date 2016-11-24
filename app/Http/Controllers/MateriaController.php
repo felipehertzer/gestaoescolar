@@ -63,7 +63,7 @@ class MateriaController extends Controller {
 
             $m = Materia::create($request->except(array('professores', 'professores_escolhidos')));
             $m->professor()->attach($request->get('professores_escolhidos'));
-            Session::flash('success', 'Materia added!');
+			Session::flash('success', 'Materia adicionada!');
         } catch (\Exception $ex) {
             Session::flash('danger', $ex->getMessage());
         }
@@ -135,7 +135,7 @@ class MateriaController extends Controller {
             $materia->update($request->except(array('professores', 'professores_escolhidos')));
             $materia->professor()->detach($request->get('professores'));
             $materia->professor()->attach($request->get('professores_escolhidos'));
-            Session::flash('success', 'Materia updated!');
+			Session::flash('success', 'Materia atualizada!');
             return redirect('admin/materias');
         } catch (\Exception $ex) {
             Session::flash('danger', $ex->getMessage());
@@ -158,7 +158,7 @@ class MateriaController extends Controller {
             }
             Materia::destroy($id);
 
-            Session::flash('success', 'Materia deleted!');
+			Session::flash('success', 'Materia removida!');
         } catch (\Exception $ex) {
             Session::flash('danger', $ex->getMessage());
         }

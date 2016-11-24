@@ -64,7 +64,7 @@ class PessoaController extends Controller {
                     break;
             }
 
-            Session::flash('success', 'Pessoa added!');
+			Session::flash('success', 'Pessoa adicionada!');
         } catch (\Exception $ex) {
             Session::flash('danger', $ex->getMessage());
         }
@@ -176,7 +176,7 @@ class PessoaController extends Controller {
                     $pessoa->funcionario()->create(['pis' => $request->get('pis'), 'salario' => $request->get('salario'), 'id_funcao' => $request->get('funcao')]);
                     break;
             }
-            Session::flash('success', 'Pessoa updated!');
+			Session::flash('success', 'Pessoa atualizada!');
         } catch (\Exception $ex) {
             Session::flash('danger', $ex->getMessage());
         }
@@ -193,7 +193,7 @@ class PessoaController extends Controller {
     public function destroy($id) {
         Pessoa::destroy($id);
 
-        Session::flash('success', 'Pessoa deleted!');
+        Session::flash('success', 'Pessoa removida!');
 
         return redirect('admin/pessoas');
     }

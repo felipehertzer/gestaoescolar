@@ -53,7 +53,7 @@ class MatriculaController extends Controller {
         try {
             $requestData = $request->all();
             Matricula::create($requestData);
-            Session::flash('success', 'Matricula added!');
+			Session::flash('success', 'Matricula adicionada!');
         } catch (\Exception $ex) {
             Session::flash('danger', $ex->getMessage());
         }
@@ -104,7 +104,7 @@ class MatriculaController extends Controller {
             $matricula = Matricula::findOrFail($id);
             $matricula->update($requestData);
 
-            Session::flash('success', 'Matricula updated!');
+			Session::flash('success', 'Matricula atualizada!');
             return redirect('admin/matriculas');
         } catch (\Exception $ex) {
             Session::flash('danger', $ex->getMessage());
@@ -122,7 +122,7 @@ class MatriculaController extends Controller {
     public function destroy($id) {
         try {
             Matricula::destroy($id);
-            Session::flash('success', 'Matricula deleted!');
+			Session::flash('success', 'Matricula removida!');
         } catch (\Exception $ex) {
             Session::flash('danger', $ex->getMessage());
         }

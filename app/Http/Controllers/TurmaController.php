@@ -58,7 +58,7 @@ class TurmaController extends Controller {
 
         $t->materia()->attach($request->get('materias_escolhidas'));
 
-        Session::flash('success', 'Turma added!');
+        Session::flash('success', 'Turma adicionada!');
 
         return redirect('admin/turmas');
     }
@@ -131,7 +131,7 @@ class TurmaController extends Controller {
 
         $turma->materia()->attach($request->get('materias_escolhidas'));
 
-        Session::flash('success', 'Turma updated!');
+        Session::flash('success', 'Turma atualizada!');
 
         return redirect('admin/turmas');
     }

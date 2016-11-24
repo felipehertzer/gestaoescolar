@@ -45,7 +45,7 @@ class TipoMultaController extends Controller
 			$this->validate($request, ['nome' => 'required', ]);
 			TipoMulta::create($request->all());
 
-			Session::flash('success', 'TipoMulta added!');
+			Session::flash('success', 'Tipo de Multa adicionado!');
 		} catch (\Exception $ex) {
             Session::flash('danger', $ex->getMessage());
         }
@@ -94,7 +94,7 @@ class TipoMultaController extends Controller
 			$tipo_multum = TipoMulta::findOrFail($id);
 			$tipo_multum->update($request->all());
 
-			Session::flash('success', 'TipoMulta updated!');
+			Session::flash('success', 'Tipo de Multa atualizado!');
 
 			return redirect('admin/biblioteca/tipomulta');
 		} catch (\Exception $ex) {
@@ -115,7 +115,7 @@ class TipoMultaController extends Controller
 		try{
 			TipoMulta::destroy($id);
 
-			Session::flash('success', 'TipoMulta deleted!');
+			Session::flash('success', 'Tipo de Multa removido!');
 		} catch (\Exception $ex) {
             Session::flash('danger', $ex->getMessage());   
 		}

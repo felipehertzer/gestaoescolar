@@ -48,7 +48,7 @@ class LivroController extends Controller {
             $livro = Livro::create($request->all());
             $livro->autores()->sync($request->autores_escolhidos, false);
 
-            Session::flash('success', 'Livro added!');
+            Session::flash('success', 'Livro adicionado!');
         } catch (\Exception $ex) {
             Session::flash('danger', $ex->getMessage());
         }
@@ -103,7 +103,7 @@ class LivroController extends Controller {
             $livro->update($requestData);
             $livro->autores()->sync($request->autores_escolhidos);
 
-            Session::flash('success', 'Livro updated!');
+            Session::flash('success', 'Livro atualizado!');
             return redirect('admin/biblioteca/livros');
         } catch (\Exception $ex) {
             Session::flash('danger', $ex->getMessage());
@@ -122,7 +122,7 @@ class LivroController extends Controller {
         
         Livro::destroy($id);
 
-        Session::flash('success', 'Livro deleted!');
+        Session::flash('success', 'Livro removido!');
 
         return redirect('admin/biblioteca/livros');
     }

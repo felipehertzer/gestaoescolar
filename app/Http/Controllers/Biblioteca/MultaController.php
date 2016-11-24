@@ -50,7 +50,7 @@ class MultaController extends Controller {
 
 			Multa::create($requestData);
 
-			Session::flash('success', 'Multa added!');
+			Session::flash('success', 'Multa adicionada!');
 			
 		} catch (\Exception $ex) {
             Session::flash('danger', $ex->getMessage());
@@ -105,7 +105,7 @@ class MultaController extends Controller {
 			$multa = Multa::findOrFail($id);
 			$multa->update($requestData);
 
-			Session::flash('success', 'Multa updated!');
+			Session::flash('success', 'Multa atualizada!');
 
 			return redirect('admin/biblioteca/multas');
 		} catch (\Exception $ex) {
@@ -125,7 +125,7 @@ class MultaController extends Controller {
 		try {
 			Multa::destroy($id);
 
-			Session::flash('success', 'Multa deleted!');
+			Session::flash('success', 'Multa removida!');
 		} catch (\Exception $ex) {
             Session::flash('danger', $ex->getMessage());
         }
