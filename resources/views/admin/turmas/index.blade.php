@@ -3,7 +3,7 @@
 @section('content')
 <div class="container">
 
-    <h1>Turmas <a href="{{ url('/admin/turmas/create') }}" class="btn btn-primary btn-xs" title="Add New turma"><span class="glyphicon glyphicon-plus" aria-hidden="true"/></a></h1>
+    <h1>Turmas <a href="{{ url('/admin/turmas/create') }}" class="btn btn-primary btn-xs" title="Adicionar turma"><span class="glyphicon glyphicon-plus" aria-hidden="true"/></a></h1>
     <div class="table">
         <table class="table table-bordered table-striped table-hover">
             <thead>
@@ -12,7 +12,7 @@
                     <th> Vagas </th>
                     <th> Numero Turma </th>
                     <th> Ano </th>
-                    <th>Actions</th>
+                    <th>Ações</th>
                 </tr>
             </thead>
             <tbody>
@@ -25,17 +25,17 @@
                     <td>{{ $item->numero_turma }}</td>
                     <td>{{ $item->ano }}</td>
                     <td>
-                        <a href="{{ url('/admin/turmas/' . $item->id) }}" class="btn btn-success btn-xs" title="View turma"><span class="glyphicon glyphicon-eye-open" aria-hidden="true"/></a>
+                        <a href="{{ url('/admin/turmas/' . $item->id) }}" class="btn btn-success btn-xs" title="Ver turma"><span class="glyphicon glyphicon-eye-open" aria-hidden="true"/></a>
                         <a href="{{ url('/admin/turmas/' . $item->id . '/edit') }}" class="btn btn-primary btn-xs" title="Editar turma"><span class="glyphicon glyphicon-pencil" aria-hidden="true"/></a>
                         {!! Form::open([
                             'method'=>'DELETE',
                             'url' => ['/admin/turmas', $item->id],
                             'style' => 'display:inline'
                         ]) !!}
-                            {!! Form::button('<span class="glyphicon glyphicon-trash" aria-hidden="true" title="Delete turma" />', array(
+                            {!! Form::button('<span class="glyphicon glyphicon-trash" aria-hidden="true" title="Apagar turma" />', array(
                                     'type' => 'submit',
                                     'class' => 'btn btn-danger btn-xs',
-                                    'title' => 'Delete turma',
+                                    'title' => 'Apagar turma',
                                     'onclick'=>'return confirm("Deseja apagar?")'
                             )) !!}
                         {!! Form::close() !!}

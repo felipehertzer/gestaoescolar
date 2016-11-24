@@ -12,7 +12,7 @@
                 <th> Peso </th>
                 <th> Trimestre </th>
                 <th> Tipo </th>
-                <th>Actions</th>
+                <th>Ações</th>
             </tr>
             </thead>
             <tbody>

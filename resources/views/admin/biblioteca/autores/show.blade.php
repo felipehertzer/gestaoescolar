@@ -13,7 +13,7 @@
             {!! Form::button('<span class="glyphicon glyphicon-trash" aria-hidden="true"/>', array(
                     'type' => 'submit',
                     'class' => 'btn btn-danger btn-xs',
-                    'title' => 'Delete autore',
+                    'title' => 'Apagar autore',
                     'onclick'=>'return confirm("Deseja apagar?")'
             ));!!}
         {!! Form::close() !!}

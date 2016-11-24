@@ -3,7 +3,7 @@
 @section('content')
 <div class="container">
 
-    <h1>Retiradas <a href="{{ url('/admin/biblioteca/retiradas/create') }}" class="btn btn-primary btn-xs" title="Add New retirada"><span class="glyphicon glyphicon-plus" aria-hidden="true"/></a></h1>
+    <h1>Retiradas <a href="{{ url('/admin/biblioteca/retiradas/create') }}" class="btn btn-primary btn-xs" title="Adicionar retirada"><span class="glyphicon glyphicon-plus" aria-hidden="true"/></a></h1>
     <div class="table">
         <table class="table table-bordered table-striped table-hover">
             <thead>
@@ -12,7 +12,7 @@
                     <th> Data Devolucao </th>
                     <th> Aluno </th>
                     <th> Status </th>
-                    <th>Actions</th>
+                    <th>Ações</th>
                 </tr>
             </thead>
             <tbody>
@@ -25,7 +25,7 @@
                     <td>{{ $item->matricula->aluno->pessoa->nome }}</td>
                     <td>{{ App\Retirada::getNomeStatus($item->status) }}</td>
                     <td>
-                        <a href="{{ url('/admin/biblioteca/retiradas/' . $item->id) }}" class="btn btn-success btn-xs" title="View retirada"><span class="glyphicon glyphicon-eye-open" aria-hidden="true"/></a>
+                        <a href="{{ url('/admin/biblioteca/retiradas/' . $item->id) }}" class="btn btn-success btn-xs" title="Ver retirada"><span class="glyphicon glyphicon-eye-open" aria-hidden="true"/></a>
                         <a href="{{ url('/admin/biblioteca/retiradas/' . $item->id . '/devolve_tudo') }}" class="btn btn-primary btn-xs" title="Devolver Tudo"><span class="glyphicon glyphicon-check" aria-hidden="true"/></a>
                         <a href="{{ url('/admin/biblioteca/retiradas/' . $item->id . '/devolve_exemplares') }}" class="btn btn-primary btn-xs" title="Devolver por Exemplares"><span class="glyphicon glyphicon-book" aria-hidden="true"/></a>
                         <a href="{{ url('/admin/biblioteca/retiradas/' . $item->id . '/renovar') }}" class="btn btn-primary btn-xs" title="Renovar"><span class="glyphicon glyphicon-repeat" aria-hidden="true"/></a>

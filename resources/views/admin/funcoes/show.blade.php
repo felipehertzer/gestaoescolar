@@ -13,7 +13,7 @@
             {!! Form::button('<span class="glyphicon glyphicon-trash" aria-hidden="true"/>', array(
                     'type' => 'submit',
                     'class' => 'btn btn-danger btn-xs',
-                    'title' => 'Delete funco',
+                    'title' => 'Apagar funco',
                     'onclick'=>'return confirm("Deseja apagar?")'
             ));!!}
         {!! Form::close() !!}

@@ -13,7 +13,7 @@
             {!! Form::button('<span class="glyphicon glyphicon-trash" aria-hidden="true"/>', array(
                     'type' => 'submit',
                     'class' => 'btn btn-danger btn-xs',
-                    'title' => 'Delete series',
+                    'title' => 'Apagar series',
                     'onclick'=>'return confirm("Deseja apagar?")'
             ))!!}
         {!! Form::close() !!}

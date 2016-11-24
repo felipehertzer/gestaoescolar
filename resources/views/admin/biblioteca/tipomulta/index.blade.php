@@ -3,12 +3,12 @@
 @section('content')
 <div class="container">
 
-    <h1>Tipomulta <a href="{{ url('/admin/biblioteca/tipomulta/create') }}" class="btn btn-primary btn-xs" title="Add New tipomultum"><span class="glyphicon glyphicon-plus" aria-hidden="true"/></a></h1>
+    <h1>Tipomulta <a href="{{ url('/admin/biblioteca/tipomulta/create') }}" class="btn btn-primary btn-xs" title="Adicionar tipomultum"><span class="glyphicon glyphicon-plus" aria-hidden="true"/></a></h1>
     <div class="table">
         <table class="table table-bordered table-striped table-hover">
             <thead>
                 <tr>
-                    <th>S.No</th><th> Nome </th><th>Actions</th>
+                    <th>S.No</th><th> Nome </th><th>Ações</th>
                 </tr>
             </thead>
             <tbody>
@@ -19,17 +19,17 @@
                     <td>{{ $x }}</td>
                     <td>{{ $item->nome }}</td>
                     <td>
-                        <a href="{{ url('/admin/biblioteca/tipomulta/' . $item->id) }}" class="btn btn-success btn-xs" title="View tipomultum"><span class="glyphicon glyphicon-eye-open" aria-hidden="true"/></a>
+                        <a href="{{ url('/admin/biblioteca/tipomulta/' . $item->id) }}" class="btn btn-success btn-xs" title="Ver tipomultum"><span class="glyphicon glyphicon-eye-open" aria-hidden="true"/></a>
                         <a href="{{ url('/admin/biblioteca/tipomulta/' . $item->id . '/edit') }}" class="btn btn-primary btn-xs" title="Editar tipomultum"><span class="glyphicon glyphicon-pencil" aria-hidden="true"/></a>
                         {!! Form::open([
                             'method'=>'DELETE',
                             'url' => ['/admin/biblioteca/tipomulta', $item->id],
                             'style' => 'display:inline'
                         ]) !!}
-                            {!! Form::button('<span class="glyphicon glyphicon-trash" aria-hidden="true" title="Delete tipomultum" />', array(
+                            {!! Form::button('<span class="glyphicon glyphicon-trash" aria-hidden="true" title="Apagar tipomultum" />', array(
                                     'type' => 'submit',
                                     'class' => 'btn btn-danger btn-xs',
-                                    'title' => 'Delete tipomultum',
+                                    'title' => 'Apagar tipomultum',
                                     'onclick'=>'return confirm("Deseja apagar?")'
                             ));!!}
                         {!! Form::close() !!}
