@@ -64,7 +64,7 @@ class ReservaController extends Controller {
             (new \App\Exemplar)->setExemplaresParaReservado($dados['exemplares_escolhidos']);
 
             DB::commit();
-            Session::flash('success', 'Reserva added!');
+            Session::flash('success', 'Reserva adicionada!');
         } catch (\Exception $ex) {
             DB::rollback();
             Session::flash('danger', $ex->getMessage());
@@ -134,7 +134,7 @@ class ReservaController extends Controller {
             (new \App\Exemplar)->setExemplaresParaNaoReservado($request->exemplares);
 
             DB::commit();
-            Session::flash('success', 'Reserva updated!');
+            Session::flash('success', 'Reserva atualizada!');
 
             return redirect('admin/biblioteca/reservas');
         } catch (\Exception $ex) {
@@ -174,7 +174,7 @@ class ReservaController extends Controller {
             Reserva::destroy($id);
 
             DB::commit();
-            Session::flash('success', 'Reserva deleted!');
+            Session::flash('success', 'Reserva removida!');
         } catch (\Exception $ex) {
             DB::rollback();
             Session::flash('danger', $ex->getMessage());

@@ -50,7 +50,7 @@ class ExemplarController extends Controller
 			
 			Exemplar::create($requestData);
 
-			Session::flash('success', 'Exemplar added!');
+			Session::flash('success', 'Exemplar adicionado!');
 		} catch (\Exception $ex) {
             Session::flash('danger', $ex->getMessage());
         }
@@ -104,7 +104,7 @@ class ExemplarController extends Controller
 			$exemplare = Exemplar::findOrFail($id);
 			$exemplare->update($requestData);
 
-			Session::flash('success', 'Exemplar updated!');
+			Session::flash('success', 'Exemplar atualizado!');
 
 			return redirect('admin/biblioteca/exemplares');
 		} catch (\Exception $ex) {
@@ -125,7 +125,7 @@ class ExemplarController extends Controller
 		try{
 			Exemplar::destroy($id);
 
-			Session::flash('success', 'Exemplar deleted!');
+			Session::flash('success', 'Exemplar removido!');
 		} catch (\Exception $ex) {
 			Session::flash('danger', $ex->getMessage());
 		}

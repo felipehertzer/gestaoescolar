@@ -47,7 +47,7 @@ class TipoExemplarController extends Controller
 			
 			TipoExemplar::create($requestData);
 
-			Session::flash('success', 'TipoExemplar added!');
+			Session::flash('success', 'Tipo de Exemplar adicionado!');
 			
 		} catch (\Exception $ex) {
             Session::flash('danger', $ex->getMessage());
@@ -100,7 +100,7 @@ class TipoExemplarController extends Controller
 			$tipoexemplar = TipoExemplar::findOrFail($id);
 			$tipoexemplar->update($requestData);
 
-			Session::flash('success', 'TipoExemplar updated!');
+			Session::flash('success', 'Tipo de Exemplar atualizado!');
 
 			return redirect('admin/biblioteca/tipoexemplares');
 		} catch (\Exception $ex) {
@@ -121,7 +121,7 @@ class TipoExemplarController extends Controller
 		try{
 			TipoExemplar::destroy($id);
 
-			Session::flash('success', 'TipoExemplar deleted!');
+			Session::flash('success', 'Tipo de Exemplar removido!');
 		} catch (\Exception $ex) {
             Session::flash('danger', $ex->getMessage());   
 		}

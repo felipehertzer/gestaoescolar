@@ -54,7 +54,7 @@ class AdvertenciaController extends Controller
         
 			Advertencia::create($requestData);
 
-			Session::flash('success', 'Advertencia added!');
+			Session::flash('success', 'Advertencia adicionada!');
 		} catch (\Exception $ex) {
             Session::flash('danger', $ex->getMessage());
         }
@@ -107,7 +107,7 @@ class AdvertenciaController extends Controller
 			$advertencia = Advertencia::findOrFail($id);
 			$advertencia->update($requestData);
 
-			Session::flash('success', 'Advertencia updated!');
+			Session::flash('success', 'Advertencia atualizada!');
 
 			return redirect('admin/advertencias');
 		} catch (\Exception $ex) {
@@ -127,7 +127,7 @@ class AdvertenciaController extends Controller
     {
 		try{
 			Advertencia::destroy($id);
-			Session::flash('success', 'Advertencia deleted!');
+			Session::flash('success', 'Advertencia removida!');
 		} catch (\Exception $ex) {
             Session::flash('danger', $ex->getMessage());   
         }
