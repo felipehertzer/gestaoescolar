@@ -25,7 +25,7 @@
                     <td>{{ $item->nome }}</td><td>{{ $item->getNomeTipoPessoa($item->tipopessoa) }}</td><td>{{ $item->telefoneFixo }}</td><td>{{ $item->status }}</td>
                     <td>
                         <a href="{{ url('/admin/pessoas/' . $item->id) }}" class="btn btn-success btn-xs" title="View pessoa"><span class="glyphicon glyphicon-eye-open" aria-hidden="true"/></a>
-                        <a href="{{ url('/admin/pessoas/' . $item->id . '/edit') }}" class="btn btn-primary btn-xs" title="Edit pessoa"><span class="glyphicon glyphicon-pencil" aria-hidden="true"/></a>
+                        <a href="{{ url('/admin/pessoas/' . $item->id . '/edit') }}" class="btn btn-primary btn-xs" title="Editar pessoa"><span class="glyphicon glyphicon-pencil" aria-hidden="true"/></a>
                         {!! Form::open([
                             'method'=>'DELETE',
                             'url' => ['/admin/pessoas', $item->id],
@@ -35,7 +35,7 @@
                                     'type' => 'submit',
                                     'class' => 'btn btn-danger btn-xs',
                                     'title' => 'Delete pessoa',
-                                    'onclick'=>'return confirm("Confirm delete?")'
+                                    'onclick'=>'return confirm("Deseja apagar?")'
                             ));!!}
                         {!! Form::close() !!}
                     </td>

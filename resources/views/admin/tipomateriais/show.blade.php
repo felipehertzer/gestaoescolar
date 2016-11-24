@@ -4,7 +4,7 @@
 <div class="container">
 
     <h1>tipomateriai {{ $tipomateriai->id }}
-        <a href="{{ url('admin/tipomateriais/' . $tipomateriai->id . '/edit') }}" class="btn btn-primary btn-xs" title="Edit tipomateriai"><span class="glyphicon glyphicon-pencil" aria-hidden="true"/></a>
+        <a href="{{ url('admin/tipomateriais/' . $tipomateriai->id . '/edit') }}" class="btn btn-primary btn-xs" title="Editar tipomateriai"><span class="glyphicon glyphicon-pencil" aria-hidden="true"/></a>
         {!! Form::open([
             'method'=>'DELETE',
             'url' => ['admin/tipomateriais', $tipomateriai->id],
@@ -14,7 +14,7 @@
                     'type' => 'submit',
                     'class' => 'btn btn-danger btn-xs',
                     'title' => 'Delete tipomateriai',
-                    'onclick'=>'return confirm("Confirm delete?")'
+                    'onclick'=>'return confirm("Deseja apagar?")'
             ));!!}
         {!! Form::close() !!}
     </h1>

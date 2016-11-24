@@ -4,7 +4,7 @@
 <div class="container">
 
     <h1>multa {{ $multa->id }}
-        <a href="{{ url('admin/biblioteca/multas/' . $multa->id . '/edit') }}" class="btn btn-primary btn-xs" title="Edit multa"><span class="glyphicon glyphicon-pencil" aria-hidden="true"/></a>
+        <a href="{{ url('admin/biblioteca/multas/' . $multa->id . '/edit') }}" class="btn btn-primary btn-xs" title="Editar multa"><span class="glyphicon glyphicon-pencil" aria-hidden="true"/></a>
         <a href="{{ url('admin/biblioteca/multas/' . $multa->id . '/pagar_multa') }}" class="btn btn-primary btn-xs" title="Pagar multa"><span class="glyphicon glyphicon-usd" aria-hidden="true"/></a>
         {!! Form::open([
         'method'=>'DELETE',
@@ -15,7 +15,7 @@
         'type' => 'submit',
         'class' => 'btn btn-danger btn-xs',
         'title' => 'Delete multa',
-        'onclick'=>'return confirm("Confirm delete?")'
+        'onclick'=>'return confirm("Deseja apagar?")'
         ))!!}
         {!! Form::close() !!}
     </h1>    

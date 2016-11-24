@@ -20,7 +20,7 @@
                     <td>{{ $item->nome }}</td><td>{{ $item->peso }}</td><td>{{ $item->observacoes }}</td>
                     <td>
                         <a href="{{ url('/admin/avaliacoes/' . $item->id) }}" class="btn btn-success btn-xs" title="View avaliaco"><span class="glyphicon glyphicon-eye-open" aria-hidden="true"/></a>
-                        <a href="{{ url('/admin/avaliacoes/' . $item->id . '/edit') }}" class="btn btn-primary btn-xs" title="Edit avaliaco"><span class="glyphicon glyphicon-pencil" aria-hidden="true"/></a>
+                        <a href="{{ url('/admin/avaliacoes/' . $item->id . '/edit') }}" class="btn btn-primary btn-xs" title="Editar avaliaco"><span class="glyphicon glyphicon-pencil" aria-hidden="true"/></a>
                         <a href="{{ url('/admin/notas/' . $item->id . '/edit') }}" class="btn btn-primary btn-xs" title="Notas"><span class="fa fa-btn fa-sort-numeric-desc" aria-hidden="true"/></a>
                         {!! Form::open([
                             'method'=>'DELETE',
@@ -31,7 +31,7 @@
                                     'type' => 'submit',
                                     'class' => 'btn btn-danger btn-xs',
                                     'title' => 'Delete avaliaco',
-                                    'onclick'=>'return confirm("Confirm delete?")'
+                                    'onclick'=>'return confirm("Deseja apagar?")'
                             )) !!}
                         {!! Form::close() !!}
                     </td>

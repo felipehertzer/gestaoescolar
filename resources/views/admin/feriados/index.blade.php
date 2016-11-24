@@ -20,7 +20,7 @@
                     <td>{{ $item->dia }}</td><td>{{ $item->mes }}</td><td>{{ $item->ano }}</td>
                     <td>
                         <a href="{{ url('/admin/feriados/' . $item->id) }}" class="btn btn-success btn-xs" title="View feriado"><span class="glyphicon glyphicon-eye-open" aria-hidden="true"/></a>
-                        <a href="{{ url('/admin/feriados/' . $item->id . '/edit') }}" class="btn btn-primary btn-xs" title="Edit feriado"><span class="glyphicon glyphicon-pencil" aria-hidden="true"/></a>
+                        <a href="{{ url('/admin/feriados/' . $item->id . '/edit') }}" class="btn btn-primary btn-xs" title="Editar feriado"><span class="glyphicon glyphicon-pencil" aria-hidden="true"/></a>
                         {!! Form::open([
                             'method'=>'DELETE',
                             'url' => ['/admin/feriados', $item->id],
@@ -30,7 +30,7 @@
                                     'type' => 'submit',
                                     'class' => 'btn btn-danger btn-xs',
                                     'title' => 'Delete feriado',
-                                    'onclick'=>'return confirm("Confirm delete?")'
+                                    'onclick'=>'return confirm("Deseja apagar?")'
                             ));!!}
                         {!! Form::close() !!}
                     </td>

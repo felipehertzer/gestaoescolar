@@ -3,7 +3,7 @@
 @section('content')
 <div class="container">
 
-    <h1>Create New materiai</h1>
+    <h1>Nova materiai</h1>
     <hr/>
 
     {!! Form::open(['url' => '/admin/materiais', 'class' => 'form-horizontal', 'files' => true]) !!}
@@ -25,7 +25,7 @@
 
         <div class="form-group">
             <div class="col-sm-offset-3 col-sm-3">
-                {!! Form::submit('Create', ['class' => 'btn btn-primary form-control']) !!}
+                {!! Form::submit('Salvar', ['class' => 'btn btn-primary form-control']) !!}
             </div>
         </div>
     {!! Form::close() !!}

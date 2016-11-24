@@ -28,7 +28,7 @@
                     <td>{{ $item->status }}</td>
                     <td>
                         <a href="{{ url('/admin/biblioteca/reservas/' . $item->id) }}" class="btn btn-success btn-xs" title="View reserva"><span class="glyphicon glyphicon-eye-open" aria-hidden="true"/></a>
-                        <a href="{{ url('/admin/biblioteca/reservas/' . $item->id . '/edit') }}" class="btn btn-primary btn-xs" title="Edit reserva"><span class="glyphicon glyphicon-pencil" aria-hidden="true"/></a>
+                        <a href="{{ url('/admin/biblioteca/reservas/' . $item->id . '/edit') }}" class="btn btn-primary btn-xs" title="Editar reserva"><span class="glyphicon glyphicon-pencil" aria-hidden="true"/></a>
                         <a href="{{ url('/admin/biblioteca/reservas/' . $item->id . '/retirou_exemplares') }}" class="btn btn-primary btn-xs" title="Retirar Exemplares"><span class="glyphicon glyphicon-share-alt" aria-hidden="true"/></a>
                         {!! Form::open([
                             'method'=>'DELETE',
@@ -39,7 +39,7 @@
                                     'type' => 'submit',
                                     'class' => 'btn btn-danger btn-xs',
                                     'title' => 'Delete reserva',
-                                    'onclick'=>'return confirm("Confirm delete?")'
+                                    'onclick'=>'return confirm("Deseja apagar?")'
                             )) !!}
                         {!! Form::close() !!}
                     </td>

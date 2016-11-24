@@ -20,7 +20,7 @@
                     <td>{{ $item->nome }}</td>
                     <td>
                         <a href="{{ url('/admin/materias/' . $item->id) }}" class="btn btn-success btn-xs" title="View materia"><span class="glyphicon glyphicon-eye-open" aria-hidden="true"/></a>
-                        <a href="{{ url('/admin/materias/' . $item->id . '/edit') }}" class="btn btn-primary btn-xs" title="Edit materia"><span class="glyphicon glyphicon-pencil" aria-hidden="true"/></a>
+                        <a href="{{ url('/admin/materias/' . $item->id . '/edit') }}" class="btn btn-primary btn-xs" title="Editar materia"><span class="glyphicon glyphicon-pencil" aria-hidden="true"/></a>
                         {!! Form::open([
                             'method'=>'DELETE',
                             'url' => ['/admin/materias', $item->id],
@@ -30,7 +30,7 @@
                                     'type' => 'submit',
                                     'class' => 'btn btn-danger btn-xs',
                                     'title' => 'Delete materia',
-                                    'onclick'=>'return confirm("Confirm delete?")'
+                                    'onclick'=>'return confirm("Deseja apagar?")'
                             ));!!}
                         {!! Form::close() !!}
                     </td>

@@ -4,7 +4,7 @@
 <div class="container">
 
     <h1>turma {{ $turma->id }}
-        <a href="{{ url('admin/turmas/' . $turma->id . '/edit') }}" class="btn btn-primary btn-xs" title="Edit turma"><span class="glyphicon glyphicon-pencil" aria-hidden="true"/></a>
+        <a href="{{ url('admin/turmas/' . $turma->id . '/edit') }}" class="btn btn-primary btn-xs" title="Editar turma"><span class="glyphicon glyphicon-pencil" aria-hidden="true"/></a>
         {!! Form::open([
             'method'=>'DELETE',
             'url' => ['admin/turmas', $turma->id],
@@ -14,7 +14,7 @@
                     'type' => 'submit',
                     'class' => 'btn btn-danger btn-xs',
                     'title' => 'Delete turma',
-                    'onclick'=>'return confirm("Confirm delete?")'
+                    'onclick'=>'return confirm("Deseja apagar?")'
             ))!!}
         {!! Form::close() !!}
     </h1>

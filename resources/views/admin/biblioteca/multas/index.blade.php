@@ -28,7 +28,7 @@
                     <td>{{ $item->tipomulta->nome }}</td>
                     <td>
                         <a href="{{ url('/admin/biblioteca/multas/' . $item->id) }}" class="btn btn-success btn-xs" title="View multa"><span class="glyphicon glyphicon-eye-open" aria-hidden="true"/></a>
-                        <a href="{{ url('/admin/biblioteca/multas/' . $item->id . '/edit') }}" class="btn btn-primary btn-xs" title="Edit multa"><span class="glyphicon glyphicon-pencil" aria-hidden="true"/></a>
+                        <a href="{{ url('/admin/biblioteca/multas/' . $item->id . '/edit') }}" class="btn btn-primary btn-xs" title="Editar multa"><span class="glyphicon glyphicon-pencil" aria-hidden="true"/></a>
                         <a href="{{ url('/admin/biblioteca/multas/' . $item->id . '/pagar_multa') }}" class="btn btn-primary btn-xs" title="Pagar multa"><span class="glyphicon glyphicon-usd" aria-hidden="true"/></a>
                         {!! Form::open([
                             'method'=>'DELETE',
@@ -39,7 +39,7 @@
                                     'type' => 'submit',
                                     'class' => 'btn btn-danger btn-xs',
                                     'title' => 'Delete multa',
-                                    'onclick'=>'return confirm("Confirm delete?")'
+                                    'onclick'=>'return confirm("Deseja apagar?")'
                             )) !!}
                         {!! Form::close() !!}
                     </td>
