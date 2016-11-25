@@ -11,7 +11,7 @@ class Permissoes {
 
     public static function exibePaginaPorTipoPessoa() {
         $pessoa = Auth::user(); // pega o usuario da sessao
-        $urlAcessada = Route::currentRouteName(); // pega a url que esta acessando
+        $urlAcessada = Route::getFacadeRoot()->current()->uri(); // pega a url que esta acessando
         $tipoPessoa = $pessoa->tipopessoa;
         if (!self::temPermissao($tipoPessoa, $urlAcessada)) {
             return Redirect::to('home')->send()->with('danger', 'Você não tem permissão de acesso a está página!');
@@ -75,7 +75,7 @@ class Permissoes {
 
     public static function getModuloAvaliacoes() {
         return [
-            'avaliacoes', 'notas', 'presencas'
+            'avaliacoes', 'notas', 'presencas', 'get-turmas'
         ];
     }
 
