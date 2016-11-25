@@ -75,7 +75,7 @@ class Permissoes {
 
     public static function getModuloAvaliacoes() {
         return [
-            'avaliacoes', 'notas', 'presencas', 'get-turmas'
+            'avaliacoes', 'notas', 'presencas'
         ];
     }
 
