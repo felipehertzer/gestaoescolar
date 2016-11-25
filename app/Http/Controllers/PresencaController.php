@@ -10,6 +10,7 @@ use App\MateriaHasTurma;
 use App\Presenca;
 use App\PresencaHasMatricula;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Session;
 
@@ -22,14 +23,12 @@ class PresencaController extends Controller {
      */
     public function index() {
 
-        $value = 1;
         $presencas = DB::table('materia_has_professor')
                 ->select('materia_has_turma.id', 'materias.nome', 'turmas.ano', 'turmas.numero_turma')
                 ->join('materia_has_turma', 'materia_has_turma.id_materia_professor', '=', 'materia_has_professor.id')
                 ->join('materias', 'materias.id', '=', 'materia_has_professor.id_materia')
                 ->join('turmas', 'turmas.id', '=', 'materia_has_turma.id_turma')
-                ->where('materia_has_professor.id_professor', '=', $value)
-                //->toSql();
+                ->where('materia_has_professor.id_professor', '=', Auth::user()->id)
                 ->paginate(15);
         //dd($presencas);
         return view('admin.presencas.index', compact('presencas'));
@@ -48,9 +47,7 @@ class PresencaController extends Controller {
                 ->join('turmas', 'turmas.id', '=', 'matriculas.id_turma')
                 ->join('materia_has_turma', 'turmas.id', '=', 'materia_has_turma.id_turma')
                 ->where('materia_has_turma.id', '=', $id)
-                //->toSql();
                 ->get();
-        //dd($presencas);
 
         return view('admin.presencas.create', compact('presenca', 'id'));
     }

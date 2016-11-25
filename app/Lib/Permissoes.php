@@ -81,7 +81,7 @@ class Permissoes {
 
     public static function getModuloRelatorios() {
         return [
-            'livros_mais_retirados', 'alunos_mais_retiram_livros'
+            'livros_mais_retirados', 'alunos_mais_retiram_livros', 'relacao_presencas', 'relacao_notas'
         ];
     }
 

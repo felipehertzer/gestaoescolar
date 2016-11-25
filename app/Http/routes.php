@@ -11,7 +11,12 @@
 |
 */
 
+use Illuminate\Support\Facades\Auth;
+
 Route::get('/', function () {
+    if(Auth::user())
+        return Redirect::to('home');
+
     return view('welcome');
 });
 Route::auth();
@@ -89,3 +94,7 @@ Route::resource('admin/biblioteca/reservas/{id}/retirou_exemplares', 'Biblioteca
 Route::resource('admin/relatorios/livros_mais_retirados', 'RelatorioController@livros_mais_retirados');
 
 Route::resource('admin/relatorios/alunos_mais_retiram_livros', 'RelatorioController@alunos_mais_retiram_livros');
+
+Route::resource('admin/relatorios/relacao_presencas', 'RelatorioController@presencas');
+
+Route::resource('admin/relatorios/relacao_notas', 'RelatorioController@notas');

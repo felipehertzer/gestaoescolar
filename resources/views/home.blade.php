@@ -30,6 +30,18 @@
                             @if(App\Lib\Permissoes::podeExibirMenu('emprestamateriais'))
                                 <a href="{{ url('/admin/emprestamateriais') }}" class="list-group-item"><i class="fa fa-share-square-o"></i> Emprestar Material</a>
                             @endif
+
+                            @if(App\Lib\Permissoes::podeExibirMenu('avaliacoes'))
+                                <a href="{{ url('/admin/avaliacoes') }}" class="list-group-item"><i class="fa fa-btn fa-graduation-cap"></i> Avaliações</a>
+                            @endif
+
+                            @if(App\Lib\Permissoes::podeExibirMenu('notas'))
+                                <a href="{{ url('/admin/notas') }}" class="list-group-item"><i class="fa fa-btn fa-sort-numeric-desc"></i> Notas</a>
+                            @endif
+
+                            @if(App\Lib\Permissoes::podeExibirMenu('presencas'))
+                                <a href="{{ url('/admin/presencas') }}" class="list-group-item"><i class="fa fa-btn fa-calendar-check-o"></i> Presenças</a>
+                            @endif
                         </div>
                     </div>
                 </div>

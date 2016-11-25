@@ -11,6 +11,7 @@
         'class' => 'form-horizontal',
         'files' => true
     ]) !!}
+    {!! Form::hidden('id_professor', Auth::user()->id) !!}
 
                     <div class="form-group {{ $errors->has('nome') ? 'has-error' : ''}}">
                 {!! Form::label('nome', 'Nome', ['class' => 'col-sm-3 control-label']) !!}
@@ -38,13 +39,6 @@
                 <div class="col-sm-6">
                     {!! Form::select('tipo', array('normal' => 'normal', 'exame' => 'exame'),null, ['class' => 'form-control']) !!}
                     {!! $errors->first('tipo', '<p class="help-block">:message</p>') !!}
-                </div>
-            </div>
-            <div class="form-group {{ $errors->has('id_professor') ? 'has-error' : ''}}">
-                {!! Form::label('id_professor', 'Id Professor', ['class' => 'col-sm-3 control-label']) !!}
-                <div class="col-sm-6">
-                    {!! Form::number('id_professor', null, ['class' => 'form-control']) !!}
-                    {!! $errors->first('id_professor', '<p class="help-block">:message</p>') !!}
                 </div>
             </div>
             <div class="form-group {{ $errors->has('id_materia') ? 'has-error' : ''}}">

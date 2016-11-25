@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests;
 use App\Http\Controllers\Controller;
+use App\Presenca;
 use Illuminate\Http\Request;
 use Session;
 use Illuminate\Support\Facades\DB;
@@ -22,6 +23,28 @@ class RelatorioController extends Controller {
                 ->get();
         
         return view('admin.relatorios.livros_mais_retirados', compact('livros'));
+    }
+
+    public function presencas() {
+        $presencas = Presenca::select('turmas.numero_turma', DB::raw('count(presenca_has_matricula.id) as presencas'))
+            ->join('presenca_has_matricula', 'presencas.id', '=', 'presenca_has_matricula.id_presenca')
+            ->join('materia_has_turma', 'presencas.id_materia_turma', '=', 'materia_has_turma.id')
+            ->join('turmas', 'turmas.id', '=', 'materia_has_turma.id_turma')
+            //->groupBy('livros.id')
+            //->orderBy('numero_exemplares_retirado', 'desc')
+            ->toSql();
+        dd($presencas);
+        return view('admin.relatorios.presencas', compact('presencas'));
+    }
+
+    public function notas() {
+        $notas = Livro::select('livros.nome', DB::raw('count(exemplares.id) as numero_exemplares_retirado'))
+            ->join('exemplares', 'livros.id', '=', 'exemplares.livro_id')
+            ->join('retirada_has_exemplares', 'exemplares.id', '=', 'retirada_has_exemplares.exemplar_id')
+            ->groupBy('livros.id')
+            ->orderBy('numero_exemplares_retirado', 'desc')
+            ->get();
+        return view('admin.relatorios.notas', compact('notas'));
     }
     
     public function alunos_mais_retiram_livros() {        
