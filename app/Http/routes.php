@@ -70,23 +70,21 @@ Route::resource('admin/biblioteca/livros', 'Biblioteca\\LivroController');
 
 Route::resource('admin/biblioteca/multas', 'Biblioteca\\MultaController');
 
-Route::get('admin/biblioteca/multas/{id}/pagar_multa', 'Biblioteca\\MultaController@pagar_multa');
+Route::resource('admin/biblioteca/multas/{id}/pagar_multa', 'Biblioteca\\MultaController@pagar_multa');
 
 Route::resource('admin/biblioteca/reservas', 'Biblioteca\\ReservaController');
 
 Route::resource('admin/biblioteca/retiradas', 'Biblioteca\\RetiradaController');
 
-Route::get('admin/biblioteca/retiradas/{id}/devolve_tudo', 'Biblioteca\\RetiradaController@devolve_tudo');
+Route::resource('admin/biblioteca/retiradas/{id}/devolve_tudo', 'Biblioteca\\RetiradaController@devolve_tudo');
 
-Route::get('admin/biblioteca/retiradas/{id}/devolve_exemplares', 'Biblioteca\\RetiradaController@devolve_exemplares');
+Route::resource('admin/biblioteca/retiradas/{id}/devolve_exemplares', 'Biblioteca\\RetiradaController@devolve_exemplares');
 
-Route::post('admin/biblioteca/retiradas/{id}/devolve_exemplares', 'Biblioteca\\RetiradaController@devolve_exemplares');
+Route::resource('admin/biblioteca/retiradas/{id}/renovar', 'Biblioteca\\RetiradaController@renovar');
 
-Route::get('admin/biblioteca/retiradas/{id}/renovar', 'Biblioteca\\RetiradaController@renovar');
+Route::resource('admin/emprestamateriais/{id}/devolve', 'EmprestaMateriaisController@devolve');
 
-Route::get('admin/emprestamateriais/{id}/devolve', 'EmprestaMateriaisController@devolve');
-
-Route::get('admin/biblioteca/reservas/{id}/retirou_exemplares', 'Biblioteca\\ReservaController@retirou_exemplares');
+Route::resource('admin/biblioteca/reservas/{id}/retirou_exemplares', 'Biblioteca\\ReservaController@retirou_exemplares');
 
 Route::resource('admin/relatorios/livros_mais_retirados', 'RelatorioController@livros_mais_retirados');
 
