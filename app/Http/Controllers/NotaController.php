@@ -113,4 +113,27 @@ class NotaController extends Controller {
         return redirect('admin/notas');
     }
 
+    /**
+     * Show the form for editing the specified resource.
+     *
+     * @param  int  $id
+     *
+     * @return \Illuminate\View\View
+     */
+    public function notas() {
+        $avaliacoes = DB::table('avaliacoes')
+            ->select('avaliacoes.nome','materias.nome as materia', 'matriculas.id', 'nota', 'peso', 'trimestre', 'tipo')
+            ->join('matriculas', 'matriculas.id_turma', '=', 'avaliacoes.id_turma')
+            ->join('alunos', 'alunos.id', '=', 'matriculas.id_aluno')
+            ->join('materias', 'materias.id', '=', 'avaliacoes.id_materia')
+            ->leftjoin('notas', function($join) {
+                $join->on('notas.id_avaliacao', '=', 'avaliacoes.id');
+                $join->on('notas.id_matricula', '=', 'matriculas.id');
+            })
+            ->where('alunos.id_pessoas', '=', Auth::user()->id)
+            ->paginate(15);
+        //dd($alunos);
+        return view('admin.notas.aluno', compact('avaliacoes'));
+    }
+
 }

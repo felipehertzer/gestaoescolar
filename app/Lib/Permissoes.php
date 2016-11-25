@@ -41,7 +41,7 @@ class Permissoes {
             Pessoa::PESSOA_FUNCIONARIO => self::modulosDisponiveisFuncionario(),
             Pessoa::PESSOA_PROFESSOR => self::modulosDisponiveisProfessor(),
             Pessoa::PESSOA_RESPONSAVEL => [],
-            Pessoa::PESSOA_ALUNO => [],
+            Pessoa::PESSOA_ALUNO => self::modulosDisponiveisAluno(),
         ];
     }
 
@@ -52,6 +52,16 @@ class Permissoes {
 
     public static function modulosDisponiveisProfessor() {
         return self::getModuloAvaliacoes();
+    }
+
+    public static function modulosDisponiveisAluno() {
+        return self::getModuloAluno();
+    }
+
+    public static function getModuloAluno() {
+        return [
+            'lista_notas'
+        ];
     }
 
     public static function getModuloBiblioteca() {

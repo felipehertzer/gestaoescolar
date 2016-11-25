@@ -98,3 +98,5 @@ Route::resource('admin/relatorios/alunos_mais_retiram_livros', 'RelatorioControl
 Route::resource('admin/relatorios/relacao_presencas', 'RelatorioController@presencas');
 
 Route::resource('admin/relatorios/relacao_notas', 'RelatorioController@notas');
+
+Route::resource('aluno/lista_notas', 'NotaController@notas');

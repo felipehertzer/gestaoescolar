@@ -50,6 +50,9 @@
                     <!-- Left Side Of Navbar -->
                     <ul class="nav navbar-nav">
                         <li><a href="{{ url('/home') }}">Inicio</a></li>
+                        @if(App\Lib\Permissoes::podeExibirMenu('lista_notas'))
+                            <li><a href="{{ url('/aluno/lista_notas') }}">Notas</a></li>
+                        @endif
                         @if (!Auth::guest())
                             @if(App\Lib\Permissoes::podeExibirMenu('matriculas'))
                             <li class="dropdown">
