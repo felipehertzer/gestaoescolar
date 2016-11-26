@@ -28,7 +28,7 @@
                     <th> Aluno </th><td> {{ $listaespera->aluno->pessoa->nome }} </td>
                 </tr>
                 <tr>
-                    <th> Turma </th><td> {{ $listaespera->turma->numero_turma }} </td>
+                    <th> Série </th><td> {{ $listaespera->serie->nome }} </td>
                 </tr>
             </tbody>
         </table>

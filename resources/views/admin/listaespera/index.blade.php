@@ -8,7 +8,10 @@
         <table class="table table-bordered table-striped table-hover">
             <thead>
                 <tr>
-                    <th>S.No</th><th> Aluno </th><th> Turma </th><th>Ações</th>
+                    <th>S.No</th>
+                    <th> Aluno </th>
+                    <th> Série </th>
+                    <th>Ações</th>
                 </tr>
             </thead>
             <tbody>
@@ -18,7 +21,7 @@
                 <tr>
                     <td>{{ $x }}</td>
                     <td>{{ $item->aluno->pessoa->nome }}</td>
-                    <td>{{ $item->turma->numero_turma }}</td>
+                    <td>{{ $item->serie->nome }}</td>
                     <td>
                         <a href="{{ url('/admin/listaespera/' . $item->id) }}" class="btn btn-success btn-xs" title="Ver listaespera"><span class="glyphicon glyphicon-eye-open" aria-hidden="true"/></a>
                         <a href="{{ url('/admin/listaespera/' . $item->id . '/realizar_matricula') }}" class="btn btn-primary btn-xs" title="Realizar Matrícula"><span class="glyphicon glyphicon-user" aria-hidden="true"/></a>

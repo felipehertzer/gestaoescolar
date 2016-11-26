@@ -25,29 +25,38 @@ class ListaEspera extends Model {
      *
      * @var array
      */
-    protected $fillable = ['id_aluno', 'id_turma', 'observacoes'];
+    protected $fillable = ['id_aluno', 'id_serie', 'observacoes'];
 
     public function aluno() {
         return $this->belongsTo(Aluno::class, 'id_aluno');
     }
 
-    public function turma() {
-        return $this->belongsTo(Turma::class, 'id_turma');
+    public function serie() {
+        return $this->belongsTo(Serie::class, 'id_serie');
     }
 
     public static function adicionar($dados) {
+        $dados['id_serie'] = Turma::findOrFail($dados['id_turma'])->id_serie;
         ListaEspera::create($dados);
     }
 
-    public static function realizar_matricula($dados) {
-        $temVagasNaTurma = Matricula::temVagasNaTurma($dados['id_turma']);
-
-        if (!$temVagasNaTurma) {
-            throw new \Exception('Ainda não há vagas para essa turma!');
+    public static function realizar_matricula($id) {
+        $listaespera = ListaEspera::findOrFail($id)->toArray();
+        $turmasDaSerie = self::getTurmasPorSerie($listaespera['id_serie']);
+        foreach ($turmasDaSerie as $turma) {
+            $temVagasNaTurma = Matricula::temVagasNaTurma($turma['id']);
+            if ($temVagasNaTurma) {
+                $listaespera['id_turma'] = $turma['id'];
+                ListaEspera::destroy($id);
+                return Matricula::create($listaespera)->id;
+            }
         }
 
-        ListaEspera::destroy($dados['id']);
-        return Matricula::create($dados)->id;
+        throw new \Exception('Ainda não há vagas nessa série!');
+    }
+
+    public static function getTurmasPorSerie($id_serie) {
+        return Turma::where('id_serie', $id_serie)->get()->toArray();
     }
 
 }

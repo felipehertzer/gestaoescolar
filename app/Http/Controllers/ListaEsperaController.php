@@ -37,9 +37,8 @@ class ListaEsperaController extends Controller {
 
     public function realizar_matricula($id) {
         try {
-            $listaespera = ListaEspera::findOrFail($id)->toArray();
-            $matriculaId = ListaEspera::realizar_matricula($listaespera);
-            Session::flash('success', 'Matricula foi realizada!');
+            $matriculaId = ListaEspera::realizar_matricula($id);
+            Session::flash('success', 'Matrícula realizada com sucesso!');
             return redirect('admin/matriculas/' . $matriculaId);
         } catch (\Exception $ex) {
             Session::flash('danger', $ex->getMessage());
