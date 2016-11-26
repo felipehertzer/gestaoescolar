@@ -21,8 +21,8 @@
                 {{-- */$x++;/* --}}
                 <tr>
                     <td>{{ $x }}</td>
-                    <td>{{ $item->nome }}</td>
-                    <td>{{ $item->numero_turma }}</td>
+                    <td>{{ $item->aluno->pessoa->nome }}</td>
+                    <td>{{ $item->turma->numero_turma }}</td>
                     <td>{{ $item->observacoes }}</td>
                     <td>
                         <a href="{{ url('/admin/matriculas/' . $item->id) }}" class="btn btn-success btn-xs" title="Ver matricula"><span class="glyphicon glyphicon-eye-open" aria-hidden="true"/></a>

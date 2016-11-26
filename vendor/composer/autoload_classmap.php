@@ -7,7 +7,7 @@ $baseDir = dirname($vendorDir);
 
 return array(
     'AddColumnStatusMateriais' => $baseDir . '/database/migrations/2016_11_15_145127_add_column_status_materiais.php',
-    'AddColumnsReservas' => $baseDir . '/database/migrations/2016_11_19_185845_add_columns_reservas.php',
+    'AddColumnsReservasAndExemplares' => $baseDir . '/database/migrations/2016_11_19_185845_add_columns_reservas_and_exemplares.php',
     'AddEmprestamateriaisTable' => $baseDir . '/database/migrations/2016_11_15_162656_add_emprestamateriais_table.php',
     'AddMatriculaMultas' => $baseDir . '/database/migrations/2016_10_24_145347_add_matricula_multas.php',
     'AddNewCollumn' => $baseDir . '/database/migrations/2016_10_22_233255_add_new_collumn.php',
@@ -52,6 +52,7 @@ return array(
     'EditColumnIdMatriculaReservas' => $baseDir . '/database/migrations/2016_09_11_035505_edit_column_id_matricula_reservas.php',
     'EditColumnIdTipomultaMultas' => $baseDir . '/database/migrations/2016_09_11_024054_edit_column_id_tipomulta_multas.php',
     'EditColumnStatusExemplares' => $baseDir . '/database/migrations/2016_09_10_231345_edit_column_status_exemplares.php',
+    'EditTableListaespera' => $baseDir . '/database/migrations/2016_11_25_232209_edit_table_listaespera.php',
     'File_Iterator' => $vendorDir . '/phpunit/php-file-iterator/src/Iterator.php',
     'File_Iterator_Facade' => $vendorDir . '/phpunit/php-file-iterator/src/Facade.php',
     'File_Iterator_Factory' => $vendorDir . '/phpunit/php-file-iterator/src/Factory.php',

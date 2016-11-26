@@ -3,8 +3,8 @@
 @section('content')
 <div class="container">
 
-    <h1>listaespera {{ $listaespera->id }}
-        <a href="{{ url('admin/listaespera/' . $listaespera->id . '/edit') }}" class="btn btn-primary btn-xs" title="Editar listaespera"><span class="glyphicon glyphicon-pencil" aria-hidden="true"/></a>
+    <h1>Lista de Espera {{ $listaespera->id }}
+        <a href="{{ url('admin/listaespera/' . $listaespera->id . '/realizar_matricula') }}" class="btn btn-primary btn-xs" title="Realizar Matrícula"><span class="glyphicon glyphicon-user" aria-hidden="true"/></a>
         {!! Form::open([
             'method'=>'DELETE',
             'url' => ['admin/listaespera', $listaespera->id],
@@ -24,7 +24,12 @@
                 <tr>
                     <th>ID</th><td>{{ $listaespera->id }}</td>
                 </tr>
-                <tr><th> Id Serie </th><td> {{ $listaespera->id_serie }} </td></tr><tr><th> Id Matricula </th><td> {{ $listaespera->id_matricula }} </td></tr>
+                <tr>
+                    <th> Aluno </th><td> {{ $listaespera->aluno->pessoa->nome }} </td>
+                </tr>
+                <tr>
+                    <th> Turma </th><td> {{ $listaespera->turma->numero_turma }} </td>
+                </tr>
             </tbody>
         </table>
     </div>

@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Http\Requests;
 use App\Http\Controllers\Controller;
 use App\ListaEspera;
+use App\Matricula;
 use Illuminate\Http\Request;
 use Session;
 
@@ -22,33 +23,6 @@ class ListaEsperaController extends Controller {
     }
 
     /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\View\View
-     */
-    public function create() {
-        return view('admin.listaespera.create');
-    }
-
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param \Illuminate\Http\Request $request
-     *
-     * @return \Illuminate\Http\RedirectResponse|\Illuminate\Routing\Redirector
-     */
-    public function store(Request $request) {
-
-        $requestData = $request->all();
-
-        ListaEspera::create($requestData);
-
-        Session::flash('success', 'ListaEspera added!');
-
-        return redirect('admin/listaespera');
-    }
-
-    /**
      * Display the specified resource.
      *
      * @param  int  $id
@@ -61,36 +35,16 @@ class ListaEsperaController extends Controller {
         return view('admin.listaespera.show', compact('listaespera'));
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     *
-     * @return \Illuminate\View\View
-     */
-    public function edit($id) {
-        $listaespera = ListaEspera::findOrFail($id);
-
-        return view('admin.listaespera.edit', compact('listaespera'));
-    }
-
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  int  $id
-     * @param \Illuminate\Http\Request $request
-     *
-     * @return \Illuminate\Http\RedirectResponse|\Illuminate\Routing\Redirector
-     */
-    public function update($id, Request $request) {
-
-        $requestData = $request->all();
-
-        $listaespera = ListaEspera::findOrFail($id);
-        $listaespera->update($requestData);
-
-        Session::flash('success', 'ListaEspera updated!');
-
+    public function realizar_matricula($id) {
+        try {
+            $listaespera = ListaEspera::findOrFail($id)->toArray();
+            $matriculaId = ListaEspera::realizar_matricula($listaespera);
+            Session::flash('success', 'Matricula foi realizada!');
+            return redirect('admin/matriculas/' . $matriculaId);
+        } catch (\Exception $ex) {
+            Session::flash('danger', $ex->getMessage());
+        }
+        
         return redirect('admin/listaespera');
     }
 

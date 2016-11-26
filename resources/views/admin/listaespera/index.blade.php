@@ -3,22 +3,25 @@
 @section('content')
 <div class="container">
 
-    <h1>Listaespera <a href="{{ url('/admin/listaespera/create') }}" class="btn btn-primary btn-xs" title="Adicionar listaespera"><span class="glyphicon glyphicon-plus" aria-hidden="true"/></a></h1>
+    <h1>Lista de Espera</h1>
     <div class="table">
         <table class="table table-bordered table-striped table-hover">
             <thead>
                 <tr>
-                    <th>S.No</th><th> Id Serie </th><th> Id Matricula </th><th>Ações</th>
+                    <th>S.No</th><th> Aluno </th><th> Turma </th><th>Ações</th>
                 </tr>
             </thead>
             <tbody>
+            {{-- */$x=0;/* --}}
             @foreach($listaespera as $item)
+                {{-- */$x++;/* --}}
                 <tr>
-                    <td>{{ $loop->iteration }}</td>
-                    <td>{{ $item->id_serie }}</td><td>{{ $item->id_matricula }}</td>
+                    <td>{{ $x }}</td>
+                    <td>{{ $item->aluno->pessoa->nome }}</td>
+                    <td>{{ $item->turma->numero_turma }}</td>
                     <td>
                         <a href="{{ url('/admin/listaespera/' . $item->id) }}" class="btn btn-success btn-xs" title="Ver listaespera"><span class="glyphicon glyphicon-eye-open" aria-hidden="true"/></a>
-                        <a href="{{ url('/admin/listaespera/' . $item->id . '/edit') }}" class="btn btn-primary btn-xs" title="Editar listaespera"><span class="glyphicon glyphicon-pencil" aria-hidden="true"/></a>
+                        <a href="{{ url('/admin/listaespera/' . $item->id . '/realizar_matricula') }}" class="btn btn-primary btn-xs" title="Realizar Matrícula"><span class="glyphicon glyphicon-user" aria-hidden="true"/></a>
                         {!! Form::open([
                             'method'=>'DELETE',
                             'url' => ['/admin/listaespera', $item->id],

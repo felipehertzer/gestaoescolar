@@ -20,13 +20,8 @@ class MatriculaController extends Controller {
      * @return \Illuminate\View\View
      */
     public function index() {
-        $matriculas = DB::table('matriculas')
-                ->select('pessoas.nome', 'turmas.numero_turma', 'matriculas.observacoes', 'matriculas.id')
-                ->join('alunos', 'alunos.id', '=', 'matriculas.id_aluno')
-                ->join('pessoas', 'pessoas.id', '=', 'alunos.id_pessoas')
-                ->join('turmas', 'turmas.id', '=', 'matriculas.id_turma')
-                ->paginate(15);
-        //dd($matriculas);
+        $matriculas = Matricula::paginate(25);
+        
         return view('admin.matriculas.index', compact('matriculas'));
     }
 
@@ -52,11 +47,12 @@ class MatriculaController extends Controller {
     public function store(Request $request) {
         try {
             $requestData = $request->all();
-            Matricula::create($requestData);
-			Session::flash('success', 'Matricula adicionada!');
+            Matricula::adicionar($requestData);            
+            Session::flash('success', 'Matricula adicionada!');
         } catch (\Exception $ex) {
             Session::flash('danger', $ex->getMessage());
         }
+        
         return redirect('admin/matriculas');
     }
 
@@ -104,7 +100,7 @@ class MatriculaController extends Controller {
             $matricula = Matricula::findOrFail($id);
             $matricula->update($requestData);
 
-			Session::flash('success', 'Matricula atualizada!');
+            Session::flash('success', 'Matricula atualizada!');
             return redirect('admin/matriculas');
         } catch (\Exception $ex) {
             Session::flash('danger', $ex->getMessage());
@@ -122,7 +118,7 @@ class MatriculaController extends Controller {
     public function destroy($id) {
         try {
             Matricula::destroy($id);
-			Session::flash('success', 'Matricula removida!');
+            Session::flash('success', 'Matricula removida!');
         } catch (\Exception $ex) {
             Session::flash('danger', $ex->getMessage());
         }
