@@ -43,8 +43,8 @@
                                 <a href="{{ url('/admin/presencas') }}" class="list-group-item"><i class="fa fa-btn fa-calendar-check-o"></i> Presenças</a>
                             @endif
 
-                            @if(App\Lib\Permissoes::podeExibirMenu('lista_notas'))
-                                <a href="{{ url('/aluno/lista_notas') }}" class="list-group-item"><i class="fa fa-btn fa-sort-numeric-desc"></i> Notas</a>
+                            @if(App\Lib\Permissoes::podeExibirMenu('listaNotasAluno'))
+                                <a href="{{ url('/aluno/listaNotasAluno') }}" class="list-group-item"><i class="fa fa-btn fa-sort-numeric-desc"></i> Notas</a>
                             @endif
                         </div>
                     </div>

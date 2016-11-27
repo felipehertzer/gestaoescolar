@@ -99,6 +99,6 @@ Route::resource('admin/relatorios/relacao_presencas', 'RelatorioController@prese
 
 Route::resource('admin/relatorios/relacao_notas', 'RelatorioController@notas');
 
-Route::resource('aluno/lista_notas', 'NotaController@notas');
+Route::resource('aluno/listaNotasAluno', 'NotaController@notas');
 
 Route::resource('admin/listaespera/{id}/realizar_matricula', 'ListaEsperaController@realizar_matricula');

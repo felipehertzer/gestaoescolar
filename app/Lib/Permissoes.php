@@ -62,7 +62,7 @@ class Permissoes {
 
     public static function getModuloAluno() {
         return [
-            'lista_notas'
+            'listaNotasAluno'
         ];
     }
 

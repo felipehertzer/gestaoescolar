@@ -52,8 +52,8 @@
                         <li><a href="{{ url('/home') }}">Inicio</a></li>
                         
                         @if (!Auth::guest())
-                            @if(App\Lib\Permissoes::podeExibirMenu('lista_notas'))
-                                <li><a href="{{ url('/aluno/lista_notas') }}">Notas</a></li>
+                            @if(App\Lib\Permissoes::podeExibirMenu('listaNotasAluno'))
+                                <li><a href="{{ url('/aluno/listaNotasAluno') }}">Notas</a></li>
                             @endif
                             @if(App\Lib\Permissoes::podeExibirMenu('matriculas'))
                             <li class="dropdown">
