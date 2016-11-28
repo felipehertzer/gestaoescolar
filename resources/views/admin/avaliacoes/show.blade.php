@@ -3,7 +3,7 @@
 @section('content')
 <div class="container">
 
-    <h1>avaliaco {{ $avaliaco->id }}
+    <h1>Avaliação {{ $avaliaco->id }}
         <a href="{{ url('admin/avaliacoes/' . $avaliaco->id . '/edit') }}" class="btn btn-primary btn-xs" title="Editar avaliaco"><span class="glyphicon glyphicon-pencil" aria-hidden="true"/></a>
         {!! Form::open([
             'method'=>'DELETE',
@@ -26,9 +26,9 @@
                 <tr><th> Peso </th><td> {{ $avaliaco->peso }} </td></tr>
                 <tr><th> Tipo </th><td> {{ $avaliaco->tipo }} </td></tr>
                 <tr><th> Trimestre </th><td> {{ $avaliaco->trimestre }} </td></tr>
-                <tr><th> Professor </th><td> {{ $avaliaco->professores->pessoa->nome }} </td></tr>
-                <tr><th> Materia </th><td> {{ $avaliaco->materias->nome }} </td></tr>
-                <tr><th> Turma </th><td> {{ $avaliaco->turmas->numero_turma }} </td></tr>
+                <tr><th> Professor </th><td> {{ $avaliaco->professor }} </td></tr>
+                <tr><th> Materia </th><td> {{ $avaliaco->materia }} </td></tr>
+                <tr><th> Turma </th><td> {{ $avaliaco->numero_turma }} </td></tr>
                 <tr><th> Observacoes </th><td> {{ $avaliaco->observacoes }} </td></tr>
             </tbody>
         </table>

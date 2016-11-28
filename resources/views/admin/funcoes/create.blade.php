@@ -1,9 +1,9 @@
-@extends('layouts.app')
+﻿@extends('layouts.app')
 
 @section('content')
 <div class="container">
 
-    <h1>Nova funco</h1>
+    <h1>Nova função</h1>
     <hr/>
 
     {!! Form::open(['url' => '/admin/funcoes', 'class' => 'form-horizontal']) !!}

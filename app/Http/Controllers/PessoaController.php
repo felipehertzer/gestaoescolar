@@ -81,8 +81,8 @@ class PessoaController extends Controller {
      */
     public function show($id) {
         $pessoa = Pessoa::findOrFail($id);
-
-        return view('admin.pessoas.show', compact('pessoa'));
+        $tipo_pessoa = Pessoa::getNomeTipoPessoa($pessoa->tipopessoa);
+        return view('admin.pessoas.show', compact('pessoa', 'tipo_pessoa'));
     }
 
     /**
@@ -191,6 +191,34 @@ class PessoaController extends Controller {
      * @return void
      */
     public function destroy($id) {
+
+        $pessoa = Pessoa::findOrFail($id);
+
+        switch ($pessoa->tipopessoa) {
+            // alunos
+            case 3:
+                $aluno = Aluno::where('id_pessoas', '=', $id)->firstOrFail();
+                Aluno::destroy($aluno->id);
+                break;
+            // responsaveis
+            case 2:
+                $responsavel = Responsavel::where('id_pessoas', '=', $id)->firstOrFail();
+                Responsavel::destroy($responsavel->id);
+                break;
+            // professores
+            case 1:
+                $professor = Professor::where('id_pessoas', '=', $id)->firstOrFail();
+                Professor::destroy($professor->id);
+                break;
+            // funcionarios
+            default:
+                $funcionario = Funcionario::where('id_pessoas', '=', $id)->firstOrFail();
+                if($funcionario) {
+                    Funcionario::destroy($funcionario->id);
+                }
+                break;
+        }
+
         Pessoa::destroy($id);
 
         Session::flash('success', 'Pessoa removida!');

@@ -24,7 +24,14 @@
                 <tr>
                     <th>ID</th><td>{{ $pessoa->id }}</td>
                 </tr>
-                <tr><th> Nome </th><td> {{ $pessoa->nome }} </td></tr><tr><th> Cpf </th><td> {{ $pessoa->cpf }} </td></tr><tr><th> Password </th><td> {{ $pessoa->password }} </td></tr>
+                <tr><th> Nome </th><td> {{ $pessoa->nome }} </td></tr>
+                <tr><th> Cpf </th><td> {{ $pessoa->cpf }} </td></tr>
+                <tr><th> Sexo </th><td> {{ $pessoa->sexo }} </td></tr>
+                <tr><th> Data Nascimento </th><td> {{ $pessoa->dataNascimento }} </td></tr>
+                <tr><th> Tipo </th><td> {{ $tipo_pessoa }} </td></tr>
+                <tr><th> Telefone Fixo </th><td> {{ $pessoa->telefoneFixo }} </td></tr>
+                <tr><th> Celular </th><td> {{ $pessoa->telefoneCelular }} </td></tr>
+                <tr><th> Status </th><td> {{ $pessoa->status }} </td></tr>
             </tbody>
         </table>
     </div>

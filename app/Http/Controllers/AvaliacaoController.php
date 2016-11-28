@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Nota;
+use App\Professor;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Requests;
@@ -36,16 +37,22 @@ class AvaliacaoController extends Controller {
      */
     public function create() {
 
-        $materia = MateriaHasProfessor::with('materia')->where('id_professor', Auth::user()->id)->get();
-        $materias = $materia->pluck('materia.nome', 'materia.id');
+        $materias = DB::table('materia_has_professor')
+            //->select('turmas.id', 'turmas.numero_turma')
+            ->join('materia_has_turma', 'materia_has_turma.id_materia_professor', '=', 'materia_has_professor.id')
+            ->join('materias', 'materias.id', '=', 'materia_has_professor.id_materia')
+            ->join('professores', 'professores.id', '=', 'materia_has_professor.id_professor')
+            ->where('professores.id_pessoas', '=', Auth::user()->id)
+            ->pluck('materias.nome', 'materias.id');
 
         $turmas = DB::table('materia_has_professor')
                 ->select('turmas.id', 'turmas.numero_turma')
                 ->join('materia_has_turma', 'materia_has_turma.id_materia_professor', '=', 'materia_has_professor.id')
                 ->join('materias', 'materias.id', '=', 'materia_has_professor.id_materia')
                 ->join('turmas', 'turmas.id', '=', 'materia_has_turma.id_turma')
-                ->where('materia_has_professor.id_professor', '=', Auth::user()->id)
-                ->where('materia_has_professor.id_materia', '=', key(head($materias)))
+                ->join('professores', 'professores.id', '=', 'materia_has_professor.id_professor')
+                ->where('professores.id_pessoas', '=', Auth::user()->id)
+                ->where('materia_has_professor.id_materia', '=', key($materias))
                 ->pluck('turmas.numero_turma', 'turmas.id');
 
         return view('admin.avaliacoes.create', compact('materias', 'turmas'));
@@ -58,9 +65,11 @@ class AvaliacaoController extends Controller {
      */
     public function store(Request $request) {
 
+        $professor = Professor::where('id_pessoas', '=', $request->only('id_professor'))->firstOrFail();
+        $request->merge(array('id_professor' => $professor->id ));
         Avaliacao::create($request->all());
 
-        Session::flash('success', 'Avaliacao added!');
+        Session::flash('success', 'Avaliacao criada!');
 
         return redirect('admin/avaliacoes');
     }
@@ -73,7 +82,20 @@ class AvaliacaoController extends Controller {
      * @return \Illuminate\View\View
      */
     public function show($id) {
-        $avaliaco = Avaliacao::with('materias', 'turmas', 'professores.pessoa')->findOrFail($id);
+        $avaliaco = DB::table('avaliacoes')
+            ->select('avaliacoes.id', 'avaliacoes.nome', 'peso', 'avaliacoes.tipo', 'trimestre', 'materias.nome as materia', 'pessoas.nome as professor', 'numero_turma', 'observacoes')
+            ->join('materia_has_professor', 'avaliacoes.id_professor', '=', 'materia_has_professor.id')
+            ->join('materia_has_turma', function($join) {
+                $join->on('avaliacoes.id_turma', '=', 'materia_has_turma.id_turma');
+                $join->on('materia_has_professor.id', '=', 'materia_has_turma.id_materia_professor');
+            })
+            ->join('materias', 'materias.id', '=', 'avaliacoes.id_materia')
+            ->join('professores', 'professores.id', '=', 'materia_has_professor.id_professor')
+            ->join('pessoas', 'professores.id_pessoas', '=', 'pessoas.id')
+            ->join('turmas', 'turmas.id', '=', 'materia_has_turma.id_turma')
+            ->where('professores.id_pessoas', '=', Auth::user()->id)
+            ->first();
+        //$avaliaco = Avaliacao::with('materias', 'turmas', 'professores.pessoa')->findOrFail($id);
 
         //dd($avaliaco);
 
@@ -89,14 +111,22 @@ class AvaliacaoController extends Controller {
      */
     public function edit($id) {
         $avaliaco = Avaliacao::findOrFail($id);
-        $materia = MateriaHasProfessor::with('materia')->where('id_professor', Auth::user()->id)->get();
-        $materias = $materia->pluck('materia.nome', 'materia.id');
+        $materias = DB::table('materia_has_professor')
+            ->join('materia_has_turma', 'materia_has_turma.id_materia_professor', '=', 'materia_has_professor.id')
+            ->join('materias', 'materias.id', '=', 'materia_has_professor.id_materia')
+            ->join('professores', 'professores.id', '=', 'materia_has_professor.id_professor')
+            ->where('professores.id_pessoas', '=', Auth::user()->id)
+            ->pluck('materias.nome', 'materias.id');
 
-        $turmas = \App\MateriaHasProfessor::join('materia_has_turma', 'materia_has_professor.id', '=', 'materia_has_turma.id_materia_professor')
+        $turmas = DB::table('materia_has_professor')
+            ->select('turmas.id', 'turmas.numero_turma')
+            ->join('materia_has_turma', 'materia_has_turma.id_materia_professor', '=', 'materia_has_professor.id')
+            ->join('materias', 'materias.id', '=', 'materia_has_professor.id_materia')
             ->join('turmas', 'turmas.id', '=', 'materia_has_turma.id_turma')
+            ->join('professores', 'professores.id', '=', 'materia_has_professor.id_professor')
+            ->where('professores.id_pessoas', '=', Auth::user()->id)
             ->where('materia_has_professor.id_materia', '=', $avaliaco->id_materia)
-            ->where('materia_has_professor.id_professor', '=', Auth::user()->id)
-            ->lists('turmas.numero_turma', 'turmas.id');
+            ->pluck('turmas.numero_turma', 'turmas.id');
 
         return view('admin.avaliacoes.edit', compact('avaliaco', 'materias', 'turmas'));
     }
@@ -110,10 +140,13 @@ class AvaliacaoController extends Controller {
      */
     public function update($id, Request $request) {
 
+        $professor = Professor::where('id_pessoas', '=', $request->only('id_professor'))->firstOrFail();
+        $request->merge(array('id_professor' => $professor->id ));
+
         $avaliaco = Avaliacao::findOrFail($id);
         $avaliaco->update($request->all());
 
-        Session::flash('success', 'Avaliacao updated!');
+        Session::flash('success', 'Avaliacao atualizada!');
 
         return redirect('admin/avaliacoes');
     }
@@ -130,7 +163,7 @@ class AvaliacaoController extends Controller {
 
         Avaliacao::destroy($id);
 
-        Session::flash('success', 'Avaliacao deleted!');
+        Session::flash('success', 'Avaliacao removida!');
 
         return redirect('admin/avaliacoes');
     }
@@ -146,9 +179,11 @@ class AvaliacaoController extends Controller {
         if ($request->ajax() && $request->has('id_materia')) {
             $materias = \App\MateriaHasProfessor::join('materia_has_turma', 'materia_has_professor.id', '=', 'materia_has_turma.id_materia_professor')
                 ->join('turmas', 'turmas.id', '=', 'materia_has_turma.id_turma')
+                ->join('professores', 'professores.id', '=', 'materia_has_professor.id_professor')
                 ->where('materia_has_professor.id_materia', '=', $request->only('id_materia'))
-                ->where('materia_has_professor.id_professor', '=', Auth::user()->id)
+                ->where('professores.id_pessoas', '=', Auth::user()->id)
                 ->lists('turmas.id', 'turmas.numero_turma');
+
 
             return Response::json(array("success" => "true", "materias" => $materias));
         } else {

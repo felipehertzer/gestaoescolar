@@ -3,7 +3,7 @@
 @section('content')
 <div class="container">
 
-    <h1>Nova avaliaco</h1>
+    <h1>Nova avaliação</h1>
     <hr/>
 
     {!! Form::open(['url' => '/admin/avaliacoes', 'class' => 'form-horizontal', 'files' => true]) !!}

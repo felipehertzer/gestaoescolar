@@ -38,12 +38,13 @@
             @endforeach
             <tr>
                 <td colspan="3" align="right">Média geral:</td>
-                <td colspan="1">{{ number_format($notas / $x, 2) }}</td>
+                <td colspan="1">{{ sizeof($alunos) > 0 ? number_format($notas / $x, 2) : 0 }}</td>
             </tr>
             </tbody>
         </table>
-
-
+        @if (sizeof($alunos) == 0)
+        <div class="alert alert-info">Não existem alunos cadastrados</div>
+        @endif
         <div class="form-group">
             <div class="col-sm-offset-3 col-sm-3">
                 {!! Form::submit('Atualizar', ['class' => 'btn btn-primary form-control']) !!}

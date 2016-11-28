@@ -18,7 +18,7 @@
             <div class="form-group {{ $errors->has('cpf') ? 'has-error' : ''}}">
                 {!! Form::label('cpf', 'Cpf', ['class' => 'col-sm-3 control-label']) !!}
                 <div class="col-sm-6">
-                    {!! Form::text('cpf', null, ['class' => 'form-control']) !!}
+                    {!! Form::text('cpf', null, ['class' => 'form-control cpf']) !!}
                     {!! $errors->first('cpf', '<p class="help-block">:message</p>') !!}
                 </div>
             </div>
@@ -53,14 +53,14 @@
             <div class="form-group {{ $errors->has('telefoneFixo') ? 'has-error' : ''}}">
                 {!! Form::label('telefoneFixo', 'Telefonefixo', ['class' => 'col-sm-3 control-label']) !!}
                 <div class="col-sm-6">
-                    {!! Form::text('telefoneFixo', null, ['class' => 'form-control']) !!}
+                    {!! Form::text('telefoneFixo', null, ['class' => 'form-control phone_with_ddd']) !!}
                     {!! $errors->first('telefoneFixo', '<p class="help-block">:message</p>') !!}
                 </div>
             </div>
             <div class="form-group {{ $errors->has('telefoneCelular') ? 'has-error' : ''}}">
                 {!! Form::label('telefoneCelular', 'Telefonecelular', ['class' => 'col-sm-3 control-label']) !!}
                 <div class="col-sm-6">
-                    {!! Form::text('telefoneCelular', null, ['class' => 'form-control']) !!}
+                    {!! Form::text('telefoneCelular', null, ['class' => 'form-control phone_with_ddd']) !!}
                     {!! $errors->first('telefoneCelular', '<p class="help-block">:message</p>') !!}
                 </div>
             </div>
@@ -102,7 +102,7 @@
                 <div class="form-group {{ $errors->has('salario') ? 'has-error' : ''}}">
                     {!! Form::label('salario', 'Salario', ['class' => 'col-sm-3 control-label']) !!}
                     <div class="col-sm-6">
-                        {!! Form::text('salario', null, ['class' => 'form-control']) !!}
+                        {!! Form::text('salario', null, ['class' => 'form-control money']) !!}
                         {!! $errors->first('salario', '<p class="help-block">:message</p>') !!}
                     </div>
                 </div>

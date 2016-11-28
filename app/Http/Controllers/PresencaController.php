@@ -28,7 +28,8 @@ class PresencaController extends Controller {
                 ->join('materia_has_turma', 'materia_has_turma.id_materia_professor', '=', 'materia_has_professor.id')
                 ->join('materias', 'materias.id', '=', 'materia_has_professor.id_materia')
                 ->join('turmas', 'turmas.id', '=', 'materia_has_turma.id_turma')
-                ->where('materia_has_professor.id_professor', '=', Auth::user()->id)
+                ->join('professores', 'professores.id', '=', 'materia_has_professor.id_professor')
+                ->where('professores.id_pessoas', '=', Auth::user()->id)
                 ->paginate(15);
         //dd($presencas);
         return view('admin.presencas.index', compact('presencas'));
