@@ -83,7 +83,7 @@
             <div class="form-group">
                 {!! Form::label('tipopessoa', 'Tipo', ['class' => 'col-sm-3 control-label']) !!}
                 <div class="col-sm-6">
-                    {!! Form::select('tipopessoa', ['funcionario', 'professor', 'responsavel', 'aluno'] , null, ['class' => 'form-control', 'id' => 'tipopessoa']) !!}
+                    {!! Form::select('tipopessoa', ['funcionario', 'professor', 'responsavel', 'aluno'] , null, ['class' => 'form-control', 'readonly' => 'readonly', 'id' => 'tipopessoa']) !!}
                 </div>
             </div>
             <div id="funcoes" class="form-group {{ $errors->has('funcao') ? 'has-error' : ''}}">

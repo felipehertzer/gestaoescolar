@@ -64,7 +64,7 @@ class PessoaController extends Controller {
                     break;
             }
 
-			Session::flash('success', 'Pessoa adicionada!');
+            Session::flash('success', 'Pessoa adicionada!');
         } catch (\Exception $ex) {
             Session::flash('danger', $ex->getMessage());
         }
@@ -131,52 +131,31 @@ class PessoaController extends Controller {
      */
     public function update($id, Request $request) {
         try {
-            $pessoa = Pessoa::findOrFail($id);
+            $p = Pessoa::findOrFail($id);
+            
 
-            switch ($pessoa->tipopessoa) {
+            switch ($p->tipopessoa) {
                 // alunos
                 case 3:
-                    $aluno = Aluno::where('id_pessoas', '=', $id)->firstOrFail();
-                    Aluno::destroy($aluno->id);
+                    $p->aluno()->update(['observacoes' => $request->get('observacoes')]);
                     break;
                 // responsaveis
                 case 2:
-                    $responsavel = Responsavel::where('id_pessoas', '=', $id)->firstOrFail();
-                    Responsavel::destroy($responsavel->id);
+                    $p->responsavel()->update(['empresa' => $request->get('empresa'), 'id_funcao' => $request->get('funcao')]);
                     break;
                 // professores
                 case 1:
-                    $professor = Professor::where('id_pessoas', '=', $id)->firstOrFail();
-                    Professor::destroy($professor->id);
+                    $p->professor()->update(['pis' => $request->get('pis'), 'salario' => $request->get('salario')]);
                     break;
                 // funcionarios
                 default:
-                    $funcionario = Funcionario::where('id_pessoas', '=', $id)->firstOrFail();
-                    Funcionario::destroy($funcionario->id);
+                    $p->funcionario()->update(['pis' => $request->get('pis'), 'salario' => $request->get('salario'), 'id_funcao' => $request->get('funcao')]);
                     break;
             }
 
-            $pessoa->update($request->except(array('funcao', 'pis', 'salario', 'empresa', 'observacoes')));
+            $p->update($request->except(array('funcao', 'pis', 'salario', 'empresa', 'observacoes', 'tipopessoa')));
 
-            switch ($request->get('tipopessoa')) {
-                // alunos
-                case 3:
-                    $pessoa->aluno()->create(['observacoes' => $request->get('observacoes')]);
-                    break;
-                // responsaveis
-                case 2:
-                    $pessoa->responsavel()->create(['empresa' => $request->get('empresa'), 'id_funcao' => $request->get('funcao')]);
-                    break;
-                // professores
-                case 1:
-                    $pessoa->professor()->create(['pis' => $request->get('pis'), 'salario' => $request->get('salario')]);
-                    break;
-                // funcionarios
-                default:
-                    $pessoa->funcionario()->create(['pis' => $request->get('pis'), 'salario' => $request->get('salario'), 'id_funcao' => $request->get('funcao')]);
-                    break;
-            }
-			Session::flash('success', 'Pessoa atualizada!');
+            Session::flash('success', 'Pessoa atualizada!');
         } catch (\Exception $ex) {
             Session::flash('danger', $ex->getMessage());
         }
@@ -213,7 +192,7 @@ class PessoaController extends Controller {
             // funcionarios
             default:
                 $funcionario = Funcionario::where('id_pessoas', '=', $id)->firstOrFail();
-                if($funcionario) {
+                if ($funcionario) {
                     Funcionario::destroy($funcionario->id);
                 }
                 break;
