@@ -1,30 +1,30 @@
 @extends('layouts.app')
-<script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
-<script type="text/javascript">
-    google.charts.load('current', {'packages': ['corechart']});
-    google.charts.setOnLoadCallback(drawChart);
-    function drawChart() {
-
-        var data = google.visualization.arrayToDataTable([
-            ['Livro', 'Exemplares Retirados'],
-                @foreach($notas as $livro)
-            [ '{{ $livro->nome }}', {{ $livro->numero_exemplares_retirado }}],
-            @endforeach
-        ]);
-
-        var options = {
-            title: 'Livros Mais Retirados',
-            pieSliceText: 'value'
-        };
-
-        var chart = new google.visualization.PieChart(document.getElementById('piechart'));
-
-        chart.draw(data, options);
-    }
-</script>
-
 @section('content')
     <div class="container">
-        <div id="piechart" style="width: 100%; height: 500px;"></div>
+        <h3>Relatório de Avaliações e sua nota média</h3>
+        <table class="table table-striped table-bordered table-hover">
+            <thead>
+            <tr>
+                <th>#</th>
+                <th>Avaliação</th>
+                <th>Turma</th>
+                <th>Matéria</th>
+                <th>Alunos</th>
+                <th>Média</th>
+            </tr>
+            </thead>
+            <tbody>
+            @foreach($avaliacoes as $item)
+            <tr>
+                <th scope="row">{{ $item->id }}</th>
+                <td>{{ $item->nome }}</td>
+                <td>{{ $item->numero_turma }}</td>
+                <td>{{ $item->materia }}</td>
+                <td>{{ $item->alunos }}</td>
+                <td class="text-center {{ (($item->media / $item->alunos) >= 7 ? "success" : "danger") }}"><b>{{ number_format($item->media / $item->alunos, 2) }}</b></td>
+            </tr>
+            @endforeach
+            </tbody>
+        </table>
     </div>
 @endsection
