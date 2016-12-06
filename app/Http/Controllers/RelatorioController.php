@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Aluno;
 use App\Avaliacao;
 use App\Http\Requests;
 use App\Http\Controllers\Controller;
@@ -27,12 +28,10 @@ class RelatorioController extends Controller {
     }
 
     public function presencas() {
-        $presencas = Presenca::select('turmas.numero_turma', DB::raw('count(presenca_has_matricula.id) as presencas'))
-            ->join('presenca_has_matricula', 'presencas.id', '=', 'presenca_has_matricula.id_presenca')
-            ->join('materia_has_turma', 'presencas.id_materia_turma', '=', 'materia_has_turma.id')
-            ->join('turmas', 'turmas.id', '=', 'materia_has_turma.id_turma')
-            //->groupBy('livros.id')
-            //->orderBy('numero_exemplares_retirado', 'desc')
+        $presencas = Aluno::select('matriculas.id', 'pessoas.nome', DB::raw("(SELECT COUNT(*) FROM presenca_has_matricula WHERE presenca_has_matricula.id_matricula = matriculas.id AND presenca = 'falta') as faltas"))
+            ->join('pessoas', 'pessoas.id', '=', 'alunos.id_pessoas')
+            ->join('matriculas', 'matriculas.id_aluno', '=', 'alunos.id')
+            ->orderby(DB::raw("(SELECT COUNT(*) FROM presenca_has_matricula WHERE presenca_has_matricula.id_matricula = matriculas.id AND presenca = 'falta')"), 'DESC')
             ->get();
         return view('admin.relatorios.presencas', compact('presencas'));
     }

@@ -15,7 +15,7 @@
                 <tr>
                     <th scope="row">{{ $item->id }}</th>
                     <td>{{ $item->nome }}</td>
-                    <td>{{ $item->nome }}</td>
+                    <td>{{ $item->faltas }}</td>
                 </tr>
             @endforeach
             </tbody>
