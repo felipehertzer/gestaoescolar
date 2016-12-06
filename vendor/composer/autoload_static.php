@@ -302,9 +302,13 @@ class ComposerStaticInit24d4d8eaad8282e4e05367bb079f92e3
     );
 
     public static $classMap = array (
+        'AddColumnStatusMateriais' => __DIR__ . '/../..' . '/database/migrations/2016_11_15_145127_add_column_status_materiais.php',
+        'AddColumnsReservasAndExemplares' => __DIR__ . '/../..' . '/database/migrations/2016_11_19_185845_add_columns_reservas_and_exemplares.php',
+        'AddEmprestamateriaisTable' => __DIR__ . '/../..' . '/database/migrations/2016_11_15_162656_add_emprestamateriais_table.php',
         'AddMatriculaMultas' => __DIR__ . '/../..' . '/database/migrations/2016_10_24_145347_add_matricula_multas.php',
         'AddNewCollumn' => __DIR__ . '/../..' . '/database/migrations/2016_10_22_233255_add_new_collumn.php',
         'AddTipopessoaPessoas' => __DIR__ . '/../..' . '/database/migrations/2016_10_27_161932_add_tipopessoa_pessoas.php',
+        'ColumnSerieListaespera' => __DIR__ . '/../..' . '/database/migrations/2016_11_26_205636_column_serie_listaespera.php',
         'CreateAdvertenciasTable' => __DIR__ . '/../..' . '/database/migrations/2016_09_04_015431_create_advertencias_table.php',
         'CreateAlunosTable' => __DIR__ . '/../..' . '/database/migrations/2016_09_04_012025_create_alunos_table.php',
         'CreateAutorsTable' => __DIR__ . '/../..' . '/database/migrations/2016_08_19_174650_create_autors_table.php',
@@ -328,6 +332,7 @@ class ComposerStaticInit24d4d8eaad8282e4e05367bb079f92e3
         'CreatePresencaHasMatriculaTable' => __DIR__ . '/../..' . '/database/migrations/2016_10_20_123451_create_presenca_has_matricula_table.php',
         'CreatePresencasTable' => __DIR__ . '/../..' . '/database/migrations/2016_10_20_122643_create_presencas_table.php',
         'CreateProfessoresTable' => __DIR__ . '/../..' . '/database/migrations/2016_09_04_012907_create_professores_table.php',
+        'CreateReservaHasExemplaresTable' => __DIR__ . '/../..' . '/database/migrations/2016_11_17_113734_create_reserva_has_exemplares_table.php',
         'CreateReservasTable' => __DIR__ . '/../..' . '/database/migrations/2016_09_04_014305_create_reservas_table.php',
         'CreateResponsaveisTable' => __DIR__ . '/../..' . '/database/migrations/2016_09_04_013515_create_responsaveis_table.php',
         'CreateRetiradaHasExemplaresTable' => __DIR__ . '/../..' . '/database/migrations/2016_10_20_135227_create_retirada_has_exemplares_table.php',
@@ -343,8 +348,9 @@ class ComposerStaticInit24d4d8eaad8282e4e05367bb079f92e3
         'EditColumnDatasReservas' => __DIR__ . '/../..' . '/database/migrations/2016_10_09_012548_edit_column_datas_reservas.php',
         'EditColumnIdMatriculaReservas' => __DIR__ . '/../..' . '/database/migrations/2016_09_11_035505_edit_column_id_matricula_reservas.php',
         'EditColumnIdTipomultaMultas' => __DIR__ . '/../..' . '/database/migrations/2016_09_11_024054_edit_column_id_tipomulta_multas.php',
+        'EditColumnPresenca' => __DIR__ . '/../..' . '/database/migrations/2016_12_06_141129_edit_column_presenca.php',
         'EditColumnStatusExemplares' => __DIR__ . '/../..' . '/database/migrations/2016_09_10_231345_edit_column_status_exemplares.php',
-        'EditPresencas' => __DIR__ . '/../..' . '/database/migrations/2016_11_10_145531_edit_presencas.php',
+        'EditTableListaespera' => __DIR__ . '/../..' . '/database/migrations/2016_11_25_232206_edit_table_listaespera.php',
         'File_Iterator' => __DIR__ . '/..' . '/phpunit/php-file-iterator/src/Iterator.php',
         'File_Iterator_Facade' => __DIR__ . '/..' . '/phpunit/php-file-iterator/src/Facade.php',
         'File_Iterator_Factory' => __DIR__ . '/..' . '/phpunit/php-file-iterator/src/Factory.php',

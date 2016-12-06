@@ -52,6 +52,7 @@ return array(
     'EditColumnDatasReservas' => $baseDir . '/database/migrations/2016_10_09_012548_edit_column_datas_reservas.php',
     'EditColumnIdMatriculaReservas' => $baseDir . '/database/migrations/2016_09_11_035505_edit_column_id_matricula_reservas.php',
     'EditColumnIdTipomultaMultas' => $baseDir . '/database/migrations/2016_09_11_024054_edit_column_id_tipomulta_multas.php',
+    'EditColumnPresenca' => $baseDir . '/database/migrations/2016_12_06_141129_edit_column_presenca.php',
     'EditColumnStatusExemplares' => $baseDir . '/database/migrations/2016_09_10_231345_edit_column_status_exemplares.php',
     'EditTableListaespera' => $baseDir . '/database/migrations/2016_11_25_232206_edit_table_listaespera.php',
     'File_Iterator' => $vendorDir . '/phpunit/php-file-iterator/src/Iterator.php',
