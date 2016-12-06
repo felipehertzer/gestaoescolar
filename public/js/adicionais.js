@@ -2,7 +2,6 @@
  * Created by User on 05/09/2016.
  */
 $( document ).ready(function() {
-    $('#multiselect').multiselect();
 
     $('.selectpicker').selectpicker({
         style: 'btn-default',
@@ -71,6 +70,13 @@ $( document ).ready(function() {
                 console.log(textStatus, errorThrown);
             }
         });
+    });
+
+    $('#multiselect').multiselect({
+        search: {
+            left: '<input type="text" name="q" class="form-control" placeholder="Procurar..." style="margin-bottom:8px;" />',
+            right: '<input type="text" name="q" class="form-control" placeholder="Procurar..." style="margin-bottom:8px;" />',
+        }
     });
 
     $('.date').mask('00/00/0000');
