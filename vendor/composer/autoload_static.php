@@ -344,6 +344,7 @@ class ComposerStaticInit24d4d8eaad8282e4e05367bb079f92e3
         'CreateTipomultaTable' => __DIR__ . '/../..' . '/database/migrations/2016_08_23_145600_create_tipomulta_table.php',
         'CreateTurmasTable' => __DIR__ . '/../..' . '/database/migrations/2016_09_04_014053_create_turmas_table.php',
         'DatabaseSeeder' => __DIR__ . '/../..' . '/database/seeds/DatabaseSeeder.php',
+        'EditColumnAdvertencia' => __DIR__ . '/../..' . '/database/migrations/2016_12_13_094607_edit_column_advertencia.php',
         'EditColumnDataMultas' => __DIR__ . '/../..' . '/database/migrations/2016_09_11_020347_edit_column_data_multas.php',
         'EditColumnDatasReservas' => __DIR__ . '/../..' . '/database/migrations/2016_10_09_012548_edit_column_datas_reservas.php',
         'EditColumnIdMatriculaReservas' => __DIR__ . '/../..' . '/database/migrations/2016_09_11_035505_edit_column_id_matricula_reservas.php',

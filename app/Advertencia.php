@@ -25,7 +25,7 @@ class Advertencia extends Model
      *
      * @var array
      */
-    protected $fillable = ['motivo', 'data','id_matricula'];
+    protected $fillable = ['motivo', 'data','id_aluno'];
 
     public function aluno() {
         return $this->belongsTo(Aluno::class);

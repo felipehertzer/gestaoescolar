@@ -11,11 +11,11 @@
         'class' => 'form-horizontal',
         'files' => true
     ]) !!}
-            <div class="form-group {{ $errors->has('id_matricula') ? 'has-error' : ''}}">
-                {!! Form::label('id_matricula', 'Matricula', ['class' => 'col-sm-3 control-label']) !!}
+            <div class="form-group {{ $errors->has('id_aluno') ? 'has-error' : ''}}">
+                {!! Form::label('id_aluno', 'Aluno', ['class' => 'col-sm-3 control-label']) !!}
                 <div class="col-sm-6">
-                    {!! Form::select('id_matricula', $alunos, null, ['class' => 'form-control selectpicker', 'data-live-search' => 'true']) !!}
-                    {!! $errors->first('id_matricula', '<p class="help-block">:message</p>') !!}
+                    {!! Form::select('id_aluno', $alunos, null, ['class' => 'form-control selectpicker', 'data-live-search' => 'true']) !!}
+                    {!! $errors->first('id_aluno', '<p class="help-block">:message</p>') !!}
                 </div>
             </div>
             <div class="form-group {{ $errors->has('motivo') ? 'has-error' : ''}}">

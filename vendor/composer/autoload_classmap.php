@@ -48,6 +48,7 @@ return array(
     'CreateTipomultaTable' => $baseDir . '/database/migrations/2016_08_23_145600_create_tipomulta_table.php',
     'CreateTurmasTable' => $baseDir . '/database/migrations/2016_09_04_014053_create_turmas_table.php',
     'DatabaseSeeder' => $baseDir . '/database/seeds/DatabaseSeeder.php',
+    'EditColumnAdvertencia' => $baseDir . '/database/migrations/2016_12_13_094607_edit_column_advertencia.php',
     'EditColumnDataMultas' => $baseDir . '/database/migrations/2016_09_11_020347_edit_column_data_multas.php',
     'EditColumnDatasReservas' => $baseDir . '/database/migrations/2016_10_09_012548_edit_column_datas_reservas.php',
     'EditColumnIdMatriculaReservas' => $baseDir . '/database/migrations/2016_09_11_035505_edit_column_id_matricula_reservas.php',

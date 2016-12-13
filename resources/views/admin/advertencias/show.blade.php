@@ -24,7 +24,7 @@
                 <tr>
                     <th>ID</th><td>{{ $advertencia->id }}</td>
                 </tr>
-                <tr><th> Motivo </th><td> {{ $advertencia->motivo }} </td></tr><tr><th> Data </th><td> {{ $advertencia->data }} </td></tr><tr><th> Id Matricula </th><td> {{ $advertencia->id_matricula }} </td></tr>
+                <tr><th> Motivo </th><td> {{ $advertencia->motivo }} </td></tr><tr><th> Data </th><td> {{ $advertencia->data }} </td></tr><tr><th> Id Aluno </th><td> {{ $advertencia->id_aluno }} </td></tr>
             </tbody>
         </table>
     </div>
